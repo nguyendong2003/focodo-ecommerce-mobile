@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import { ScrollView, View } from "react-native";
 
 // https://reactnavigation.org/docs/handling-safe-area
-const BaseLayout = ({ children }) => {
+const BaseLayout = ({ navigation, children }) => {
     const insets = useSafeAreaInsets();
 
     return (
@@ -18,9 +18,9 @@ const BaseLayout = ({ children }) => {
             }}
             contentContainerStyle={{ flexGrow: 1 }}
         >
-            <Header />
+            <Header navigation={navigation} />
             {children}
-            <Footer />
+            <Footer navigation={navigation} />
         </ScrollView>
     );
 }

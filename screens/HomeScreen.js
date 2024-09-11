@@ -9,7 +9,7 @@ import SliderProduct from "../components/SliderProduct";
 const HomeScreen = ({ navigation }) => {
 
     return (
-        <BaseLayout>
+        <BaseLayout navigation={navigation}>
             <Banner />
 
             <Category />

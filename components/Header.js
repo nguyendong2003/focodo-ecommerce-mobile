@@ -1,7 +1,7 @@
 import { Header as HeaderRNE, Icon } from '@rneui/themed';
 import { StatusBar } from 'react-native';
 
-const Header = () => {
+const Header = ({ navigation }) => {
     return (
         <>
             <StatusBar
@@ -18,6 +18,7 @@ const Header = () => {
                 rightComponent={{
                     icon: 'menu',
                     color: '#080341',
+                    onPress: () => navigation.toggleDrawer(),
                 }}
             />
         </>
