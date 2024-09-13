@@ -1,12 +1,16 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from "react-native";
+import BaseLayout from "../layout/BaseLayout";
+import { Text } from "@rneui/themed";
 
-const ContactScreen = () => {
+const ContactScreen = ({ navigation }) => {
+
     return (
-        <View>
-            <Text>Contact Screen</Text>
-        </View>
+        <BaseLayout navigation={navigation}>
+            <View style={{ height: 500, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Contact Screen</Text>
+            </View>
+        </BaseLayout>
     );
-};
+}
 
 export default ContactScreen;

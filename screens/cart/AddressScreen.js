@@ -1,16 +1,16 @@
 import { View } from "react-native";
-import BaseLayout from "../layout/BaseLayout";
+import BaseLayout from "../../layout/BaseLayout";
 import { Text } from "@rneui/themed";
 
-const AboutScreen = ({ navigation }) => {
+const AddressScreen = ({ navigation }) => {
 
     return (
         <BaseLayout navigation={navigation}>
             <View style={{ height: 500, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>About Screen</Text>
+                <Text>Address Screen</Text>
             </View>
         </BaseLayout>
     );
 }
 
-export default AboutScreen;
+export default AddressScreen;

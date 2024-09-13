@@ -1,13 +1,16 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from "react-native";
+import BaseLayout from "../layout/BaseLayout";
+import { Text } from "@rneui/themed";
 
-const GuideScreen = () => {
+const GuideScreen = ({ navigation }) => {
+
     return (
-        <View>
-            <Text>Welcome to the Guide Screen!</Text>
-            {/* Add your screen content here */}
-        </View>
+        <BaseLayout navigation={navigation}>
+            <View style={{ height: 500, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Guide Screen</Text>
+            </View>
+        </BaseLayout>
     );
-};
+}
 
 export default GuideScreen;

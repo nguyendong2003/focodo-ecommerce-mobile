@@ -1,12 +1,16 @@
-import BaseLayout from '../layout/BaseLayout';
-import { Image } from '@rneui/themed';
+import { View } from "react-native";
+import BaseLayout from "../layout/BaseLayout";
+import { Text } from "@rneui/themed";
 
 const PromotionScreen = ({ navigation }) => {
+
     return (
         <BaseLayout navigation={navigation}>
-            <Image source={require('../assets/products/1.png')} style={{ width: 300, height: 300 }} />
+            <View style={{ height: 500, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Promotion Screen</Text>
+            </View>
         </BaseLayout>
     );
-};
+}
 
 export default PromotionScreen;

@@ -2,41 +2,49 @@ import { Button, Icon, Image, Text } from "@rneui/themed";
 import { useState } from "react";
 import { StyleSheet, View, Dimensions, TouchableOpacity } from "react-native";
 
-const CategoryCard = ({ type, name, title }) => {
+const CategoryCard = ({ navigation, category }) => {
     const screenWidth = Dimensions.get('window').width;
     return (
         <TouchableOpacity activeOpacity={0.5}
-            style={[styles.categoryCard, { width: screenWidth / 2 - 26 }]}>
+            style={[styles.categoryCard, { width: screenWidth / 2 - 26 }]}
+            onPress={() => navigation.navigate('CategoryStack', {
+                screen: 'ProductList',
+                params: {
+                    categoryId: category.categoryId
+                }
+            })}
 
-            <Icon type={type} name={name} size={48} />
-            <Text style={styles.categoryCardText}>{title}</Text>
+        >
+
+            <Icon type={category.type} name={category.name} size={48} />
+            <Text style={styles.categoryCardText}>{category.categoryName}</Text>
         </TouchableOpacity>
     )
 }
 
 
-const Category = () => {
+const Category = ({ navigation }) => {
 
     const categoriesList = [
-        { type: 'material-community', name: 'muffin', title: 'Bánh Huế' },
-        { type: 'font-awesome-5', name: 'candy-cane', title: 'Kẹo Huế' },
-        { type: 'material-community', name: 'muffin', title: 'Gia vị Huế' },
-        { type: 'material-community', name: 'muffin', title: 'Mắm Huế' },
-        { type: 'material-community', name: 'muffin', title: 'Nem chả Huế' },
-        { type: 'material-community', name: 'muffin', title: 'Tinh dầu Huế' },
-        { type: 'material-community', name: 'muffin', title: 'Rượu Huế' },
-        { type: 'material-community', name: 'muffin', title: 'Trà Huế' },
+        { categoryId: 1, categoryName: 'Bánh Huế', type: 'material-community', name: 'muffin' },
+        { categoryId: 2, categoryName: 'Kẹo Huế', type: 'font-awesome-5', name: 'candy-cane' },
+        { categoryId: 3, categoryName: 'Gia vị Huế', type: 'material-community', name: 'muffin' },
+        { categoryId: 4, categoryName: 'Mắm Huế', type: 'material-community', name: 'muffin' },
+        { categoryId: 5, categoryName: 'Nem chả Huế', type: 'material-community', name: 'muffin' },
+        { categoryId: 6, categoryName: 'Tinh dầu Huế', type: 'material-community', name: 'muffin' },
+        { categoryId: 7, categoryName: 'Rượu Huế', type: 'material-community', name: 'muffin' },
+        { categoryId: 8, categoryName: 'Trà Huế', type: 'material-community', name: 'muffin' },
     ];
 
     const categoriesList2 = [
-        { type: 'material-community', name: 'muffin', title: 'Bánh Huế 2' },
-        { type: 'font-awesome-5', name: 'candy-cane', title: 'Kẹo Huế 2' },
-        { type: 'material-community', name: 'muffin', title: 'Gia vị Huế 2' },
-        { type: 'material-community', name: 'muffin', title: 'Mắm Huế 2' },
-        { type: 'material-community', name: 'muffin', title: 'Nem chả Huế 2' },
-        { type: 'material-community', name: 'muffin', title: 'Tinh dầu Huế 2' },
-        { type: 'material-community', name: 'muffin', title: 'Rượu Huế 2' },
-        { type: 'material-community', name: 'muffin', title: 'Trà Huế 2' },
+        { categoryId: 1, categoryName: 'Bánh Huế 2', type: 'material-community', name: 'muffin' },
+        { categoryId: 2, categoryName: 'Kẹo Huế 2', type: 'font-awesome-5', name: 'candy-cane' },
+        { categoryId: 3, categoryName: 'Gia vị Huế 2', type: 'material-community', name: 'muffin' },
+        { categoryId: 4, categoryName: 'Mắm Huế 2', type: 'material-community', name: 'muffin' },
+        { categoryId: 5, categoryName: 'Nem chả Huế 2', type: 'material-community', name: 'muffin' },
+        { categoryId: 6, categoryName: 'Tinh dầu Huế 2', type: 'material-community', name: 'muffin' },
+        { categoryId: 7, categoryName: 'Rượu Huế 2', type: 'material-community', name: 'muffin' },
+        { categoryId: 8, categoryName: 'Trà Huế 2', type: 'material-community', name: 'muffin' },
     ];
 
     const [categories, setCategories] = useState(categoriesList);
@@ -58,10 +66,9 @@ const Category = () => {
             <View style={styles.bottomContainer}>
                 {categories.map((category, index) => (
                     <CategoryCard
-                        key={index}
-                        type={category.type}
-                        name={category.name}
-                        title={category.title}
+                        navigation={navigation}
+                        key={category.categoryId}
+                        category={category}
                     />
                 ))}
             </View>
@@ -104,7 +111,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#EDEDED',
         padding: 20,
         marginBottom: 4,
-        borderRadius: 20
+        borderRadius: 12
     },
     categoryCardText: {
         fontSize: 16,

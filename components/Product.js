@@ -4,27 +4,38 @@ import { StyleSheet, View, Dimensions, TouchableOpacity } from "react-native";
 import imageMap from "./ImageMap";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 
-const ProductList = ({ products }) => {
+const screenWidth = Dimensions.get('window').width;
+
+
+const ProductList = ({ navigation, products }) => {
     return (
-        <View style={styles.bottomContainer}>
+        <View style={[styles.bottomContainer]}>
             {products.map((product) => (
                 <ProductCard
+                    navigation={navigation}
                     key={product.id}
-                    image={product.image}
-                    name={product.name}
-                    price={product.price}
+                    product={product}
                 />
             ))}
         </View>
     );
 };
 
-const ProductCard = ({ image, name, price }) => {
+const ProductCard = ({ navigation, product }) => {
     const [isFavorite, setIsFavorite] = useState(false);
-    const screenWidth = Dimensions.get('window').width;
+
     return (
         <TouchableOpacity activeOpacity={0.9}
-            style={[styles.productCard, { width: screenWidth / 2 - 26 }]}>
+            style={[styles.productCard, { width: screenWidth / 2 - 26 }]}
+
+            onPress={() => navigation.navigate('CategoryStack', {
+                screen: 'ProductDetail',
+                params: {
+                    productId: product.id
+                }
+            })}
+
+        >
             <View style={{ width: '100%', alignItems: 'flex-end' }}>
                 <Button
                     type="clear"
@@ -39,11 +50,11 @@ const ProductCard = ({ image, name, price }) => {
                     onPress={() => setIsFavorite(!isFavorite)}
                 />
             </View>
-            <Image source={imageMap[image]} containerStyle={styles.productCardImage} />
+            <Image source={imageMap[product.image]} containerStyle={styles.productCardImage} />
             <View style={{ height: 44 }}>
-                <Text style={styles.productCardText} numberOfLines={2} >{name}</Text>
+                <Text style={styles.productCardText} numberOfLines={2} >{product.name}</Text>
             </View>
-            <Text style={styles.productCardPrice}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price)}</Text>
+            <Text style={styles.productCardPrice}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</Text>
 
             <Button
                 title="Mua ngay"
@@ -53,15 +64,14 @@ const ProductCard = ({ image, name, price }) => {
                     marginTop: 4
                 }}
             />
-        </TouchableOpacity>
+        </TouchableOpacity >
     )
 }
 
-
-const Product = () => {
+const Product = ({ navigation }) => {
 
     const productCallAPI = [
-        { id: 1, image: '1.png', name: 'Bánh bèo Huế 123hdsafjhsfdhjads123hdsafjhsfdhjads123hdsafjhsfdhjads', price: 10000 },
+        { id: 1, image: '1.png', name: 'Bánh bèo Huế 123hdsafjhsfdhjads123hds', price: 10000 },
         { id: 2, image: '2.png', name: 'Bánh nậm Huế', price: 30000 },
         { id: 3, image: '3.png', name: 'Bánh lọc Huế', price: 100000 },
         { id: 4, image: '4.png', name: 'Bánh xèo Huế', price: 50000 },
@@ -72,15 +82,18 @@ const Product = () => {
     ];
 
     const [products, setProducts] = useState(productCallAPI);
+
+    // Product tab
     const [index, setIndex] = useState(0);
     const [routes] = useState([
         { key: 'first', title: 'Bán chạy' },
         { key: 'second', title: 'Khuyến mãi' },
     ]);
     const renderScene = SceneMap({
-        first: () => <ProductList products={products} />,
-        second: () => <ProductList products={products} />,
+        first: () => { },
+        second: () => { },
     });
+    //
 
     useEffect(() => {
         if (index === 0) {
@@ -96,29 +109,21 @@ const Product = () => {
                 navigationState={{ index, routes }}
                 renderScene={renderScene}
                 onIndexChange={setIndex}
-                initialLayout={{ width: Dimensions.get('window').width }}
+                initialLayout={{ width: screenWidth }}
                 renderTabBar={props => (
                     <TabBar
                         {...props}
                         indicatorStyle={{ backgroundColor: '#000', height: 2 }}
                         style={{ backgroundColor: 'white' }}
-                        labelStyle={{ color: 'black' }}
+                        labelStyle={{ fontWeight: 'bold' }}
                         activeColor="#000"
                         inactiveColor="#8B8B8B"
+
                     />
                 )}
             />
 
-            <View style={styles.bottomContainer}>
-                {products.map((product, index) => (
-                    <ProductCard
-                        key={product.id}
-                        image={product.image}
-                        name={product.name}
-                        price={product.price}
-                    />
-                ))}
-            </View>
+            <ProductList navigation={navigation} products={products} />
         </View>
     )
 }
@@ -151,6 +156,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#EDEDED',
         padding: 20,
+        paddingTop: 12,
         marginBottom: 4,
         borderRadius: 8
     },
@@ -171,4 +177,5 @@ const styles = StyleSheet.create({
     }
 })
 
+export { ProductList }
 export default Product;
