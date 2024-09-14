@@ -1,4 +1,4 @@
-import { Header as HeaderRNE, Icon } from '@rneui/themed';
+import { Header as HeaderRNE, Icon, Image } from '@rneui/themed';
 import { StatusBar, StyleSheet, View } from 'react-native';
 
 const Header = ({ navigation }) => {
@@ -13,7 +13,7 @@ const Header = ({ navigation }) => {
                 backgroundColor='#fff'
                 statusBarProps={{ barStyle: 'light-content', backgroundColor: '#000' }}
                 leftComponent={
-                    <Icon type="antdesign" name="rocket1" color="#080341" size={24} />
+                    <Image source={require('../assets/banner/brand-image.png')} style={{ width: 50, height: 50, }} resizeMethod='scale' />
                 }
                 // rightComponent={{
                 //     icon: 'menu',
@@ -22,6 +22,9 @@ const Header = ({ navigation }) => {
                 // }}
                 rightComponent={
                     <View style={styles.rightIcons}>
+                        <Icon type="antdesign" name="search1" color="#080341" size={24} style={{ paddingHorizontal: 8 }}
+                            onPress={() => navigation.navigate('CartStack')}
+                        />
                         <Icon type="antdesign" name="shoppingcart" color="#080341" size={24} style={{ paddingHorizontal: 8 }}
                             onPress={() => navigation.navigate('CartStack')}
                         />
@@ -51,7 +54,7 @@ const Header = ({ navigation }) => {
 const styles = StyleSheet.create({
     headerContainer: {
         paddingHorizontal: 16,
-        paddingVertical: 20,
+        // paddingVertical: 20,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
@@ -59,6 +62,7 @@ const styles = StyleSheet.create({
         elevation: 5, // Add shadow for Android
     },
     rightIcons: {
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
     },

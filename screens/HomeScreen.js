@@ -12,7 +12,7 @@ const HomeScreen = ({ navigation }) => {
         <BaseLayout navigation={navigation}>
             <Banner />
 
-            <Category navigation={navigation} />
+            {/* <Category navigation={navigation} /> */}
 
             <Product navigation={navigation} />
 

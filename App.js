@@ -1,17 +1,14 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/native';
 import {
   SafeAreaProvider,
 } from 'react-native-safe-area-context';
 import HomeScreen from './screens/HomeScreen';
 import AboutScreen from './screens/AboutScreen';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Icon } from '@rneui/themed';
 import ContactScreen from './screens/ContactScreen';
-import PromotionScreen from './screens/PromotionScreen';
 import GuideScreen from './screens/GuideScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import ProductListScreen from './screens/category/ProductListScreen';
-import FavouriteScreen from './screens/FavouriteScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ProductDetailScreen from './screens/category/ProductDetailScreen';
 import CartScreen from './screens/cart/CartScreen';
@@ -20,8 +17,10 @@ import ShippingScreen from './screens/cart/ShippingScreen';
 import PaymentScreen from './screens/cart/PaymentScreen';
 import CategoryScreen from './screens/category/CategoryScreen';
 import Header from './components/Header';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
+// const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 const CategoryStack = () => {
@@ -61,37 +60,41 @@ const CartStack = () => {
   );
 }
 
-export default function App() {
+export default function App({ navigation }) {
+  // const navigation = useNavigation();
+  // const route = useRoute();
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName='Home'
+        <Tab.Navigator initialRouteName='Home'
           // screenOptions={{ headerShown: false }}
           screenOptions={{
             header: ({ navigation }) => <Header navigation={navigation} />,
             unmountOnBlur: true
           }}
         >
-          <Drawer.Group>
-            <Drawer.Screen
+          <Tab.Group>
+            <Tab.Screen
               name="Home"
               component={HomeScreen}
               options={{
-                drawerLabel: 'Trang chủ',
+                tabBarLabel: 'Trang chủ',
                 title: 'Home',
-                drawerIcon: ({ color, size }) => (
+                tabBarIcon: ({ color, size }) => (
                   <Icon type="entypo" name="home" color={color} size={size} />
                 ),
-
+                // tabBarItemStyle: { display: 'none' },
+                // tabBarButton: () => null,
               }}
             />
-            <Drawer.Screen
+            <Tab.Screen
               name="CategoryStack"
               component={CategoryStack}
               options={{
-                drawerLabel: 'Danh mục sản phẩm',
+                tabBarLabel: 'Danh mục sản phẩm',
                 title: 'Category',
-                drawerIcon: ({ color, size }) => (
+                tabBarIcon: ({ color, size }) => (
                   <Icon type="entypo" name="list" color={color} size={size} />
                 ),
               }}
@@ -103,101 +106,76 @@ export default function App() {
                 }
               })}
             />
-            <Drawer.Screen
-              name="Promotion"
-              component={PromotionScreen}
-              options={{
-                drawerLabel: 'Khuyến mãi',
-                title: 'Promotion',
-                drawerIcon: ({ color, size }) => (
-                  <Icon type="material" name="discount" color={color} size={size} />
-                ),
-
-              }}
-            />
-            <Drawer.Screen
+            <Tab.Screen
               name="Guide"
               component={GuideScreen}
               options={{
-                drawerLabel: 'Hướng dẫn',
+                tabBarLabel: 'Hướng dẫn',
                 title: 'Guide',
-                drawerIcon: ({ color, size }) => (
+                tabBarIcon: ({ color, size }) => (
                   <Icon type="entypo" name="book" color={color} size={size} />
                 ),
 
               }}
             />
-            <Drawer.Screen
+            <Tab.Screen
               name="About"
               component={AboutScreen}
               options={{
-                drawerLabel: 'Giới thiệu',
+                tabBarLabel: 'Giới thiệu',
                 title: 'About',
-                drawerIcon: ({ color, size }) => (
+                tabBarIcon: ({ color, size }) => (
                   <Icon type="entypo" name="info" color={color} size={size} />
                 ),
 
               }}
             />
-            <Drawer.Screen
+            <Tab.Screen
               name="Contact"
               component={ContactScreen}
               options={{
-                drawerLabel: 'Liên hệ',
+                tabBarLabel: 'Liên hệ',
                 title: 'Contact',
-                drawerIcon: ({ color, size }) => (
+                tabBarIcon: ({ color, size }) => (
                   <Icon type="entypo" name="phone" color={color} size={size} />
                 ),
 
               }}
 
             />
-          </Drawer.Group>
+          </Tab.Group>
 
-          <Drawer.Group>
-            <Drawer.Screen
-              name="Favourite"
-              component={FavouriteScreen}
-              options={{
-                drawerLabel: 'Yêu thích',
-                title: 'Favourite',
-                drawerIcon: ({ color, size }) => (
-                  <Icon type="entypo" name="heart" color={color} size={size} />
-                ),
-                drawerItemStyle: { display: 'none' },
-
-              }}
-            />
-            <Drawer.Screen
+          <Tab.Group>
+            <Tab.Screen
               name="CartStack"
               component={CartStack}
               options={{
-                drawerLabel: 'Giỏ hàng',
+                tabBarLabel: 'Giỏ hàng',
                 title: 'Cart',
-                drawerIcon: ({ color, size }) => (
+                tabBarIcon: ({ color, size }) => (
                   <Icon type="entypo" name="shopping-cart" color={color} size={size} />
                 ),
-                drawerItemStyle: { display: 'none' },
+                tabBarItemStyle: { display: 'none' },
 
 
               }}
             />
-            <Drawer.Screen
+            <Tab.Screen
               name="Profile"
               component={ProfileScreen}
               options={{
-                drawerLabel: 'Hồ sơ',
+                tabBarLabel: 'Hồ sơ',
                 title: 'Profile',
-                drawerIcon: ({ color, size }) => (
+                tabBarIcon: ({ color, size }) => (
                   <Icon type="entypo" name="user" color={color} size={size} />
                 ),
-                drawerItemStyle: { display: 'none' },
+                tabBarItemStyle: { display: 'none' },
 
               }}
             />
-          </Drawer.Group>
+          </Tab.Group>
 
-        </Drawer.Navigator>
+        </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );
