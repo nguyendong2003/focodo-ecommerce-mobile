@@ -8,6 +8,7 @@ import { TextInput } from "react-native";
 import { useState } from "react";
 import * as Progress from 'react-native-progress';
 import { Rating, AirbnbRating } from 'react-native-ratings';
+import { ProductList } from "../../components/Product";
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -151,6 +152,19 @@ const ProductDetailScreen = ({ navigation, route }) => {
         }
     };
 
+    const productCallAPI = [
+        { id: 1, image: '1.png', name: 'Bánh bèo Huế 123hdsafjhsfdhjads123hds', price: 10000 },
+        { id: 2, image: '2.png', name: 'Bánh nậm Huế', price: 30000 },
+        { id: 3, image: '3.png', name: 'Bánh lọc Huế', price: 100000 },
+        { id: 4, image: '4.png', name: 'Bánh xèo Huế', price: 50000 },
+        { id: 5, image: '5.png', name: 'Bánh nậm Huế', price: 22000 },
+        { id: 6, image: '6.png', name: 'Mè xững Huế', price: 5000 },
+        { id: 7, image: '7.png', name: 'Mắm nêm Huế', price: 21000 },
+        { id: 8, image: '8.png', name: 'Bánh ép Huế', price: 25000 },
+    ];
+
+    const [relatedProducts, setRelatedProducts] = useState(productCallAPI);
+
 
     return (
         <BaseLayout navigation={navigation}>
@@ -176,12 +190,12 @@ const ProductDetailScreen = ({ navigation, route }) => {
                     <View style={{ marginTop: 20, flexDirection: 'row', gap: 16, }}>
                         <Button title="Thêm vào giỏ hàng" type="outline"
                             containerStyle={styles.productButton}
-                            buttonStyle={{ borderColor: '#000', borderWidth: 2 }}
+                            buttonStyle={{ borderColor: '#000', borderWidth: 2, borderRadius: 8 }}
                             titleStyle={{ color: '#000' }}
                         />
                         <Button title="Thanh toán"
                             containerStyle={styles.productButton}
-                            buttonStyle={{ borderColor: '#000', backgroundColor: '#000', borderWidth: 2 }}
+                            buttonStyle={{ borderColor: '#000', backgroundColor: '#000', borderWidth: 2, borderRadius: 8 }}
                             titleStyle={{ color: '#fff' }}
                         />
                         {/* <Button containerStyle={styles.productButton} title="Thanh toán" /> */}
@@ -198,6 +212,11 @@ const ProductDetailScreen = ({ navigation, route }) => {
                 <View>
                     <Reviews />
                 </View>
+
+                <View>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 8 }}>Sản phẩm liên quan</Text>
+                    <ProductList products={relatedProducts} />
+                </View>
             </View>
         </BaseLayout>
     );
@@ -207,7 +226,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        padding: 20
+        padding: 16
         // backgroundColor: 'red',
     },
     productImageSection: {
