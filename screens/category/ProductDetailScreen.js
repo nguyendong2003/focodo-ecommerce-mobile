@@ -25,7 +25,7 @@ const TopReviews = () => {
 
             <View style={{ marginTop: 8 }}>
                 <View style={{ paddingVertical: 8, borderWidth: 1, borderRadius: 8, padding: 4 }} >
-                    <Text style={{ fontSize: 20, fontStyle: 'italic', fontWeight: 'bold' }}>Số sao trung bình: 4.8</Text>
+                    <Text style={{ fontSize: 20, fontStyle: 'italic', fontWeight: 'bold' }}>Số sao trung bình: 2.5</Text>
                     <Text style={{ fontSize: 20, fontStyle: 'italic', opacity: 0.6, marginTop: 8 }}>125 lượt đánh giá</Text>
                     <Rating
                         type="star"
@@ -81,7 +81,7 @@ const TopReviews = () => {
                             <Rating
                                 type="star"
                                 fractions={2}
-                                startingValue={2.5}
+                                startingValue={3}
                                 readonly={true}
                                 imageSize={24}
                                 style={{ paddingVertical: 10 }}
@@ -97,7 +97,7 @@ const TopReviews = () => {
                             <Rating
                                 type="star"
                                 fractions={2}
-                                startingValue={2.5}
+                                startingValue={2}
                                 readonly={true}
                                 imageSize={24}
                                 style={{ paddingVertical: 10 }}
