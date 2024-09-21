@@ -1,0 +1,192 @@
+[
+    {
+        "id": 1,
+        "name": "Mè xững đen",
+        "categoryId": 1
+    },
+    {
+        "id": 2,
+        "name": "Mè xững trắng 1",
+        "categoryId": 1
+    },
+    {
+        "id": 15,
+        "name": "Mè xững trắng 2",
+        "categoryId": 1
+    },
+    {
+        "id": 16,
+        "name": "Mè xững trắng 3",
+        "categoryId": 1
+    },
+    {
+        "id": 17,
+        "name": "Mè xững trắng 4",
+        "categoryId": 1
+    },
+    {
+        "id": 3,
+        "name": "Kẹo lạc vừng",
+        "categoryId": 2
+    },
+    {
+        "id": 4,
+        "name": "Kẹo lạc dừa",
+        "categoryId": 2
+    },
+    {
+        "id": 5,
+        "name": "Kẹo dừa sữa",
+        "categoryId": 3
+    },
+    {
+        "id": 6,
+        "name": "Kẹo dừa cacao",
+        "categoryId": 3
+    },
+    {
+        "id": 7,
+        "name": "Bánh đậu xanh truyền thống",
+        "categoryId": 4
+    },
+    {
+        "id": 8,
+        "name": "Bánh đậu xanh hương vị",
+        "categoryId": 4
+    },
+    {
+        "id": 9,
+        "name": "Kẹo cau truyền thống",
+        "categoryId": 5
+    },
+    {
+        "id": 10,
+        "name": "Kẹo cau hương vị",
+        "categoryId": 5
+    },
+    {
+        "id": 11,
+        "name": "Kẹo gừng truyền thống",
+        "categoryId": 6
+    },
+    {
+        "id": 12,
+        "name": "Kẹo gừng hương vị",
+        "categoryId": 6
+    },
+    {
+        "id": 13,
+        "name": "Kẹo kéo truyền thống",
+        "categoryId": 7
+    },
+    {
+        "id": 14,
+        "name": "Kẹo kéo hương vị",
+        "categoryId": 7
+    },
+    {
+        "id": 18,
+        "name": "Mè xững trắng 5",
+        "categoryId": 1
+    },
+    {
+        "id": 19,
+        "name": "Mè xững trắng 6",
+        "categoryId": 1
+    },
+    {
+        "id": 20,
+        "name": "Mè xững trắng 7",
+        "categoryId": 1
+    },
+    {
+        "id": 21,
+        "name": "Mè xững trắng 8",
+        "categoryId": 1
+    },
+    {
+        "id": 22,
+        "name": "Mè xững trắng 9",
+        "categoryId": 1
+    },
+    {
+        "id": 23,
+        "name": "Mè xững trắng 10",
+        "categoryId": 1
+    },
+    {
+        "id": 24,
+        "name": "Mè xững trắng 11",
+        "categoryId": 1
+    },
+    {
+        "id": 25,
+        "name": "Mè xững trắng 12",
+        "categoryId": 1
+    },
+    {
+        "id": 26,
+        "name": "Mè xững trắng 13",
+        "categoryId": 1
+    },
+    {
+        "id": 27,
+        "name": "Mè xững trắng 14",
+        "categoryId": 1
+    },
+    {
+        "id": 28,
+        "name": "Mè xững trắng 15",
+        "categoryId": 1
+    },
+    {
+        "id": 29,
+        "name": "Mè xững trắng 16",
+        "categoryId": 1
+    },
+    {
+        "id": 30,
+        "name": "Mè xững trắng 17",
+        "categoryId": 1
+    },
+    {
+        "id": 31,
+        "name": "Mè xững trắng 18",
+        "categoryId": 1
+    },
+    {
+        "id": 32,
+        "name": "Mè xững trắng 19",
+        "categoryId": 1
+    },
+    {
+        "id": 33,
+        "name": "Mè xững trắng 20",
+        "categoryId": 1
+    },
+    {
+        "id": 34,
+        "name": "Mè xững trắng 21",
+        "categoryId": 1
+    },
+    {
+        "id": 35,
+        "name": "Mè xững trắng 22",
+        "categoryId": 1
+    },
+    {
+        "id": 36,
+        "name": "Mè xững trắng 23",
+        "categoryId": 1
+    },
+    {
+        "id": 37,
+        "name": "Mè xững trắng 24",
+        "categoryId": 1
+    },
+    {
+        "id": 38,
+        "name": "Mè xững trắng 25",
+        "categoryId": 1
+    }
+]

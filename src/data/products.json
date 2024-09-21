@@ -1,0 +1,127 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "image": "1.png",
+            "name": "Bánh bèo Huế 123hdsafjhsfdhjads123hdsffffffffffff",
+            "price": 10000,
+            "originPrice": 12000
+        },
+        {
+            "id": 2,
+            "image": "2.png",
+            "name": "Bánh nậm Huế",
+            "price": 30000,
+            "originPrice": 35000
+        },
+        {
+            "id": 3,
+            "image": "3.png",
+            "name": "Bánh lọc Huế",
+            "price": 100000,
+            "originPrice": 120000
+        },
+        {
+            "id": 4,
+            "image": "4.png",
+            "name": "Bánh xèo Huế",
+            "price": 50000,
+            "originPrice": 60000
+        },
+        {
+            "id": 5,
+            "image": "5.png",
+            "name": "Bánh nậm Huế",
+            "price": 22000,
+            "originPrice": 25000
+        },
+        {
+            "id": 6,
+            "image": "6.png",
+            "name": "Bánh mè xững Huế",
+            "price": 5000,
+            "originPrice": 6000
+        },
+        {
+            "id": 7,
+            "image": "7.png",
+            "name": "Bánh nêm Huế",
+            "price": 21000,
+            "originPrice": 23000
+        },
+        {
+            "id": 8,
+            "image": "8.png",
+            "name": "Bánh ép Huế",
+            "price": 25000,
+            "originPrice": 28000
+        }
+    ],
+    "category": [
+        {
+            "id": 1,
+            "name": "Mè xững"
+        },
+        {
+            "id": 2,
+            "name": "Kẹo lạc"
+        },
+        {
+            "id": 3,
+            "name": "Kẹo dừa"
+        },
+        {
+            "id": 4,
+            "name": "Bánh đậu xanh"
+        },
+        {
+            "id": 5,
+            "name": "Kẹo cau"
+        },
+        {
+            "id": 6,
+            "name": "Kẹo gừng"
+        },
+        {
+            "id": 7,
+            "name": "Kẹo kéo"
+        }
+    ],
+    "filter": {
+        "types": [
+            {
+                "id": 1,
+                "name": "Mè xững"
+            },
+            {
+                "id": 2,
+                "name": "Kẹo lạc"
+            },
+            {
+                "id": 3,
+                "name": "Kẹo dừa"
+            },
+            {
+                "id": 4,
+                "name": "Bánh đậu xanh"
+            },
+            {
+                "id": 5,
+                "name": "Kẹo cau"
+            },
+            {
+                "id": 6,
+                "name": "Kẹo gừng"
+            },
+            {
+                "id": 7,
+                "name": "Kẹo kéo"
+            }
+        ]
+    },
+    "meta": {
+        "currentPage": 1,
+        "pageSize": 8,
+        "totalPage": 2
+    }
+}
