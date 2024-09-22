@@ -38,12 +38,10 @@ const ProductCard = ({ product, navigation }) => {
                         imageSize={14}
                         className="my-1 items-start"
                     />
-                    <Text className="text-gray-500 text-sm mx-1">(23)</Text>
+                    <Text className="text-gray-500 text-sm mx-1 shrink" numberOfLines={1}>({new Intl.NumberFormat('vi-VN').format(20513)})</Text>
                 </View>
 
                 <Text className="text-slate-600">Đã bán: {new Intl.NumberFormat('vi-VN').format(114999)}</Text>
-
-
 
                 <Text className="text-red-500 text-lg italic">
                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}

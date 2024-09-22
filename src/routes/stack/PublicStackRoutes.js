@@ -8,6 +8,7 @@ import SearchProductScreen from "../../screens/SearchProductScreen";
 import MainTabNavigator from "../MainTabNavigator";
 import HeaderSearchProduct from "../../components/header/HeaderSearchProduct";
 import HeaderProductList from "../../components/header/HeaderProductList";
+import HeaderProductDetail from "../../components/header/HeaederProductDetail";
 
 // options: {
 //     // tabBarButton: (props) => null,
@@ -37,12 +38,11 @@ const PublicStackRoutes = [
     {
         name: 'ProductDetail',
         component: ProductDetailScreen,
-        options: {
-            // tabBarButton: (props) => null,
-            // tabBarVisible: false,
-            // tabBarBadge: 3,
-            // tabBarLabel: 'SignUp',
-        },
+        options: ({ navigation, route }) => ({
+            headerShown: true,
+            header: () => <HeaderProductDetail navigation={navigation} route={route} />,
+            // headerTransparent: true,
+        }),
     },
     {
         name: 'Review',

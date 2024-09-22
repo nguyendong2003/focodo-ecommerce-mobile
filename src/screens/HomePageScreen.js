@@ -1,6 +1,6 @@
 import { FlatList, Image, ScrollView, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import result from "../data/products.json"
-import Product from "../components/product/ProductSlider";
+import ProductSlider from "../components/product/ProductSlider";
 import CategorySlider from "../components/category/CategorySlider";
 import ProductList from "../components/product/ProductList";
 
@@ -40,7 +40,7 @@ const HomePageScreen = ({ navigation }) => {
 
                 <FlatList
                     data={result.products}
-                    renderItem={({ item }) => <Product product={item} navigation={navigation} />}
+                    renderItem={({ item }) => <ProductSlider product={item} navigation={navigation} />}
                     keyExtractor={item => 'best_selling_products' + item.id}
                     horizontal={true}
                     className="mx-1"
@@ -56,7 +56,7 @@ const HomePageScreen = ({ navigation }) => {
 
                 <FlatList
                     data={result.products}
-                    renderItem={({ item }) => <Product product={item} navigation={navigation} />}
+                    renderItem={({ item }) => <ProductSlider product={item} navigation={navigation} />}
                     keyExtractor={item => 'sale_products' + item.id}
                     horizontal={true}
                     className="mx-1"

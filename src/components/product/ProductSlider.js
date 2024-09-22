@@ -1,9 +1,8 @@
-import { memo } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Rating } from 'react-native-ratings';
 
 
-const Product = ({ product, navigation }) => {
+const ProductSlider = ({ product, navigation }) => {
 
 
     return (
@@ -49,4 +48,4 @@ const Product = ({ product, navigation }) => {
     );
 }
 
-export default Product;
+export default ProductSlider;
