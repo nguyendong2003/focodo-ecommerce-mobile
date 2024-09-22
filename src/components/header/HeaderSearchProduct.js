@@ -1,9 +1,11 @@
 import { Icon } from "@rneui/themed";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { View, TouchableOpacity, TextInput } from "react-native";
+import { ProductContext } from "../context/ProductProvider";
 
 const HeaderSearchProduct = ({ navigation }) => {
-    const [searchText, setSearchText] = useState('');
+    const { query, setQuery } = useContext(ProductContext);
+
     return (
         <View
             className="flex-row items-center px-2 h-16 bg-white"
@@ -15,36 +17,40 @@ const HeaderSearchProduct = ({ navigation }) => {
                 elevation: 5,
             }}
         >
-
             <TouchableOpacity
                 className="px-1"
-                onPress={() => navigation.goBack()}>
+                onPress={() => {
+                    setQuery('')
+                    navigation.goBack()
+                }}>
                 <Icon type="antdesign" name="left" />
             </TouchableOpacity>
             <View className="flex-1 flex-row items-center border-black rounded-2xl grow border-2 px-3 mx-1 py-1">
                 <TextInput
                     placeholder="Tìm kiếm sản phẩm"
                     placeholderTextColor="#999"
-                    value={searchText}
-                    onChangeText={setSearchText}
-                    autoFocus
+                    value={query}
+                    onChangeText={setQuery}
+                    autoFocus={true}
                     className="flex-1"
                 />
-                {searchText.length > 0 && (
-                    <TouchableOpacity onPress={() => setSearchText('')}>
+                {query.length > 0 && (
+                    <TouchableOpacity onPress={() => setQuery('')}>
                         <Icon type="antdesign" name="closecircle" size={20} color="gray" />
                     </TouchableOpacity>
                 )}
             </View>
-            <TouchableOpacity
-                className="px-2"
-            >
+            <TouchableOpacity className="px-2"
+                onPress={() => {
+                    if (query.length > 0) {
+                        navigation.navigate('ProductList', { query })
+                    }
+                }
+                }>
                 <Icon type="antdesign" name="search1" />
-
             </TouchableOpacity>
-
         </View>
-    )
-}
+    );
+};
 
 export default HeaderSearchProduct;

@@ -2,7 +2,7 @@ import { Icon } from "@rneui/themed";
 import { View, TouchableOpacity, Text } from "react-native";
 
 const HeaderProductList = ({ navigation, route }) => {
-    const { category, subCategory } = route.params;
+    const { category, subCategory, searchItem, query } = route.params;
 
     return (
         <View
@@ -30,7 +30,7 @@ const HeaderProductList = ({ navigation, route }) => {
                     className="flex-1 mx-2 text-gray-500"
                     numberOfLines={1}
                 >
-                    {subCategory?.name || category?.name || 'Tìm kiếm sản phẩm'}
+                    {subCategory?.name || category?.name || searchItem?.name || query || 'Tìm kiếm sản phẩm'}
                 </Text>
             </TouchableOpacity>
         </View>

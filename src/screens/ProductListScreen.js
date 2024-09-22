@@ -2,7 +2,7 @@ import { ScrollView, Text, View } from "react-native";
 import ProductList from "../components/product/ProductList";
 import result from "../data/products.json"
 import DropdownComponent from "../components/dropdown/Dropdown";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 const ProductListScreen = ({ navigation, route }) => {
     const [products, setProducts] = useState(result.products);

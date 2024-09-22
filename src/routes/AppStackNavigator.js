@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack";
 import { useContext } from "react";
-import { AuthContext } from "../components/auth/AuthProvider";
+import { AuthContext } from "../components/context/AuthProvider";
 import publicStackRoutes from "./stack/PublicStackRoutes";
 import privateStackRoutes from "./stack/PrivateStackRoutes";
 import authStackRoutes from "./stack/AuthStackRoutes";

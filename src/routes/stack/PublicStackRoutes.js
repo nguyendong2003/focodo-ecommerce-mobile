@@ -4,7 +4,6 @@ import GuideScreen from "../../screens/GuideScreen";
 import ProductDetailScreen from "../../screens/ProductDetailScreen";
 import ProductListScreen from "../../screens/ProductListScreen";
 import ReviewScreen from "../../screens/ReviewScreen";
-import SearchProductResultScreen from "../../screens/SearchProductResultScreen";
 import SearchProductScreen from "../../screens/SearchProductScreen";
 import MainTabNavigator from "../MainTabNavigator";
 import HeaderSearchProduct from "../../components/header/HeaderSearchProduct";
@@ -62,16 +61,6 @@ const PublicStackRoutes = [
             headerShown: true,
             header: () => <HeaderSearchProduct navigation={navigation} />,
         }),
-    },
-    {
-        name: 'SearchProductResult',
-        component: SearchProductResultScreen,
-        options: {
-            // tabBarButton: (props) => null,
-            // tabBarVisible: false,
-            // tabBarBadge: 3,
-            // tabBarLabel: 'ReviewScreen',
-        },
     },
     {
         name: 'Guide',

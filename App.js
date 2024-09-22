@@ -1,10 +1,13 @@
-import { AuthProvider } from "./src/components/auth/AuthProvider"
+import { AuthProvider } from "./src/components/context/AuthProvider"
+import { ProductProvider } from "./src/components/context/ProductProvider"
 import AppStackNavigator from "./src/routes/AppStackNavigator"
 
 const App = () => {
   return (
     <AuthProvider>
-      <AppStackNavigator />
+      <ProductProvider>
+        <AppStackNavigator />
+      </ProductProvider>
     </AuthProvider>
   )
 }
