@@ -1,12 +1,27 @@
 import { Button, Icon } from '@rneui/themed';
 import { useEffect, useState } from 'react';
-import { Image, Text, TextInput, View } from 'react-native';
+import { Image, PixelRatio, Text, TextInput, View } from 'react-native';
 import { Rating } from 'react-native-ratings';
 import result from "../../data/products.json"
+import WebView from 'react-native-webview';
+
+// // Convert px to dp
+// const pxToDp = (px) => {
+//     return px / PixelRatio.get();
+// };
+
+// Function to convert px to dp
+const pxToDp = (px) => {
+    return PixelRatio.roundToNearestPixel(px / PixelRatio.get());
+};
 
 const ProductInfo = ({ navigation, productId }) => {
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState(null)
+    const [webViewHeight, setWebViewHeight] = useState(0);
+
+    console.log(webViewHeight);
+
 
     useEffect(() => {
         // call api
@@ -104,6 +119,98 @@ const ProductInfo = ({ navigation, productId }) => {
 
                 <View className="mt-2">
                     <Text className="text-black text-xl font-bold">Mô tả sản phẩm</Text>
+                    {/* <View>
+                        <WebView
+                            style={{ height: 800, width: '100%' }}
+                            source={{ uri: 'https://expo.dev' }}
+                        />
+                    </View> */}
+                    <WebView
+                        style={{ height: webViewHeight }} // Điều chỉnh chiều cao cho phù hợp
+                        originWhitelist={['*']}
+                        source={{
+                            html: `
+      <!DOCTYPE html>
+      <html lang="vi">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              padding: 10px;
+              line-height: 1.6;
+              background-color: #f9f9f9;
+            }
+            h2, h3 {
+              color: #333;
+            }
+            ul {
+              list-style-type: none;
+              padding-left: 0;
+            }
+            li {
+              margin-bottom: 5px;
+            }
+          </style>
+          <title>Thông tin sản phẩm</title>
+        </head>
+        <body>
+          <h2><center>Thông tin sản phẩm</center></h2>
+          <p><b>Tên sản phẩm:</b></p>
+          <ul>
+            <li>1. Thập Cẩm Gà Quay Vi Cá Jambon Đặc Biệt (1 trứng)</li>
+            <li>2. Thập Cẩm Xá Xíu Lạp Xưởng (1 trứng)</li>
+            <li>3. Thập Cẩm Jambon Xá Xíu Hảo Hạng (1 trứng)</li>
+            <li>4. Sữa Dừa Hoàng Kim (1 trứng)</li>
+            <li>5. Sầu Riêng Dừa Tươi Đặc Biệt (1 trứng)</li>
+            <li>6. Khoai Môn Sữa Hoàng Gia (1 trứng)</li>
+            <li>7. Đậu Đỏ Hạnh Nhân Nhật Bản (1 trứng)</li>
+            <li>8. Imperial Blueberry & Hạt (không trứng)</li>
+            <li>9. Lục Bảo Trà Xanh O-cookie (không trứng)</li>
+            <li>10. Chocolate Cam Navel Đông Trùng Hạ Thảo (không trứng)</li>
+            <li>11. Đào Saffron Hạt Macca (không trứng)</li>
+            <li>12. Cappuccino Custard Yến Tươi (không trứng)</li>
+          </ul>
+          <p><b>Thương hiệu:</b> Nonglamfood</p>
+          <p><b>Khối lượng tịnh / Thể tích thực:</b> 150g</p>
+          <p><b>Hạn sử dụng:</b> 35 ngày kể từ ngày sản xuất.</p>
+          <h3>Lý do chọn bánh trung thu Nonglamfood:</h3>
+          <p>Nhân bánh cao cấp thượng hạng với Vi cá mập, Yến tươi, Đông trùng hạ thảo, saffron, hồng sâm, Trà xanh matcha. Được phối trộn từ nghệ nhân bánh Trung thu với hơn 30 năm kinh nghiệm cho vị đậm đà truyền thống.</p>
+          <p>Hơn 30 vị bánh tươi mới, ít ngọt, có sử dụng đường ăn kiêng isomalt vì sức khỏe người tiêu dùng.</p>
+          <p>Quy trình khép kín và chuẩn chỉnh theo ISO 22000:2018, HACCP từ khâu chọn nguyên liệu đến đóng gói.</p>
+          <p>Hơn 20 mẫu hộp thiết kế độc đáo, sang trọng. Dịch vụ cá nhân hóa thể hiện tính độc bản của thương hiệu doanh nghiệp.</p>
+          <p>Giá sản phẩm trên Tiki đã bao gồm thuế. Tùy vào loại sản phẩm và địa chỉ giao hàng, có thể phát sinh thêm phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu.</p>
+          <script>
+                                                //  // Tính chiều cao của toàn bộ nội dung
+                                                // var body = document.body;
+                                                // var html = document.documentElement;
+                                                // var pageHeight = Math.max(
+                                                //     body.scrollHeight, body.offsetHeight,
+                                                //     html.clientHeight, html.scrollHeight, html.offsetHeight
+                                                // );
+                                                // window.ReactNativeWebView.postMessage(pageHeight); // Gửi chiều cao về ứng dụng
+            window.onload = function() {
+                const height = document.body.scrollHeight;
+                window.ReactNativeWebView.postMessage(height); // Gửi chiều cao về ứng dụng
+            };
+        </script>
+          </body>
+      </html>
+    `
+                        }}
+                        javaScriptEnabled={true} // Bật JavaScript
+                        // onMessage={(event) => {
+                        //     const height = parseInt(event.nativeEvent.data); // Nhận dữ liệu chiều cao
+                        //     setWebViewHeight(height); // Cập nhật chiều cao WebView
+                        // }}
+                        onMessage={(event) => {
+                            const heightInPx = parseInt(event.nativeEvent.data);
+                            const heightInDp = pxToDp(heightInPx); // Chuyển từ px sang dp
+                            setWebViewHeight(heightInDp); // Cập nhật chiều cao cho WebView
+                        }}
+                        scrollEnabled={false} // Tắt cuộn trong WebView (cuộn bên ngoài)
+                    />
 
                 </View>
             </View>
