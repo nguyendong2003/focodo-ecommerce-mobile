@@ -9,6 +9,8 @@ import MainTabNavigator from "../MainTabNavigator";
 import HeaderSearchProduct from "../../components/header/HeaderSearchProduct";
 import HeaderProductList from "../../components/header/HeaderProductList";
 import HeaderProductDetail from "../../components/header/HeaederProductDetail";
+import ProductDescriptionScreen from "../../screens/ProductDescriptionScreen";
+import HeaderProductDescription from "../../components/header/HeaderProductDescription";
 
 // options: {
 //     // tabBarButton: (props) => null,
@@ -38,9 +40,18 @@ const PublicStackRoutes = [
     {
         name: 'ProductDetail',
         component: ProductDetailScreen,
-        options: ({ navigation, route }) => ({
+        options: ({ navigation }) => ({
             headerShown: true,
-            header: () => <HeaderProductDetail navigation={navigation} route={route} />,
+            header: () => <HeaderProductDetail navigation={navigation} />,
+            // headerTransparent: true,
+        }),
+    },
+    {
+        name: 'ProductDescription',
+        component: ProductDescriptionScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            header: () => <HeaderProductDescription navigation={navigation} />,
             // headerTransparent: true,
         }),
     },

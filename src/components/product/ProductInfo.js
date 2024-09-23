@@ -1,26 +1,17 @@
 import { Button, Icon } from '@rneui/themed';
 import { useEffect, useState } from 'react';
-import { Image, PixelRatio, Text, TextInput, View } from 'react-native';
+import { Dimensions, Image, PixelRatio, Text, TextInput, View } from 'react-native';
 import { Rating } from 'react-native-ratings';
 import result from "../../data/products.json"
 import WebView from 'react-native-webview';
+import { TouchableOpacity } from 'react-native';
 
-// // Convert px to dp
-// const pxToDp = (px) => {
-//     return px / PixelRatio.get();
-// };
-
-// Function to convert px to dp
-const pxToDp = (px) => {
-    return PixelRatio.roundToNearestPixel(px / PixelRatio.get());
-};
+const screenWidth = Dimensions.get('screen').width;
 
 const ProductInfo = ({ navigation, productId }) => {
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState(null)
-    const [webViewHeight, setWebViewHeight] = useState(0);
 
-    console.log(webViewHeight);
 
 
     useEffect(() => {
@@ -47,6 +38,7 @@ const ProductInfo = ({ navigation, productId }) => {
     const handleInputChange = (text) => {
         const newQuantity = parseInt(text);
         if (!isNaN(newQuantity) && newQuantity > 0) {
+            1
             setQuantity(newQuantity);
         } else {
             setQuantity(1);
@@ -54,8 +46,12 @@ const ProductInfo = ({ navigation, productId }) => {
     };
     return (
         <>
-            <View className="items-center p-4">
-                <Image source={require('../../static/images/products/1.png')} className="h-64 w-64 rounded-lg" />
+            <View className="items-center">
+                <Image
+                    source={require('../../static/images/products/1.png')}
+                    className="rounded-lg"
+                    style={{ width: screenWidth, height: screenWidth }}
+                />
             </View>
             <View className="mt-2 px-4">
                 <Text className="text-black text-xl font-bold">{product?.name}</Text>
@@ -119,14 +115,10 @@ const ProductInfo = ({ navigation, productId }) => {
 
                 <View className="mt-2">
                     <Text className="text-black text-xl font-bold">Mô tả sản phẩm</Text>
-                    {/* <View>
-                        <WebView
-                            style={{ height: 800, width: '100%' }}
-                            source={{ uri: 'https://expo.dev' }}
-                        />
-                    </View> */}
                     <WebView
-                        style={{ height: webViewHeight }} // Điều chỉnh chiều cao cho phù hợp
+                        style={{ height: 400 }} // Điều chỉnh chiều cao cho phù hợp
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
                         originWhitelist={['*']}
                         source={{
                             html: `
@@ -134,13 +126,13 @@ const ProductInfo = ({ navigation, productId }) => {
       <html lang="vi">
         <head>
           <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
           <style>
             body {
               font-family: Arial, sans-serif;
               padding: 10px;
               line-height: 1.6;
-              background-color: #f9f9f9;
+              background-color: #fff;
             }
             h2, h3 {
               color: #333;
@@ -199,18 +191,14 @@ const ProductInfo = ({ navigation, productId }) => {
       </html>
     `
                         }}
-                        javaScriptEnabled={true} // Bật JavaScript
-                        // onMessage={(event) => {
-                        //     const height = parseInt(event.nativeEvent.data); // Nhận dữ liệu chiều cao
-                        //     setWebViewHeight(height); // Cập nhật chiều cao WebView
-                        // }}
-                        onMessage={(event) => {
-                            const heightInPx = parseInt(event.nativeEvent.data);
-                            const heightInDp = pxToDp(heightInPx); // Chuyển từ px sang dp
-                            setWebViewHeight(heightInDp); // Cập nhật chiều cao cho WebView
-                        }}
-                        scrollEnabled={false} // Tắt cuộn trong WebView (cuộn bên ngoài)
                     />
+                    <TouchableOpacity activeOpacity={0.5}
+                        className="p-2 "
+                        onPress={() => navigation.navigate('ProductDescription', {
+                            productId
+                        })}>
+                        <Text className="text-center text-base text-blue-600">Xem tất cả</Text>
+                    </TouchableOpacity>
 
                 </View>
             </View>

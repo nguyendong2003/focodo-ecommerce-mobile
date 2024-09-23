@@ -34,7 +34,7 @@ const CategoryList = ({ categories, selectedCategory, setSelectedCategory }) => 
                         <View className="absolute right-0 top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-8 border-l-blue-500" />
                     )} */}
                     {item.id === selectedCategory?.id && (
-                        <View className="absolute right-0 top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-black" />
+                        <View className="absolute right-0 top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-gray-200" />
                     )}
                 </TouchableOpacity>
             )}

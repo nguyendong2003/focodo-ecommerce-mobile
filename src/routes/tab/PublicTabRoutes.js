@@ -22,6 +22,7 @@ const PublicTabRoutes = [
 
             headerStyle: {
                 // backgroundColor: '#f4511e',
+                height: 70,
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -65,6 +66,7 @@ const PublicTabRoutes = [
 
             headerStyle: {
                 // backgroundColor: '#f4511e',
+                height: 70,
             },
             headerTintColor: '#fff',
             headerTitleStyle: {

@@ -1,8 +1,7 @@
 import { Icon } from "@rneui/themed";
 import { View, TouchableOpacity, Text } from "react-native";
 
-const HeaderProductDetail = ({ navigation, route }) => {
-    const { category, subCategory, searchItem, query } = route.params;
+const HeaderProductDetail = ({ navigation }) => {
 
     return (
         <View

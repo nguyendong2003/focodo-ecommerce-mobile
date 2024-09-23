@@ -33,10 +33,11 @@ const ProductCard = ({ product, navigation }) => {
                 <View className="flex-row items-center" >
                     <Rating
                         type="star"
+                        fractions={1}
                         startingValue={4.5}
                         readonly={true}
                         imageSize={14}
-                        className="my-1 items-start"
+                        className="my-2"
                     />
                     <Text className="text-gray-500 text-sm mx-1 shrink" numberOfLines={1}>({new Intl.NumberFormat('vi-VN').format(20513)})</Text>
                 </View>
