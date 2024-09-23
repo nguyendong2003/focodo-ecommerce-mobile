@@ -1,8 +1,7 @@
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { useState } from "react";
 import ProductInfo from "../components/product/ProductInfo";
 import Review from "../components/review/Review";
-import { Icon } from "@rneui/base";
 
 
 const ProductDetailScreen = ({ navigation, route }) => {

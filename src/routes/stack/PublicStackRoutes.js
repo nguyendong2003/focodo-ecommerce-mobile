@@ -11,6 +11,7 @@ import HeaderProductList from "../../components/header/HeaderProductList";
 import HeaderProductDetail from "../../components/header/HeaederProductDetail";
 import ProductDescriptionScreen from "../../screens/ProductDescriptionScreen";
 import HeaderProductDescription from "../../components/header/HeaderProductDescription";
+import HeaderProductReview from "../../components/header/HeaderProductReview";
 
 // options: {
 //     // tabBarButton: (props) => null,
@@ -58,12 +59,11 @@ const PublicStackRoutes = [
     {
         name: 'Review',
         component: ReviewScreen,
-        options: {
-            // tabBarButton: (props) => null,
-            // tabBarVisible: false,
-            // tabBarBadge: 3,
-            // tabBarLabel: 'ReviewScreen',
-        },
+        options: ({ navigation }) => ({
+            headerShown: true,
+            header: () => <HeaderProductReview navigation={navigation} />,
+            // headerTransparent: true,
+        }),
     },
     {
         name: 'SearchProduct',

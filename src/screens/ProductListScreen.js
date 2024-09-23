@@ -8,6 +8,8 @@ const ProductListScreen = ({ navigation, route }) => {
     const [products, setProducts] = useState(result.products);
     const [sortBy, setSortBy] = useState('DEFAULT');
 
+
+
     const ListHeader = () => (
         <View className="flex-row items-center px-2 py-2 bg-white">
             <Text className="text-lg font-bold mr-1">Danh sách sản phẩm</Text>

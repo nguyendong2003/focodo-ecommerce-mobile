@@ -1,7 +1,7 @@
 import { Icon } from "@rneui/themed";
 import { View, TouchableOpacity, Text } from "react-native";
 
-const HeaderProductDescription = ({ navigation }) => {
+const HeaderProductReview = ({ navigation }) => {
 
     return (
         <View
@@ -19,9 +19,9 @@ const HeaderProductDescription = ({ navigation }) => {
                 <Icon type="feather" name="chevron-left" />
             </TouchableOpacity>
 
-            <Text className="text-gray-600 text-lg font-bold mx-20">Mô tả sản phẩm</Text>
+            <Text className="text-gray-600 text-lg font-bold mx-16">Đánh giá sản phẩm</Text>
         </View>
     )
 }
 
-export default HeaderProductDescription;
+export default HeaderProductReview;

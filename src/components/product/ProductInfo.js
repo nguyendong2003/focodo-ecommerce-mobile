@@ -5,14 +5,14 @@ import { Rating } from 'react-native-ratings';
 import result from "../../data/products.json"
 import WebView from 'react-native-webview';
 import { TouchableOpacity } from 'react-native';
+import PagerView from 'react-native-pager-view';
 
 const screenWidth = Dimensions.get('screen').width;
 
 const ProductInfo = ({ navigation, productId }) => {
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState(null)
-
-
+    const [currentPageImage, setCurrentPageImage] = useState(0);
 
     useEffect(() => {
         // call api
@@ -46,35 +46,76 @@ const ProductInfo = ({ navigation, productId }) => {
     };
     return (
         <>
-            <View className="items-center">
-                <Image
-                    source={require('../../static/images/products/1.png')}
-                    className="rounded-lg"
-                    style={{ width: screenWidth, height: screenWidth }}
-                />
+            <View>
+                <PagerView style={{ width: screenWidth, height: screenWidth }}
+                    initialPage={0}
+                    onPageSelected={(e) => setCurrentPageImage(e.nativeEvent.position)}
+
+                >
+
+                    <View key="1">
+                        <Image
+                            source={require('../../static/images/products/1.png')}
+                            className="rounded-lg"
+                            style={{ width: screenWidth, height: screenWidth }}
+                        />
+                    </View>
+                    <View key="2">
+                        <Image
+                            source={require('../../static/images/products/2.png')}
+                            className="rounded-lg"
+                            style={{ width: screenWidth, height: screenWidth }}
+                        />
+                    </View>
+                    <View key="3">
+                        <Image
+                            source={require('../../static/images/products/3.png')}
+                            className="rounded-lg"
+                            style={{ width: screenWidth, height: screenWidth }}
+                        />
+                    </View>
+                    <View key="4">
+                        <Image
+                            source={require('../../static/images/products/4.png')}
+                            className="rounded-lg"
+                            style={{ width: screenWidth, height: screenWidth }}
+                        />
+                    </View>
+                    <View key="5">
+                        <Image
+                            source={require('../../static/images/products/5.png')}
+                            className="rounded-lg"
+                            style={{ width: screenWidth, height: screenWidth }}
+                        />
+                    </View>
+                </PagerView>
+
+                <View style={{ position: 'absolute', bottom: 10, right: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 5, borderRadius: 5 }}>
+                    <Text className="text-white">{currentPageImage + 1}/5</Text>
+                </View>
             </View>
             <View className="mt-2 px-4">
                 <Text className="text-black text-xl font-bold">{product?.name}</Text>
 
                 <View className="flex-row items-center gap-x-2" >
-                    <Text className="text-black text-sm font-bold">4.5</Text>
+                    <Text className="text-black text-sm font-bold">{product?.rate.toFixed(1)}</Text>
                     <Rating
                         type="star"
-                        startingValue={4.5}
+                        startingValue={product?.rate}
                         readonly={true}
                         imageSize={14}
                         className="items-start"
                     />
-                    <Text className="text-gray-500 text-sm">({new Intl.NumberFormat('vi-VN').format(2123)})</Text>
-                    <Text className="text-gray-500 text-sm">Đã bán: {new Intl.NumberFormat('vi-VN').format(16759)}</Text>
+                    <Text className="text-gray-500 text-sm">({new Intl.NumberFormat('vi-VN').format(product?.reviewQuantity)})</Text>
+                    <Text className="text-gray-500 text-sm">Đã bán: {new Intl.NumberFormat('vi-VN').format(product?.soldQuantity)}</Text>
                 </View>
                 <View className="flex-row items-center gap-x-4">
                     <Text className=" text-red-500 text-2xl font-bold">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product?.price)}</Text>
-                    <Text className=" text-gray-500 text-sm bg-gray-200 rounded-lg px-1">-10%</Text>
+                    <Text className=" text-gray-500 text-sm bg-gray-200 rounded-lg px-1">-{product?.salePercent}%</Text>
                     <Text className=" text-gray-500 text-sm line-through">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product?.originPrice)}</Text>
                 </View>
 
-                <Text className="text-black text-base italic">Bánh bột lọc Huế không chỉ được coi là món ăn vặt, bạn hoàn toàn có thể thưởng thức thay cơm hay bữa chính trong ngày. Loại bánh này phổ biến ở nhiều địa phương, tuy nhiên, chỉ khi ăn tại Huế, bạn mới cảm nhận được vị ngon đặc trưng, đúng điệu của miền Trung</Text>
+                <Text className="text-black text-base italic">{product?.shortDescription}</Text>
 
 
                 <View className="flex-row items-center mt-1">
@@ -116,7 +157,7 @@ const ProductInfo = ({ navigation, productId }) => {
                 <View className="mt-2">
                     <Text className="text-black text-xl font-bold">Mô tả sản phẩm</Text>
                     <WebView
-                        style={{ height: 400 }} // Điều chỉnh chiều cao cho phù hợp
+                        style={{ height: 300 }} // Điều chỉnh chiều cao cho phù hợp
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         originWhitelist={['*']}

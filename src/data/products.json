@@ -3,58 +3,98 @@
         {
             "id": 1,
             "image": "1.png",
-            "name": "Bánh bèo Huế 123hdsafjhsfdhjads123hdsffffffffffff",
+            "name": "Bánh bèo Huế siêu thơm ngon (20 cái / 1 suất)",
             "price": 10000,
-            "originPrice": 12000
+            "originPrice": 12000,
+            "salePercent": 20,
+            "soldQuantity": 100500,
+            "reviewQuantity": 50503,
+            "rate": 3.5,
+            "shortDescription": "Bánh bèo Huế không chỉ được coi là món ăn vặt, bạn hoàn toàn có thể thưởng thức thay cơm hay bữa chính trong ngày. Loại bánh này phổ biến ở nhiều địa phương, tuy nhiên, chỉ khi ăn tại Huế, bạn mới cảm nhận được vị ngon đặc trưng, đúng điệu của miền Trung"
         },
         {
             "id": 2,
             "image": "2.png",
             "name": "Bánh nậm Huế",
             "price": 30000,
-            "originPrice": 35000
+            "originPrice": 35000,
+            "salePercent": 14,
+            "soldQuantity": 2005,
+            "reviewQuantity": 80200,
+            "rate": 4.2,
+            "shortDescription": "Bánh nậm Huế không chỉ được coi là món ăn vặt, bạn hoàn toàn có thể thưởng thức thay cơm hay bữa chính trong ngày. Loại bánh này phổ biến ở nhiều địa phương, tuy nhiên, chỉ khi ăn tại Huế, bạn mới cảm nhận được vị ngon đặc trưng, đúng điệu của miền Trung"
         },
         {
             "id": 3,
             "image": "3.png",
             "name": "Bánh lọc Huế",
             "price": 100000,
-            "originPrice": 120000
+            "originPrice": 120000,
+            "salePercent": 17,
+            "soldQuantity": 150,
+            "reviewQuantity": 6050,
+            "rate": 4.8,
+            "shortDescription": "Bánh lọc Huế không chỉ được coi là món ăn vặt, bạn hoàn toàn có thể thưởng thức thay cơm hay bữa chính trong ngày. Loại bánh này phổ biến ở nhiều địa phương, tuy nhiên, chỉ khi ăn tại Huế, bạn mới cảm nhận được vị ngon đặc trưng, đúng điệu của miền Trung"
         },
         {
             "id": 4,
             "image": "4.png",
             "name": "Bánh xèo Huế",
             "price": 50000,
-            "originPrice": 60000
+            "originPrice": 60000,
+            "salePercent": 16,
+            "soldQuantity": 25,
+            "reviewQuantity": 901,
+            "rate": 1,
+            "shortDescription": "Bánh xèo Huế giòn tan, nhân tôm thịt thơm ngon."
         },
         {
             "id": 5,
             "image": "5.png",
             "name": "Bánh nậm Huế",
             "price": 22000,
-            "originPrice": 25000
+            "originPrice": 25000,
+            "salePercent": 12,
+            "soldQuantity": 3,
+            "reviewQuantity": 120,
+            "rate": 4,
+            "shortDescription": "Bánh nậm Huế mềm mịn, hương vị đặc trưng."
         },
         {
             "id": 6,
             "image": "6.png",
             "name": "Bánh mè xững Huế",
             "price": 5000,
-            "originPrice": 6000
+            "originPrice": 6000,
+            "salePercent": 17,
+            "soldQuantity": 400,
+            "reviewQuantity": 150,
+            "rate": 4.7,
+            "shortDescription": "Bánh mè xững Huế giòn tan, thơm ngon."
         },
         {
             "id": 7,
             "image": "7.png",
             "name": "Bánh nêm Huế",
             "price": 21000,
-            "originPrice": 23000
+            "originPrice": 23000,
+            "salePercent": 9,
+            "soldQuantity": 350,
+            "reviewQuantity": 13,
+            "rate": 3,
+            "shortDescription": "Bánh nêm Huế thơm ngon, đậm đà hương vị truyền thống."
         },
         {
             "id": 8,
             "image": "8.png",
             "name": "Bánh ép Huế",
             "price": 25000,
-            "originPrice": 28000
+            "originPrice": 28000,
+            "salePercent": 11,
+            "soldQuantity": 500,
+            "reviewQuantity": 2,
+            "rate": 2,
+            "shortDescription": "Bánh ép Huế giòn tan, thơm ngon."
         }
     ],
     "category": [

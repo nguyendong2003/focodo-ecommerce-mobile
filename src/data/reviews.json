@@ -1,10 +1,36 @@
 {
+    "overallReview": {
+        "averageRate": 3,
+        "totalReview": 100000,
+        "rateDetail": [
+            {
+                "rate": 5,
+                "rateQuantity": 40000
+            },
+            {
+                "rate": 4,
+                "rateQuantity": 30000
+            },
+            {
+                "rate": 3,
+                "rateQuantity": 10000
+            },
+            {
+                "rate": 2,
+                "rateQuantity": 10000
+            },
+            {
+                "rate": 1,
+                "rateQuantity": 10000
+            }
+        ]
+    },
     "reviews": [
         {
             "id": 1,
             "time": "01/01/2023 10:00",
             "rate": 5,
-            "comment": "Sản phẩm rất tốt, tôi rất hài lòng!",
+            "comment": "Sản phẩm rất tốt, tôi rất hài lòng! Sản phẩm rất tốt, tôi rất hài lòng! Sản phẩm rất tốt, tôi rất hài lòng! Sản phẩm rất tốt, tôi rất hài lòng!",
             "user": {
                 "id": 101,
                 "name": "Nguyễn Văn A",

@@ -5,7 +5,6 @@ const dimensionWidth = Dimensions.get('window').width;
 
 const ProductCard = ({ product, navigation }) => {
 
-
     return (
         <TouchableOpacity activeOpacity={0.5}
             onPress={() => navigation.navigate('ProductDetail', { productId: product.id })}
@@ -20,7 +19,7 @@ const ProductCard = ({ product, navigation }) => {
                     style={{ width: dimensionWidth / 2 - 12, height: dimensionWidth / 2 - 12 }}
                 />
                 <View className="bg-red-500 absolute top-0 right-0 rounded-lg p-1">
-                    <Text className="text-white text-sm">53%</Text>
+                    <Text className="text-white text-sm">{product.salePercent}%</Text>
                     <Text className="text-white text-sm">OFF</Text>
                 </View>
             </View>
@@ -34,15 +33,15 @@ const ProductCard = ({ product, navigation }) => {
                     <Rating
                         type="star"
                         fractions={1}
-                        startingValue={4.5}
+                        startingValue={product?.rate}
                         readonly={true}
                         imageSize={14}
                         className="my-2"
                     />
-                    <Text className="text-gray-500 text-sm mx-1 shrink" numberOfLines={1}>({new Intl.NumberFormat('vi-VN').format(20513)})</Text>
+                    <Text className="text-gray-500 text-sm mx-1 shrink" numberOfLines={1}>({new Intl.NumberFormat('vi-VN').format(product.reviewQuantity)})</Text>
                 </View>
 
-                <Text className="text-slate-600">Đã bán: {new Intl.NumberFormat('vi-VN').format(114999)}</Text>
+                <Text className="text-slate-600">Đã bán: {new Intl.NumberFormat('vi-VN').format(product.soldQuantity)}</Text>
 
                 <Text className="text-red-500 text-lg italic">
                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
