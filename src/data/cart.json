@@ -29,6 +29,26 @@
             "salePercent": 20,
             "quantity": 3,
             "isChecked": false
+        },
+        {
+            "id": 4,
+            "image": "4.png",
+            "name": "Bánh ít lá gai",
+            "price": 12000,
+            "originPrice": 15000,
+            "salePercent": 20,
+            "quantity": 5,
+            "isChecked": true
+        },
+        {
+            "id": 5,
+            "image": "5.png",
+            "name": "Bánh nậm Huế",
+            "price": 18000,
+            "originPrice": 22000,
+            "salePercent": 18,
+            "quantity": 4,
+            "isChecked": false
         }
     ]
 }

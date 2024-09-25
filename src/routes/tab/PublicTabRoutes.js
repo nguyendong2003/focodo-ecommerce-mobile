@@ -1,6 +1,5 @@
 import HomePageScreen from "../../screens/HomePageScreen"
 import CategoryScreen from "../../screens/CategoryScreen"
-import CartScreen from "../../screens/CartScreen"
 import ProfileScreen from "../../screens/ProfileScreen"
 import OtherScreen from "../../screens/OtherScreen"
 import { Icon } from "@rneui/themed"
@@ -103,37 +102,6 @@ const PublicTabRoutes = [
                         </TouchableOpacity>
                     </View>
 
-                );
-            },
-        },
-    },
-    {
-        name: 'Cart',
-        component: CartScreen,
-        options: {
-            // headerShown: false,
-            tabBarLabel: 'Giỏ hàng',
-            tabBarIcon: ({ color, size }) => (
-                <Icon type="entypo" name="shopping-cart" color={color} size={size} />
-            ),
-            headerShown: true,
-            headerTitle: 'Giỏ hàng',
-            headerTitleAlign: 'center',
-            headerStyle: {
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5, // For Android
-            },
-            headerLeft: () => {
-                const navigation = useNavigation();
-                return (
-                    <TouchableOpacity activeOpacity={0.5}
-                        onPress={() => navigation.goBack()}
-                    >
-                        <Icon type="feather" name="chevron-left" style={{ marginLeft: 16 }} />
-                    </TouchableOpacity>
                 );
             },
         },

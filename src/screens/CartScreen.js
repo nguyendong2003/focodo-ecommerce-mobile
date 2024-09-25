@@ -40,6 +40,7 @@ const CartScreen = ({ navigation }) => {
     const handlePurchase = () => {
         // call api here
         console.log('ids:', Object.keys(selectedItems));
+        navigation.navigate('Address');
     };
 
     return (

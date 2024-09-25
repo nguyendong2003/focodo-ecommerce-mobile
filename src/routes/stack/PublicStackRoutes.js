@@ -8,10 +8,9 @@ import SearchProductScreen from "../../screens/SearchProductScreen";
 import MainTabNavigator from "../MainTabNavigator";
 import HeaderSearchProduct from "../../components/header/HeaderSearchProduct";
 import HeaderProductList from "../../components/header/HeaderProductList";
-import HeaderProductDetail from "../../components/header/HeaederProductDetail";
 import ProductDescriptionScreen from "../../screens/ProductDescriptionScreen";
-import HeaderProductDescription from "../../components/header/HeaderProductDescription";
-import HeaderProductReview from "../../components/header/HeaderProductReview";
+import { TouchableOpacity } from "react-native";
+import { Icon } from "@rneui/themed";
 
 // options: {
 //     // tabBarButton: (props) => null,
@@ -43,27 +42,75 @@ const PublicStackRoutes = [
         component: ProductDetailScreen,
         options: ({ navigation }) => ({
             headerShown: true,
-            header: () => <HeaderProductDetail navigation={navigation} />,
-            // headerTransparent: true,
-        }),
+            headerTitle: 'Chi tiết sản phẩm',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
     },
     {
         name: 'ProductDescription',
         component: ProductDescriptionScreen,
         options: ({ navigation }) => ({
             headerShown: true,
-            header: () => <HeaderProductDescription navigation={navigation} />,
-            // headerTransparent: true,
-        }),
+            headerTitle: 'Mô tả sản phẩm',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
     },
     {
         name: 'Review',
         component: ReviewScreen,
         options: ({ navigation }) => ({
             headerShown: true,
-            header: () => <HeaderProductReview navigation={navigation} />,
-            // headerTransparent: true,
-        }),
+            headerTitle: 'Đánh giá sản phẩm',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
     },
     {
         name: 'SearchProduct',

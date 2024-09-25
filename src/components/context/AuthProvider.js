@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     //     setIsLoggedIn(false);
     // };
 
-    const [userLogin, setUserLogin] = useState(null)
+    const [userLogin, setUserLogin] = useState({})
     const login = () => {
         setUserLogin({});
     };
