@@ -7,7 +7,7 @@ import { Button } from "@rneui/themed";
 
 const CartScreen = ({ navigation }) => {
     const [cartList, setCartList] = useState([]);
-    const [selectedItems, setSelectedItems] = useState([]);
+    const [selectedItems, setSelectedItems] = useState({});
 
     // console.log(selectedItems);
 
@@ -15,12 +15,18 @@ const CartScreen = ({ navigation }) => {
         // call api here
         const carts = result.cart;
         //
-        const checkedCartItems = carts
-            .filter(item => item.isChecked)
-            .map(item => ({ id: item.id, price: item.price, quantity: item.quantity }));
+        const checkedItems = {}
+        carts.forEach(item => {
+            if (item.isChecked) {
+                checkedItems[item.id] = {
+                    price: item.price,
+                    quantity: item.quantity
+                };
+            }
+        });
 
         setCartList(carts);
-        setSelectedItems(checkedCartItems);
+        setSelectedItems(checkedItems);
     }, []);
 
     const handleRemoveCartItem = (id) => {
@@ -33,8 +39,7 @@ const CartScreen = ({ navigation }) => {
 
     const handlePurchase = () => {
         // call api here
-        const ids = selectedItems.map(item => item.id);
-        console.log('ids:', ids);
+        console.log('ids:', Object.keys(selectedItems));
     };
 
     return (

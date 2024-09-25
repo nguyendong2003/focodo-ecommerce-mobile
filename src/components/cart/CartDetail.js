@@ -12,7 +12,11 @@ const CartDetail = ({ selectedItems }) => {
     const [finalPrice, setFinalPrice] = useState(0);
 
     useEffect(() => {
-        const total = selectedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        // const total = selectedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        let total = 0;
+        Object.values(selectedItems).forEach(item => {
+            total += item.price * item.quantity;
+        });
         const discount = total * (discountPercent / 100);
         const final = total - discount;
 

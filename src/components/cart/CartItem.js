@@ -6,31 +6,35 @@ import Dialog from "react-native-dialog";
 
 const CartItem = ({
     item,
-    selectedItems,
     setSelectedItems,
     handleRemoveCartItem
 }) => {
+    const [visible, setVisible] = useState(false);
     const { id, price } = item;
     const [quantity, setQuantity] = useState(item.quantity);
     const [isChecked, setIsChecked] = useState(item.isChecked);
 
-    const [visible, setVisible] = useState(false);
-
-
-
     useEffect(() => {
         if (isChecked) {
-            const checkedCartItems = selectedItems.filter(item => item.id !== id);
-            setSelectedItems([...checkedCartItems, { id, price, quantity }]);
+            setSelectedItems(prev => ({
+                ...prev,
+                [id]: { price, quantity }
+            }));
         } else {
-            setSelectedItems(selectedItems.filter(item => item.id !== id));
+            setSelectedItems(prev => {
+                const newSelectedItems = { ...prev };
+                delete newSelectedItems[id];
+                return newSelectedItems;
+            })
         }
     }, [isChecked]);
 
     useEffect(() => {
         if (isChecked) {
-            const checkedCartItems = selectedItems.filter(item => item.id !== id);
-            setSelectedItems([...checkedCartItems, { id, price, quantity }]);
+            setSelectedItems(prev => ({
+                ...prev,
+                [id]: { price, quantity }
+            }));
         }
     }, [quantity]);
 
