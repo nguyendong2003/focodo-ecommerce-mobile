@@ -6,6 +6,7 @@ import result from "../../data/products.json"
 import WebView from 'react-native-webview';
 import { TouchableOpacity } from 'react-native';
 import PagerView from 'react-native-pager-view';
+import { formatCurrency, formatNumber } from '../../utils/FormatNumber';
 
 const screenWidth = Dimensions.get('screen').width;
 
@@ -106,13 +107,13 @@ const ProductInfo = ({ navigation, productId }) => {
                         imageSize={14}
                         className="items-start"
                     />
-                    <Text className="text-gray-500 text-sm">({new Intl.NumberFormat('vi-VN').format(product?.reviewQuantity)})</Text>
-                    <Text className="text-gray-500 text-sm">Đã bán: {new Intl.NumberFormat('vi-VN').format(product?.soldQuantity)}</Text>
+                    <Text className="text-gray-500 text-sm">({formatNumber(product?.reviewQuantity)})</Text>
+                    <Text className="text-gray-500 text-sm">Đã bán: {formatNumber(product?.soldQuantity)}</Text>
                 </View>
                 <View className="flex-row items-center gap-x-4">
-                    <Text className=" text-red-500 text-2xl font-bold">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product?.price)}</Text>
+                    <Text className=" text-red-500 text-2xl font-bold">{formatCurrency(product?.price)}</Text>
                     <Text className=" text-gray-500 text-sm bg-gray-200 rounded-lg px-1">-{product?.salePercent}%</Text>
-                    <Text className=" text-gray-500 text-sm line-through">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product?.originPrice)}</Text>
+                    <Text className=" text-gray-500 text-sm line-through">{formatCurrency(product?.originPrice)}</Text>
                 </View>
 
                 <Text className="text-black text-base italic">{product?.shortDescription}</Text>

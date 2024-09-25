@@ -19,7 +19,7 @@ const getReviewText = (rate) => {
 };
 const ReviewCard = ({ review }) => {
     return (
-        <View className="gap-y-1 p-3 bg-white">
+        <View className="gap-y-1 p-3 bg-white border-t-2 border-t-gray-100">
             <View className="flex-row gap-x-1 items-center">
                 <Image
                     // source={require('../../static/images/products/1.png')} 

@@ -1,5 +1,6 @@
 import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
 import { Rating } from 'react-native-ratings';
+import { formatCurrency, formatNumber } from '../../utils/FormatNumber';
 
 const dimensionWidth = Dimensions.get('window').width;
 
@@ -38,16 +39,18 @@ const ProductCard = ({ product, navigation }) => {
                         imageSize={14}
                         className="my-2"
                     />
-                    <Text className="text-gray-500 text-sm mx-1 shrink" numberOfLines={1}>({new Intl.NumberFormat('vi-VN').format(product.reviewQuantity)})</Text>
+                    <Text className="text-gray-500 text-sm mx-1 shrink" numberOfLines={1}>
+                        {(formatNumber(product?.reviewQuantity))}
+                    </Text>
                 </View>
 
-                <Text className="text-slate-600">Đã bán: {new Intl.NumberFormat('vi-VN').format(product.soldQuantity)}</Text>
+                <Text className="text-slate-600">Đã bán: {formatNumber(product?.soldQuantity)}</Text>
 
                 <Text className="text-red-500 text-lg italic">
-                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
+                    {formatCurrency(product?.price)}
                 </Text>
                 <Text className="text-slate-500 text-base line-through italic">
-                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.originPrice)}
+                    {formatCurrency(product?.originPrice)}
                 </Text>
             </View>
 

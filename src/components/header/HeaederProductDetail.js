@@ -15,7 +15,6 @@ const HeaderProductDetail = ({ navigation }) => {
             }}
         >
             <TouchableOpacity
-                // className="px-2"
                 onPress={() => navigation.goBack()}>
                 <Icon type="feather" name="chevron-left" />
             </TouchableOpacity>
@@ -23,23 +22,9 @@ const HeaderProductDetail = ({ navigation }) => {
             <Text className="text-gray-600 text-lg font-bold">Chi tiết sản phẩm</Text>
 
             <TouchableOpacity
-                // className="px-2"
                 onPress={() => navigation.navigate('Cart')}>
                 <Icon type="antdesign" name="shoppingcart" />
             </TouchableOpacity>
-            {/* <TouchableOpacity
-                activeOpacity={0.5}
-                className="flex-1 flex-row items-center border-gray-400 rounded-xl grow border-2 px-3 mx-1 py-2"
-                onPress={() => navigation.navigate('SearchProduct')}
-            >
-                <Icon type="antdesign" name="search1" size={20} color="gray" />
-                <Text
-                    className="flex-1 mx-2 text-gray-500"
-                    numberOfLines={1}
-                >
-                    {subCategory?.name || category?.name || searchItem?.name || query || 'Tìm kiếm sản phẩm'}
-                </Text>
-            </TouchableOpacity> */}
         </View>
     )
 }

@@ -23,7 +23,7 @@ const Review = ({ navigation, productId }) => {
 
             <ReviewOverall overallReview={overallReview} />
 
-            <View className="mt-4 divide-y divide-gray-200">
+            <View className="mt-4 border-b-2 border-b-gray-100">
                 {
                     reviews.map((review) => (
                         <View key={review.id}>

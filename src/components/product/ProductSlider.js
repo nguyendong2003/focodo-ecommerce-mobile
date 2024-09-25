@@ -1,5 +1,6 @@
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Rating } from 'react-native-ratings';
+import { formatCurrency } from '../../utils/FormatNumber';
 
 
 const ProductSlider = ({ product, navigation }) => {
@@ -37,10 +38,10 @@ const ProductSlider = ({ product, navigation }) => {
             </View>
 
             <Text className="text-red-500 text-lg italic">
-                {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
+                {formatCurrency(product?.price)}
             </Text>
             <Text className="text-slate-500 text-base line-through italic">
-                {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.originPrice)}
+                {formatCurrency(product?.originPrice)}
             </Text>
 
 

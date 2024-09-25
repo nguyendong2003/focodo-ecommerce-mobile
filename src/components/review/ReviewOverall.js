@@ -1,6 +1,7 @@
 import { Text, View } from "react-native";
 import * as Progress from 'react-native-progress';
 import { Rating } from 'react-native-ratings';
+import { formatNumber } from "../../utils/FormatNumber";
 
 const ReviewOverall = ({ overallReview }) => {
 
@@ -31,7 +32,7 @@ const ReviewOverall = ({ overallReview }) => {
                     readonly={true}
                     imageSize={20}
                 />
-                <Text className="text-sm text-gray-600">{new Intl.NumberFormat('vi-VN').format(overallReview?.totalReview)} Đánh giá</Text>
+                <Text className="text-sm text-gray-600">{formatNumber(overallReview?.totalReview)} Đánh giá</Text>
             </View>
 
             <View className="items-center mt-1">

@@ -38,17 +38,22 @@ const PublicTabRoutes = [
             headerRight: () => {
                 const navigation = useNavigation();
                 return (
-                    <TouchableOpacity activeOpacity={0.5}
-                        onPress={() => navigation.navigate('SearchProduct')}
-                    >
-                        <Icon
-                            type="ionicon"
-                            name="search"
-                            color="#000"
-                            size={24}
-                            style={{ marginRight: 16 }}
-                        />
-                    </TouchableOpacity>
+                    <View className="flex-row mx-4 gap-x-4">
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => navigation.navigate('SearchProduct')}
+                        >
+                            <Icon type="ionicon" name="search" />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => navigation.navigate('Cart')}
+                        >
+                            <Icon type="antdesign" name="shoppingcart" />
+                        </TouchableOpacity>
+                    </View>
+
                 );
             },
         },
@@ -82,17 +87,22 @@ const PublicTabRoutes = [
             headerRight: () => {
                 const navigation = useNavigation();
                 return (
-                    <TouchableOpacity activeOpacity={0.5}
-                        onPress={() => navigation.navigate('SearchProduct')}
-                    >
-                        <Icon
-                            type="ionicon"
-                            name="search"
-                            color="#000"
-                            size={24}
-                            style={{ marginRight: 16 }}
-                        />
-                    </TouchableOpacity>
+                    <View className="flex-row mx-4 gap-x-4">
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => navigation.navigate('SearchProduct')}
+                        >
+                            <Icon type="ionicon" name="search" />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => navigation.navigate('Cart')}
+                        >
+                            <Icon type="antdesign" name="shoppingcart" />
+                        </TouchableOpacity>
+                    </View>
+
                 );
             },
         },
@@ -101,11 +111,31 @@ const PublicTabRoutes = [
         name: 'Cart',
         component: CartScreen,
         options: {
-            headerShown: false,
+            // headerShown: false,
             tabBarLabel: 'Giỏ hàng',
             tabBarIcon: ({ color, size }) => (
                 <Icon type="entypo" name="shopping-cart" color={color} size={size} />
             ),
+            headerShown: true,
+            headerTitle: 'Giỏ hàng',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5, // For Android
+            },
+            headerLeft: () => {
+                const navigation = useNavigation();
+                return (
+                    <TouchableOpacity activeOpacity={0.5}
+                        onPress={() => navigation.goBack()}
+                    >
+                        <Icon type="feather" name="chevron-left" style={{ marginLeft: 16 }} />
+                    </TouchableOpacity>
+                );
+            },
         },
     },
     {

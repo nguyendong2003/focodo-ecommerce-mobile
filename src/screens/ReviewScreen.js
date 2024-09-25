@@ -23,7 +23,7 @@ const ReviewScreen = ({ navigation, productId }) => {
             renderItem={({ item }) => <ReviewCard review={item} />}
             keyExtractor={item => item.id.toString()}
             showsVerticalScrollIndicator={false}
-            ItemSeparatorComponent={() => <View className="border-t border-gray-200" />}
+            ItemSeparatorComponent={() => <View className="border-t-2 border-gray-400" />}
             ListHeaderComponent={() => <ReviewOverall overallReview={overallReview} />}
         />
     );
