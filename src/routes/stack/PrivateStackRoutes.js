@@ -1,9 +1,9 @@
 import { TouchableOpacity } from "react-native"
-import AddressScreen from "../../screens/AddressScreen"
 import CartScreen from "../../screens/CartScreen"
 import OrderScreen from "../../screens/OrderScreen"
 import PaymentScreen from "../../screens/PaymentScreen"
 import { Icon } from "@rneui/themed"
+import ShippingInfoScreen from "../../screens/ShippingInfoScreen"
 
 const PrivateStackRoutes = [
     {
@@ -42,11 +42,11 @@ const PrivateStackRoutes = [
         })
     },
     {
-        name: 'Address',
-        component: AddressScreen,
+        name: 'ShippingInfo',
+        component: ShippingInfoScreen,
         options: ({ navigation }) => ({
             headerShown: true,
-            headerTitle: 'Địa chỉ nhận hàng',
+            headerTitle: 'Thông tin giao hàng',
             headerTitleAlign: 'center',
             headerStyle: {
                 shadowColor: '#000',
