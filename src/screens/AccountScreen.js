@@ -120,6 +120,18 @@ const AccountScreen = ({ navigation }) => {
                     <Icon type='feather' name='chevron-right' size={24} />
                 </TouchableOpacity>
             </View>
+
+            <TouchableOpacity
+                activeOpacity={0.6}
+                className="p-2 border-red-500 rounded m-4"
+                style={{ borderWidth: 1 }}
+                onPress={() => {
+                    logout();
+                    navigation.navigate('HomePage');
+                }}
+            >
+                <Text className="text-center text-red-500 text-lg">Đăng xuất</Text>
+            </TouchableOpacity>
         </ScrollView >
     );
 };

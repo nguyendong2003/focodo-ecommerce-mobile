@@ -7,24 +7,28 @@ import * as yup from 'yup'
 const validationSchema = yup.object().shape({
     name: yup
         .string()
-        .matches(/(\w.+\s).+/, 'Enter at least 2 names')
-        .required('Full name is required'),
+        // .matches(/(\w.+\s).+/, 'Enter at least 2 names')
+        .min(2, 'Tên người nhận phải có ít nhất 2 ký tự')
+        .max(50, 'Tên người nhận không được quá 50 ký tự')
+        .required('Tên người nhận không được để trống'),
+    email: yup
+        .string()
+        .email("Địa chỉ email không hợp lệ")
+        .required('Địa chỉ email không được để trống'),
     phone: yup
         .string()
         .matches(/(01)(\d){8}\b/, 'Enter a valid phone number')
-        .required('Phone number is required'),
+        .required('Số điện thoại không được để trống'),
     address: yup
         .string()
-        .matches(/(\w.+\s).+/, 'Enter at least 2 names')
-        .required('Address is required'),
+        // .matches(/(\w.+\s).+/, 'Enter at least 2 names')
+        .min(2, 'Địa chỉ phải có ít nhất 2 ký tự')
+        .max(100, 'Địa chỉ không được quá 50 ký tự')
+        .required('Địa chỉ không được để trống'),
     paymentMethod: yup
         .string()
-        .oneOf(['cash', 'e-wallet'], 'Please select a payment method')
-        .required('Payment method is required'),
-    email: yup
-        .string()
-        .email("Please enter valid email")
-        .required('Email is required'),
+        .oneOf(['cash', 'e-wallet'], 'Hãy chọn 1 phương thức thanh toán')
+        .required('Phương thức thanh toán không được để trống'),
     password: yup
         .string()
         .matches(/\w*[a-z]\w*/, "Password must have a small letter")
@@ -39,6 +43,7 @@ const validationSchema = yup.object().shape({
         .required('Confirm password is required'),
 })
 
+// https://formik.org/docs/guides/validation
 // uncontrolled component with Formik: https://blog.logrocket.com/react-native-form-validations-with-formik-and-yup
 const ShippingInfoScreen = ({ navigation }) => {
 
@@ -101,7 +106,7 @@ const ShippingInfoScreen = ({ navigation }) => {
                                 onBlur={handleBlur('address')}
                                 value={values.address}
                             />
-                            {errors.address &&
+                            {(errors.address && touched.address) &&
                                 <Text className="text-red-500 text-sm">{errors.address}</Text>
                             }
                         </View>

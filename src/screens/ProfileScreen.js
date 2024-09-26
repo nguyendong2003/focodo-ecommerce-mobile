@@ -7,7 +7,9 @@ import * as ImagePicker from 'expo-image-picker';
 
 const ProfileScreen = ({ navigation }) => {
     const { userLogin, setUserLogin, login, logout } = useContext(AuthContext)
+
     const [selectedImage, setSelectedImage] = useState(userLogin?.image || null);
+
     const [visibleModalImage, setVisibleModalImage] = useState(false);
     const [visible, setVisible] = useState(false);
     const [field, setField] = useState('');
@@ -39,6 +41,24 @@ const ProfileScreen = ({ navigation }) => {
         //     alert('You did not select any image.');
         // }
     };
+
+    const handleChangeImage = () => {
+        pickImageAsync();
+        setVisibleModalImage(false);
+    }
+
+    const handleDeleteImage = () => {
+        setSelectedImage(undefined);
+        setVisibleModalImage(false);
+    }
+
+    useEffect(() => {
+        if (selectedImage) {
+            setUserLogin({ ...userLogin, image: selectedImage });
+        } else if (selectedImage === undefined) {
+            setUserLogin({ ...userLogin, image: null });
+        }
+    }, [selectedImage])
 
 
     return (
@@ -111,18 +131,6 @@ const ProfileScreen = ({ navigation }) => {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity
-                activeOpacity={0.6}
-                className="p-2 border-red-500 rounded m-4"
-                style={{ borderWidth: 1 }}
-                onPress={() => {
-                    logout();
-                    navigation.navigate('HomePage');
-                }}
-            >
-                <Text className="text-center text-red-500 text-lg">Đăng xuất</Text>
-            </TouchableOpacity>
-
             <Dialog.Container
                 visible={visible}
                 onBackdropPress={() => setVisible(false)}
@@ -168,10 +176,7 @@ const ProfileScreen = ({ navigation }) => {
                     <View className="h-1/5 w-full bg-white rounded-t-2xl p-5">
                         <TouchableOpacity
                             className="flex-row items-center p-3"
-                            onPress={() => {
-                                pickImageAsync();
-                                setVisibleModalImage(false);
-                            }}
+                            onPress={handleChangeImage}
                         >
                             <Icon type='material' name="add-photo-alternate" size={24} color="#050505" />
                             <Text className="text-lg font-bold text-black ml-3">
@@ -180,10 +185,7 @@ const ProfileScreen = ({ navigation }) => {
                         </TouchableOpacity>
                         <TouchableOpacity
                             className="flex-row items-center p-3"
-                            onPress={() => {
-                                setSelectedImage(null);
-                                setVisibleModalImage(false);
-                            }}
+                            onPress={handleDeleteImage}
                         >
                             <Icon type='feather' name="trash-2" size={24} color="#050505" />
                             <Text className="text-lg font-bold text-black ml-3">
