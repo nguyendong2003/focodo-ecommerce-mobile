@@ -52,10 +52,8 @@ const CartItem = ({
         const newQuantity = parseInt(text);
         if (!isNaN(newQuantity) && newQuantity > 0) {
             setQuantity(newQuantity);
-            onQuantityChange(item.id, newQuantity);
         } else {
             setQuantity(1);
-            onQuantityChange(item.id, 1);
         }
     };
 

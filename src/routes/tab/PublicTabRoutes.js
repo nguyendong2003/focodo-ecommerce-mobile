@@ -1,17 +1,15 @@
 import HomePageScreen from "../../screens/HomePageScreen"
 import CategoryScreen from "../../screens/CategoryScreen"
-import ProfileScreen from "../../screens/ProfileScreen"
-import OtherScreen from "../../screens/OtherScreen"
 import { Icon } from "@rneui/themed"
-import { Image, TouchableOpacity, View } from "react-native"
-import { useNavigation } from "@react-navigation/native"
+import { Image, Text, TouchableOpacity, View } from "react-native"
 import NotificationScreen from "../../screens/NotificationScreen"
+import AccountScreen from "../../screens/AccountScreen"
 
 const PublicTabRoutes = [
     {
         name: 'HomePage',
         component: HomePageScreen,
-        options: {
+        options: ({ navigation }) => ({
             tabBarLabel: 'Trang chủ',
             tabBarIcon: ({ color, size }) => (
                 <Icon type="entypo" name="home" color={color} size={size} />
@@ -35,7 +33,6 @@ const PublicTabRoutes = [
 
             ),
             headerRight: () => {
-                const navigation = useNavigation();
                 return (
                     <View className="flex-row mx-4 gap-x-4">
                         <TouchableOpacity
@@ -55,12 +52,12 @@ const PublicTabRoutes = [
 
                 );
             },
-        },
+        }),
     },
     {
         name: 'Category',
         component: CategoryScreen,
-        options: {
+        options: ({ navigation }) => ({
             tabBarLabel: 'Danh mục',
             tabBarIcon: ({ color, size }) => (
                 <Icon type="feather" name="grid" color={color} size={size} />
@@ -84,7 +81,6 @@ const PublicTabRoutes = [
 
             ),
             headerRight: () => {
-                const navigation = useNavigation();
                 return (
                     <View className="flex-row mx-4 gap-x-4">
                         <TouchableOpacity
@@ -104,7 +100,7 @@ const PublicTabRoutes = [
 
                 );
             },
-        },
+        }),
     },
     {
         name: 'Notification',
@@ -117,24 +113,45 @@ const PublicTabRoutes = [
         },
     },
     {
-        name: 'Profile',
-        component: ProfileScreen,
-        options: {
-            tabBarLabel: 'Tôi',
+        name: 'Account',
+        component: AccountScreen,
+        options: ({ navigation }) => ({
+            tabBarLabel: 'Tài khoản',
             tabBarIcon: ({ color, size }) => (
                 <Icon type="ionicon" name="person" color={color} size={size} />
             ),
-        },
-    },
-    {
-        name: 'Other',
-        component: OtherScreen,
-        options: {
-            tabBarLabel: 'Khác',
-            tabBarIcon: ({ color, size }) => (
-                <Icon type="feather" name="more-horizontal" color={color} size={size} />
-            ),
-        },
+            headerTitle: 'Tài khoản',
+            headerTitleStyle: {
+                fontSize: 18,
+            },
+            headerRight: () => {
+                return (
+                    <View className="flex-row mx-4 gap-x-4 items-center">
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => alert('Cài đặt')}
+                        >
+                            <Icon type="feather" name="settings" size={22} />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            activeOpacity={0.5}
+                            onPress={() => navigation.navigate('Cart')}
+                        >
+                            <Icon type="antdesign" name="shoppingcart" />
+                        </TouchableOpacity>
+                    </View>
+
+                );
+            },
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+        }),
     },
 ];
 

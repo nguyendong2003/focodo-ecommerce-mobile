@@ -1,9 +1,10 @@
 import { TouchableOpacity } from "react-native"
+import { Icon } from "@rneui/themed"
 import CartScreen from "../../screens/CartScreen"
 import OrderScreen from "../../screens/OrderScreen"
 import PaymentScreen from "../../screens/PaymentScreen"
-import { Icon } from "@rneui/themed"
 import ShippingInfoScreen from "../../screens/ShippingInfoScreen"
+import ProfileScreen from "../../screens/ProfileScreen"
 
 const PrivateStackRoutes = [
     {
@@ -47,6 +48,31 @@ const PrivateStackRoutes = [
         options: ({ navigation }) => ({
             headerShown: true,
             headerTitle: 'Thông tin giao hàng',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
+    },
+    {
+        name: 'Profile',
+        component: ProfileScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Thông tin tài khoản',
             headerTitleAlign: 'center',
             headerStyle: {
                 shadowColor: '#000',
