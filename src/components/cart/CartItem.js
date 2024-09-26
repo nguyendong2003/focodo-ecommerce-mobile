@@ -61,7 +61,7 @@ const CartItem = ({
 
     return (
         <View>
-            <TouchableOpacity activeOpacity={0.5} className="flex-row p-4 pl-2 items-center border-b-2 border-gray-100">
+            <TouchableOpacity activeOpacity={0.5} className="flex-row p-4 pl-0 items-center border-b-2 border-gray-100">
                 <CheckBox
                     iconType="material-community"
                     checkedIcon="checkbox-marked"

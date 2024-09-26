@@ -107,22 +107,22 @@ const PublicTabRoutes = [
         },
     },
     {
-        name: 'Profile',
-        component: ProfileScreen,
-        options: {
-            tabBarLabel: 'Tôi',
-            tabBarIcon: ({ color, size }) => (
-                <Icon type="ionicon" name="person" color={color} size={size} />
-            ),
-        },
-    },
-    {
         name: 'Notification',
         component: NotificationScreen,
         options: {
             tabBarLabel: 'Thông báo',
             tabBarIcon: ({ color, size }) => (
                 <Icon type="ionicon" name="notifications" color={color} size={size} />
+            ),
+        },
+    },
+    {
+        name: 'Profile',
+        component: ProfileScreen,
+        options: {
+            tabBarLabel: 'Tôi',
+            tabBarIcon: ({ color, size }) => (
+                <Icon type="ionicon" name="person" color={color} size={size} />
             ),
         },
     },
