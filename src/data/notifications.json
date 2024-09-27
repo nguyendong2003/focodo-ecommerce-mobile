@@ -1,0 +1,34 @@
+{
+    "notifications": [
+        {
+            "id": 1,
+            "title": "Thông báo 1",
+            "description": "Mô tả thông báo 1. Mô tả thông báo 1. Mô tả thông báo 1. Mô tả thông báo 1. Mô tả thông báo 1",
+            "image": "https://i.pravatar.cc/150?img=1"
+        },
+        {
+            "id": 2,
+            "title": "Thông báo 2",
+            "description": "Mô tả thông báo 2",
+            "image": "https://i.pravatar.cc/150?img=2"
+        },
+        {
+            "id": 3,
+            "title": "Thông báo 3",
+            "description": "Mô tả thông báo 3",
+            "image": "https://i.pravatar.cc/150?img=3"
+        },
+        {
+            "id": 4,
+            "title": "Thông báo 4",
+            "description": "Mô tả thông báo 4",
+            "image": "https://i.pravatar.cc/150?img=4"
+        },
+        {
+            "id": 5,
+            "title": "Thông báo 5",
+            "description": "Mô tả thông báo 5",
+            "image": "https://i.pravatar.cc/150?img=5"
+        }
+    ]
+}
