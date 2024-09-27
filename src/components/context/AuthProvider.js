@@ -27,7 +27,9 @@ export const AuthProvider = ({ children }) => {
         role: 'USER'
     }
 
-    const [userLogin, setUserLogin] = useState(userInfo)
+    const userInfo2 = null
+
+    const [userLogin, setUserLogin] = useState(userInfo2)
     const login = () => {
         setUserLogin(userInfo);
     };

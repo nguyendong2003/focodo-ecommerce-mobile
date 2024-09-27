@@ -42,7 +42,7 @@ const AccountScreen = ({ navigation }) => {
                         <TouchableOpacity
                             activeOpacity={0.6}
                             className="px-2 py-1 border-2 border-blue-600 rounded-lg justify-center"
-                            onPress={() => navigation.navigate('Guide')}
+                            onPress={() => navigation.navigate('Login')}
                         >
                             <Text className="text-sm text-blue-600 text-center">Đăng nhập/Tạo tài khoản</Text>
                         </TouchableOpacity>
