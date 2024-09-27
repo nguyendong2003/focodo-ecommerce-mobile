@@ -15,8 +15,8 @@ const OrderConfirmScreen = ({ navigation, route }) => {
     }, [])
 
     const handleSubmit = () => {
-        Alert.alert('Đặt hàng thành công!')
-        navigation.navigate('HomePage')
+        // Alert.alert('Đặt hàng thành công!')
+        navigation.navigate('OrderSuccess', { order })
     }
 
     return (

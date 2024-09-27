@@ -158,7 +158,7 @@ const ProductInfo = ({ navigation, productId }) => {
                 <View className="mt-2">
                     <Text className="text-black text-xl font-bold">Mô tả sản phẩm</Text>
                     <WebView
-                        style={{ height: 300 }} // Điều chỉnh chiều cao cho phù hợp
+                        style={{ height: 150 }} // Điều chỉnh chiều cao cho phù hợp
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         originWhitelist={['*']}

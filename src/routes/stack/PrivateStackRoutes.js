@@ -7,6 +7,7 @@ import ProfileScreen from "../../screens/ProfileScreen"
 import OrderTabNavigator from "../OrderTabNavigator"
 import OrderDetailScreen from "../../screens/OrderDetailScreen"
 import OrderConfirmScreen from "../../screens/OrderConfirmScreen"
+import OrderSuccessScreen from "../../screens/OrderSuccessScreen"
 
 const PrivateStackRoutes = [
     {
@@ -158,6 +159,13 @@ const PrivateStackRoutes = [
                 )
             }
         })
+    },
+    {
+        name: 'OrderSuccess',
+        component: OrderSuccessScreen,
+        // options: ({ navigation }) => ({
+        //     headerBackVisible: false
+        // })
     },
     {
         name: 'Payment',

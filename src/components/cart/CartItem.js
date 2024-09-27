@@ -77,7 +77,7 @@ const CartItem = ({
                     checkedIcon="checkbox-marked"
                     uncheckedIcon="checkbox-blank-outline"
                     checkedColor="#000"
-                    size={28}
+                    size={24}
                     containerStyle={{ padding: 0, marginHorizontal: 0 }}
                     checked={isChecked}
                     onPress={() => setIsChecked(!isChecked)}
