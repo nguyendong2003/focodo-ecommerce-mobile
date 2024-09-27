@@ -96,7 +96,7 @@ const ProductInfo = ({ navigation, productId }) => {
                 </View>
             </View>
             <View className="mt-2 px-4">
-                <Text className="text-black text-xl font-bold">{product?.name}</Text>
+                <Text className="text-black text-base font-bold">{product?.name}</Text>
 
                 <View className="flex-row items-center gap-x-2" >
                     <Text className="text-black text-sm font-bold">{product?.rate.toFixed(1)}</Text>
@@ -116,11 +116,11 @@ const ProductInfo = ({ navigation, productId }) => {
                     <Text className=" text-gray-500 text-sm line-through">{formatCurrency(product?.originPrice)}</Text>
                 </View>
 
-                <Text className="text-black text-base italic">{product?.shortDescription}</Text>
+                <Text className="text-black text-sm italic">{product?.shortDescription}</Text>
 
 
                 <View className="flex-row items-center mt-1">
-                    <Text className="text-black text-base font-semibold mr-4">Số lượng:</Text>
+                    <Text className="text-black text-sm font-semibold mr-4">Số lượng:</Text>
                     <Icon type="antdesign" name="minus" onPress={handleDecrease} size={24} />
                     <TextInput
                         className="w-14 px-3 mx-2 text-center border border-gray-300 rounded"
@@ -150,8 +150,8 @@ const ProductInfo = ({ navigation, productId }) => {
                 <View className="mt-2 flex-row items-center">
                     <Icon type="feather" name="truck" color="#000" size={28} />
                     <View className="p-2">
-                        <Text className="text-base text-gray-600 ">Thời gian vận chuyển dự kiến</Text>
-                        <Text className="text-base text-gray-600 ">1 giờ - 3 ngày</Text>
+                        <Text className="text-sm text-gray-600 ">Thời gian vận chuyển dự kiến</Text>
+                        <Text className="text-sm text-gray-600 ">1 giờ - 3 ngày</Text>
                     </View>
                 </View>
 
@@ -162,82 +162,12 @@ const ProductInfo = ({ navigation, productId }) => {
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         originWhitelist={['*']}
-                        source={{
-                            html: `
-      <!DOCTYPE html>
-      <html lang="vi">
-        <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-          <style>
-            body {
-              font-family: Arial, sans-serif;
-              padding: 10px;
-              line-height: 1.6;
-              background-color: #fff;
-            }
-            h2, h3 {
-              color: #333;
-            }
-            ul {
-              list-style-type: none;
-              padding-left: 0;
-            }
-            li {
-              margin-bottom: 5px;
-            }
-          </style>
-          <title>Thông tin sản phẩm</title>
-        </head>
-        <body>
-          <h2><center>Thông tin sản phẩm</center></h2>
-          <p><b>Tên sản phẩm:</b></p>
-          <ul>
-            <li>1. Thập Cẩm Gà Quay Vi Cá Jambon Đặc Biệt (1 trứng)</li>
-            <li>2. Thập Cẩm Xá Xíu Lạp Xưởng (1 trứng)</li>
-            <li>3. Thập Cẩm Jambon Xá Xíu Hảo Hạng (1 trứng)</li>
-            <li>4. Sữa Dừa Hoàng Kim (1 trứng)</li>
-            <li>5. Sầu Riêng Dừa Tươi Đặc Biệt (1 trứng)</li>
-            <li>6. Khoai Môn Sữa Hoàng Gia (1 trứng)</li>
-            <li>7. Đậu Đỏ Hạnh Nhân Nhật Bản (1 trứng)</li>
-            <li>8. Imperial Blueberry & Hạt (không trứng)</li>
-            <li>9. Lục Bảo Trà Xanh O-cookie (không trứng)</li>
-            <li>10. Chocolate Cam Navel Đông Trùng Hạ Thảo (không trứng)</li>
-            <li>11. Đào Saffron Hạt Macca (không trứng)</li>
-            <li>12. Cappuccino Custard Yến Tươi (không trứng)</li>
-          </ul>
-          <p><b>Thương hiệu:</b> Nonglamfood</p>
-          <p><b>Khối lượng tịnh / Thể tích thực:</b> 150g</p>
-          <p><b>Hạn sử dụng:</b> 35 ngày kể từ ngày sản xuất.</p>
-          <h3>Lý do chọn bánh trung thu Nonglamfood:</h3>
-          <p>Nhân bánh cao cấp thượng hạng với Vi cá mập, Yến tươi, Đông trùng hạ thảo, saffron, hồng sâm, Trà xanh matcha. Được phối trộn từ nghệ nhân bánh Trung thu với hơn 30 năm kinh nghiệm cho vị đậm đà truyền thống.</p>
-          <p>Hơn 30 vị bánh tươi mới, ít ngọt, có sử dụng đường ăn kiêng isomalt vì sức khỏe người tiêu dùng.</p>
-          <p>Quy trình khép kín và chuẩn chỉnh theo ISO 22000:2018, HACCP từ khâu chọn nguyên liệu đến đóng gói.</p>
-          <p>Hơn 20 mẫu hộp thiết kế độc đáo, sang trọng. Dịch vụ cá nhân hóa thể hiện tính độc bản của thương hiệu doanh nghiệp.</p>
-          <p>Giá sản phẩm trên Tiki đã bao gồm thuế. Tùy vào loại sản phẩm và địa chỉ giao hàng, có thể phát sinh thêm phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu.</p>
-          <script>
-                                                //  // Tính chiều cao của toàn bộ nội dung
-                                                // var body = document.body;
-                                                // var html = document.documentElement;
-                                                // var pageHeight = Math.max(
-                                                //     body.scrollHeight, body.offsetHeight,
-                                                //     html.clientHeight, html.scrollHeight, html.offsetHeight
-                                                // );
-                                                // window.ReactNativeWebView.postMessage(pageHeight); // Gửi chiều cao về ứng dụng
-            window.onload = function() {
-                const height = document.body.scrollHeight;
-                window.ReactNativeWebView.postMessage(height); // Gửi chiều cao về ứng dụng
-            };
-        </script>
-          </body>
-      </html>
-    `
-                        }}
+                        source={{ html: product?.longDescription || '' }}
                     />
                     <TouchableOpacity activeOpacity={0.5}
                         className="p-2 "
                         onPress={() => navigation.navigate('ProductDescription', {
-                            productId
+                            productDescription: product?.longDescription
                         })}>
                         <Text className="text-center text-base text-blue-600">Xem tất cả</Text>
                     </TouchableOpacity>

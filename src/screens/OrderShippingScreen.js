@@ -3,7 +3,7 @@ import OrderCard from '../components/order/OrderCard';
 import result from '../data/orders.json'
 import { useEffect, useState } from 'react';
 
-const OrderScreen = ({ navigation }) => {
+const OrderShippingScreen = ({ navigation }) => {
     const [orders, setOrders] = useState([])
 
     useEffect(() => {
@@ -25,4 +25,4 @@ const OrderScreen = ({ navigation }) => {
     );
 };
 
-export default OrderScreen;
+export default OrderShippingScreen;

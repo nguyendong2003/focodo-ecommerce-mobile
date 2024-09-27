@@ -123,32 +123,77 @@ const PublicStackRoutes = [
     {
         name: 'Guide',
         component: GuideScreen,
-        options: {
-            // tabBarButton: (props) => null,
-            // tabBarVisible: false,
-            // tabBarBadge: 3,
-            // tabBarLabel: 'ReviewScreen',
-        },
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Hướng dẫn sử dụng',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
     },
     {
         name: 'About',
         component: AboutScreen,
-        options: {
-            // tabBarButton: (props) => null,
-            // tabBarVisible: false,
-            // tabBarBadge: 3,
-            // tabBarLabel: 'ReviewScreen',
-        },
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Giới thiệu',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
     },
     {
         name: 'Contact',
         component: ContactScreen,
-        options: {
-            // tabBarButton: (props) => null,
-            // tabBarVisible: false,
-            // tabBarBadge: 3,
-            // tabBarLabel: 'ReviewScreen',
-        },
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Thông tin liên hệ',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
     },
 ];
 

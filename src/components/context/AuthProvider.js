@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
     const userInfo2 = null
 
-    const [userLogin, setUserLogin] = useState(userInfo2)
+    const [userLogin, setUserLogin] = useState(userInfo)
     const login = () => {
         setUserLogin(userInfo);
     };
@@ -38,8 +38,18 @@ export const AuthProvider = ({ children }) => {
         setUserLogin(null);
     };
 
+    const handleNavigate = (navigation, route, options) => {
+        if (userLogin && options) {
+            navigation.navigate(route, options);
+        } else if (userLogin) {
+            navigation.navigate(route);
+        } else {
+            navigation.navigate('Login');
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ userLogin, setUserLogin, login, logout }}>
+        <AuthContext.Provider value={{ userLogin, setUserLogin, login, logout, handleNavigate }}>
             {children}
         </AuthContext.Provider>
     );

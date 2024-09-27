@@ -4,7 +4,7 @@ import { View, Text, Button, TouchableOpacity, ScrollView, Image } from 'react-n
 import { AuthContext } from '../components/context/AuthProvider';
 
 const AccountScreen = ({ navigation }) => {
-    const { userLogin, setUserLogin, login, logout } = useContext(AuthContext)
+    const { userLogin, logout, handleNavigate } = useContext(AuthContext)
     return (
         <ScrollView className="flex-1 bg-white">
             <View className="flex-row items-center gap-x-3 p-4 border-b-4 border-b-gray-200">
@@ -51,11 +51,17 @@ const AccountScreen = ({ navigation }) => {
                 </View>
             </View>
             <View className="px-4 py-2 border-b-4 border-b-gray-200">
-                <Text className="text-gray-600 text-lg font-bold">Đơn hàng của tôi</Text>
+                <TouchableOpacity activeOpacity={0.7} className="flex-row justify-between items-center"
+                    onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'Order' })}
+                >
+                    <Text className="text-gray-600 text-lg font-bold">Đơn hàng của tôi</Text>
+                    <Icon type='feather' name='chevron-right' size={24} />
+                </TouchableOpacity>
                 <View className="flex-row justify-around mt-2 gap-x-3">
                     <TouchableOpacity
                         activeOpacity={0.6}
-                        className="w-1/3"
+                        // className="w-1/3"
+                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderProcess' })}
                     >
                         <Icon type='material-community' name='timer-sand' size={28} color={'#2563eb'} />
                         <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Đang xử lý</Text>
@@ -63,7 +69,8 @@ const AccountScreen = ({ navigation }) => {
 
                     <TouchableOpacity
                         activeOpacity={0.6}
-                        className="w-1/3"
+                        // className="w-1/3"
+                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderShipping' })}
                     >
                         <Icon type='feather' name='truck' size={28} color={'#2563eb'} />
                         <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Đang vận chuyển</Text>
@@ -71,10 +78,20 @@ const AccountScreen = ({ navigation }) => {
 
                     <TouchableOpacity
                         activeOpacity={0.6}
-                        className="w-1/3"
+                        // className="w-1/3"
+                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderFinish' })}
                     >
                         <Icon type='octicon' name='checklist' size={28} color={'#2563eb'} />
                         <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Đã giao</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        activeOpacity={0.6}
+                        // className="w-1/3"
+                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderCancel' })}
+                    >
+                        <Icon type='material-community' name='cancel' size={28} color={'#2563eb'} />
+                        <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Đã hủy</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -82,7 +99,7 @@ const AccountScreen = ({ navigation }) => {
             <TouchableOpacity
                 activeOpacity={0.6}
                 className="flex-row justify-between items-center p-2 pl-4 border-b-4 border-b-gray-200"
-                onPress={() => { }}
+                onPress={() => handleNavigate(navigation, 'Review')}
             >
                 <Text className="text-gray-600 text-lg font-bold">Đánh giá sản phẩm</Text>
                 <Icon type='feather' name='chevron-right' size={24} />
@@ -116,22 +133,25 @@ const AccountScreen = ({ navigation }) => {
                     className="flex-row justify-between items-center p-2 pl-4"
                     onPress={() => navigation.navigate('Contact')}
                 >
-                    <Text className="text-gray-700 text-base">Thông tin liên lạc</Text>
+                    <Text className="text-gray-700 text-base">Thông tin liên hệ</Text>
                     <Icon type='feather' name='chevron-right' size={24} />
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity
-                activeOpacity={0.6}
-                className="p-2 border-red-500 rounded m-4"
-                style={{ borderWidth: 1 }}
-                onPress={() => {
-                    logout();
-                    navigation.navigate('HomePage');
-                }}
-            >
-                <Text className="text-center text-red-500 text-lg">Đăng xuất</Text>
-            </TouchableOpacity>
+            {userLogin && (
+                <TouchableOpacity
+                    activeOpacity={0.6}
+                    className="p-2 border-red-500 rounded m-4"
+                    style={{ borderWidth: 1 }}
+                    onPress={() => {
+                        logout();
+                        navigation.navigate('HomePage');
+                    }}
+                >
+                    <Text className="text-center text-red-500 text-lg">Đăng xuất</Text>
+                </TouchableOpacity>
+            )}
+
         </ScrollView >
     );
 };

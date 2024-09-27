@@ -31,7 +31,8 @@ const CartScreen = ({ navigation }) => {
 
     const handleRemoveCartItem = (id) => {
         const newCartList = cartList.filter(item => item.id !== id);
-        const newSelectedItems = selectedItems.filter(item => item.id !== id);
+        const newSelectedItems = { ...selectedItems };
+        delete newSelectedItems[id];
 
         setCartList(newCartList);
         setSelectedItems(newSelectedItems);
@@ -44,25 +45,32 @@ const CartScreen = ({ navigation }) => {
     };
 
     return (
-        <ScrollView className="flex-1 bg-white"
-            showsVerticalScrollIndicator={false}
-        >
-            <View className="my-2">
-                {
-                    cartList.map((item, index) => (
-                        <CartItem
-                            key={item.id}
-                            item={item}
-                            selectedItems={selectedItems}
-                            setSelectedItems={setSelectedItems}
-                            handleRemoveCartItem={handleRemoveCartItem}
+        <View className="flex-1 bg-white">
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
+                <View className="my-2">
+                    {
+                        cartList.map((item, index) => (
+                            <CartItem
+                                navigation={navigation}
+                                key={item.id}
+                                item={item}
+                                selectedItems={selectedItems}
+                                setSelectedItems={setSelectedItems}
+                                handleRemoveCartItem={handleRemoveCartItem}
 
-                        />
-                    ))
-                }
-            </View>
+                            />
+                        ))
+                    }
+                </View>
 
-            <CartDetail selectedItems={selectedItems} />
+                <CartDetail selectedItems={selectedItems} />
+
+
+
+
+            </ScrollView>
 
             <View className="px-4 pb-5">
                 <Button
@@ -71,9 +79,8 @@ const CartScreen = ({ navigation }) => {
                     onPress={handlePurchase}
                 />
             </View>
+        </View>
 
-
-        </ScrollView>
     );
 }
 

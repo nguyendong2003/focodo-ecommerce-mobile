@@ -10,7 +10,8 @@
             "soldQuantity": 100500,
             "reviewQuantity": 50503,
             "rate": 3.5,
-            "shortDescription": "Bánh bèo Huế không chỉ được coi là món ăn vặt, bạn hoàn toàn có thể thưởng thức thay cơm hay bữa chính trong ngày. Loại bánh này phổ biến ở nhiều địa phương, tuy nhiên, chỉ khi ăn tại Huế, bạn mới cảm nhận được vị ngon đặc trưng, đúng điệu của miền Trung"
+            "shortDescription": "Bánh bèo Huế không chỉ được coi là món ăn vặt, bạn hoàn toàn có thể thưởng thức thay cơm hay bữa chính trong ngày. Loại bánh này phổ biến ở nhiều địa phương, tuy nhiên, chỉ khi ăn tại Huế, bạn mới cảm nhận được vị ngon đặc trưng, đúng điệu của miền Trung",
+            "longDescription": "<!DOCTYPE html>\n<html lang=\"vi\">\n<head>\n<meta charset=\"UTF-8\" />\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0\"/>\n<style>\nbody {\nfont-family: Arial, sans-serif;\npadding: 10px;\nline-height: 1.6;\nbackground-color: #fff;\n}\nh2, h3 {\ncolor: #333;\n}\nul {\nlist-style-type: none;\npadding-left: 0;\n}\nli {\nmargin-bottom: 5px;\n}\n</style>\n<title>Thông tin sản phẩm</title>\n</head>\n<body>\n<h2><center>Thông tin sản phẩm</center></h2>\n<p><b>Tên sản phẩm:</b></p>\n<ul>\n<li>1. Thập Cẩm Gà Quay Vi Cá Jambon Đặc Biệt (1 trứng)</li>\n<li>2. Thập Cẩm Xá Xíu Lạp Xưởng (1 trứng)</li>\n<li>3. Thập Cẩm Jambon Xá Xíu Hảo Hạng (1 trứng)</li>\n<li>4. Sữa Dừa Hoàng Kim (1 trứng)</li>\n<li>5. Sầu Riêng Dừa Tươi Đặc Biệt (1 trứng)</li>\n<li>6. Khoai Môn Sữa Hoàng Gia (1 trứng)</li>\n<li>7. Đậu Đỏ Hạnh Nhân Nhật Bản (1 trứng)</li>\n<li>8. Imperial Blueberry & Hạt (không trứng)</li>\n<li>9. Lục Bảo Trà Xanh O-cookie (không trứng)</li>\n<li>10. Chocolate Cam Navel Đông Trùng Hạ Thảo (không trứng)</li>\n<li>11. Đào Saffron Hạt Macca (không trứng)</li>\n<li>12. Cappuccino Custard Yến Tươi (không trứng)</li>\n</ul>\n</body>\n</html>"
         },
         {
             "id": 2,

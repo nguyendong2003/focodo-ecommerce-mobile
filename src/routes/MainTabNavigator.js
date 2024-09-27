@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import publicTabRoutes from "./tab/PublicTabRoutes"
+import PublicTabRoutes from './tab/PublicTabRoutes';
 
 const Tab = createBottomTabNavigator();
 
-const MainTabNavigator = () => {
+const MainTabNavigator = ({ navigation }) => {
     return (
         <Tab.Navigator
             initialRouteName="HomePage"
@@ -18,14 +18,15 @@ const MainTabNavigator = () => {
             }}
         >
             {
-                publicTabRoutes.map((route) => {
-                    const { name, component, options } = route;
+                PublicTabRoutes(navigation).map((route) => {
+                    const { name, component, options, listeners } = route;
                     return (
                         <Tab.Screen
                             key={name}
                             name={name}
                             component={component}
                             options={options}
+                            listeners={listeners}
                         />
                     );
                 })

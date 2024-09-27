@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import NotificationCard from '../components/notification/NotificationCard';
 import result from '../data/notifications.json'
+import { AuthContext } from '../components/context/AuthProvider';
+import { useFocusEffect } from '@react-navigation/native';
 
 const NotificationScreen = ({ navigation }) => {
     const [notifications, setNotifications] = useState([]);

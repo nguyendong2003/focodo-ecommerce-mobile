@@ -1,21 +1,38 @@
 import { TouchableOpacity } from "react-native"
 import { Icon } from "@rneui/themed"
 import CartScreen from "../../screens/CartScreen"
-import OrderScreen from "../../screens/OrderScreen"
 import PaymentScreen from "../../screens/PaymentScreen"
 import ShippingInfoScreen from "../../screens/ShippingInfoScreen"
 import ProfileScreen from "../../screens/ProfileScreen"
+import OrderTabNavigator from "../OrderTabNavigator"
+import OrderDetailScreen from "../../screens/OrderDetailScreen"
+import OrderConfirmScreen from "../../screens/OrderConfirmScreen"
 
 const PrivateStackRoutes = [
     {
-        name: 'Order',
-        component: OrderScreen,
-        options: {
-            // tabBarButton: (props) => null,
-            // tabBarVisible: false,
-            // tabBarBadge: 3,
-            // tabBarLabel: 'Login',
-        },
+        name: 'OrderTabNavigator',
+        component: OrderTabNavigator,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Đơn hàng của tôi',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
     },
     {
         name: 'Cart',
@@ -73,6 +90,56 @@ const PrivateStackRoutes = [
         options: ({ navigation }) => ({
             headerShown: true,
             headerTitle: 'Thông tin tài khoản',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
+    },
+    {
+        name: 'OrderDetail',
+        component: OrderDetailScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Chi tiết đơn hàng',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
+    },
+    {
+        name: 'OrderConfirm',
+        component: OrderConfirmScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Xác nhận đơn hàng',
             headerTitleAlign: 'center',
             headerStyle: {
                 shadowColor: '#000',

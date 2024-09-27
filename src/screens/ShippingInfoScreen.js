@@ -9,12 +9,17 @@ import CustomTextInput from "../components/custom/CustomTextInput";
 // uncontrolled component with Formik: https://blog.logrocket.com/react-native-form-validations-with-formik-and-yup
 const ShippingInfoScreen = ({ navigation }) => {
 
+    const handleConfirm = (values) => {
+        // console.log(values)
+        navigation.navigate('OrderConfirm')
+    }
+
     return (
         <View className="p-4 bg-white">
             <Formik
                 validationSchema={shippingInfoValidationSchema}
                 initialValues={{ name: '', phone: '', address: '', paymentMethod: 'cash' }}
-                onSubmit={values => console.log(values)}
+                onSubmit={handleConfirm}
                 validateOnMount={true}
             >
                 {({
@@ -130,7 +135,7 @@ const ShippingInfoScreen = ({ navigation }) => {
                         }
 
                         <Button
-                            title="Hoàn tất đơn hàng"
+                            title="Xác nhận"
                             buttonStyle={{ backgroundColor: '#000', borderRadius: 8, marginTop: 20 }}
                             onPress={handleSubmit}
                             disabled={!isValid}
