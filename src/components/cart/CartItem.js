@@ -69,7 +69,7 @@ const CartItem = ({
 
     return (
         <View>
-            <TouchableOpacity activeOpacity={0.5} className="flex-row p-4 pl-0 items-center border-b-2 border-gray-100"
+            <TouchableOpacity activeOpacity={0.7} className="flex-row p-2 pl-0 items-center border-b-2 border-gray-100"
                 onPress={() => navigation.navigate('ProductDetail', { productId: id })}
             >
                 <CheckBox

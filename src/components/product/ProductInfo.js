@@ -96,10 +96,10 @@ const ProductInfo = ({ navigation, productId }) => {
                 </View>
             </View>
             <View className="mt-2 px-4">
-                <Text className="text-black text-base font-bold">{product?.name}</Text>
+                <Text className="text-black text-lg font-bold leading-5">{product?.name}</Text>
 
                 <View className="flex-row items-center gap-x-2" >
-                    <Text className="text-black text-sm font-bold">{product?.rate.toFixed(1)}</Text>
+                    <Text className="text-black text-base font-bold">{product?.rate.toFixed(1)}</Text>
                     <Rating
                         type="star"
                         startingValue={product?.rate}
@@ -116,14 +116,14 @@ const ProductInfo = ({ navigation, productId }) => {
                     <Text className=" text-gray-500 text-sm line-through">{formatCurrency(product?.originPrice)}</Text>
                 </View>
 
-                <Text className="text-black text-sm italic">{product?.shortDescription}</Text>
+                <Text className="text-black text-sm ">{product?.shortDescription}</Text>
 
 
                 <View className="flex-row items-center mt-1">
-                    <Text className="text-black text-sm font-semibold mr-4">Số lượng:</Text>
+                    <Text className="text-black text-base font-semibold mr-4">Số lượng:</Text>
                     <Icon type="antdesign" name="minus" onPress={handleDecrease} size={24} />
                     <TextInput
-                        className="w-14 px-3 mx-2 text-center border border-gray-300 rounded"
+                        className="w-14 px-3 mx-2 text-center border border-gray-500 rounded font-bold text-gray-700 text-base"
                         keyboardType="numeric"
                         value={String(quantity)}
                         onChangeText={handleInputChange}

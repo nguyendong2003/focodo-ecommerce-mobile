@@ -41,9 +41,9 @@ const CartDetail = ({ selectedItems }) => {
 
     return (
         <>
-            <Text className="text-lg font-bold px-4">Đơn hàng</Text>
+            <Text className="text-xl font-bold px-4">Đơn hàng</Text>
             <View className="px-4 flex-row shrink  justify-between items-center">
-                <TextInput placeholder="Nhập mã giảm giá" className="text-lg grow shrink rounded-lg border border-black px-3 py-1 my-1 text-gray-600"
+                <TextInput placeholder="Nhập mã giảm giá" className="text-base grow shrink rounded-lg border border-black px-3 py-1 my-1 text-gray-600"
                     value={discountCode}
                     onChangeText={setDiscountCode}
                 />
@@ -53,6 +53,7 @@ const CartDetail = ({ selectedItems }) => {
 
                 <Button
                     title="Áp dụng"
+                    titleStyle={{ fontSize: 14, color: '#fff' }}
                     buttonStyle={{ backgroundColor: '#000', borderRadius: 8, marginLeft: 12 }}
                     onPress={handlePress}
                 />
@@ -66,19 +67,19 @@ const CartDetail = ({ selectedItems }) => {
 
 
             <View className="px-4 py-3">
-                <View className="flex-row justify-between items-center py-1">
+                <View className="flex-row justify-between items-center">
                     <Text className="text-gray-500 text-base">Tạm tính</Text>
                     <Text className="text-black text-base">
                         {formatCurrency(totalPrice)}
                     </Text>
                 </View>
-                <View className="flex-row justify-between items-center py-1">
+                <View className="flex-row justify-between items-center border-b-2 border-b-gray-200">
                     <Text className="text-gray-500 text-base">Giảm giá từ mã</Text>
                     <Text className="text-green-500 text-base">
                         {formatCurrency(-discountPrice)}
                     </Text>
                 </View>
-                <View className="flex-row justify-between items-center py-4">
+                <View className="flex-row justify-between items-center py-1">
                     <Text className="text-black text-base font-bold">Tổng tiền</Text>
                     <Text className="text-red-500 text-base font-bold">
                         {formatCurrency(finalPrice)}

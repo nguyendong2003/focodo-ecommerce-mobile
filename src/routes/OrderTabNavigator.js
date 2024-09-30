@@ -14,8 +14,10 @@ const OrderTabNavigator = () => {
             className="text-gray-500"
             screenOptions={{
                 // tabBarActiveTintColor: '#e91e63',
-                tabBarLabelStyle: { fontSize: 15, textTransform: 'none', fontWeight: 'bold', color: '#6b7280' },
+                tabBarLabelStyle: { fontSize: 15, textTransform: 'none', fontWeight: 'bold' },
                 tabBarStyle: { backgroundColor: 'white' },
+                tabBarActiveTintColor: '#2563EB',
+                tabBarInactiveTintColor: '#6b7280',
                 tabBarScrollEnabled: true
             }}
         >

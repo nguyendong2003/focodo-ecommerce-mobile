@@ -18,11 +18,11 @@ const ProductSlider = ({ product, navigation }) => {
                     className="w-28 h-28 rounded-lg items-center"
                 />
                 <View className="bg-red-500 absolute top-0 right-0 rounded-lg p-1">
-                    <Text className="text-white text-sm">53%</Text>
-                    <Text className="text-white text-sm">OFF</Text>
+                    <Text className="text-white text-sm font-bold">53%</Text>
+                    <Text className="text-white text-sm font-bold">OFF</Text>
                 </View>
             </View>
-            <Text className="text-black text-lg leading-6 font-bold h-12 mt-1" numberOfLines={2} ellipsizeMode="tail">
+            <Text className="text-black text-base leading-6 font-bold h-12 mt-1" numberOfLines={2} ellipsizeMode="tail">
                 {product.name}
             </Text>
 

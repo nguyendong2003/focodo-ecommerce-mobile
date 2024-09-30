@@ -8,7 +8,7 @@ const CustomTextInput = ({ field, form, ...props }) => {
 
     return (
         <View className="mb-1">
-            <View className={`border border-gray-500 rounded px-2 py-2 ${isError && 'border-red-500'}`}>
+            <View className={`border border-gray-500 rounded-lg px-3 py-1 ${isError && 'border-red-500'}`}>
                 <TextInput
                     onChangeText={form.handleChange(field.name)}
                     onBlur={form.handleBlur(field.name)}

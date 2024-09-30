@@ -1,5 +1,7 @@
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, Dimensions } from 'react-native';
 import { Rating } from 'react-native-ratings';
+
+const { width, height } = Dimensions.get('window');
 
 const getReviewText = (rate) => {
     switch (rate) {
@@ -19,7 +21,7 @@ const getReviewText = (rate) => {
 };
 const ReviewCard = ({ review }) => {
     return (
-        <View className="gap-y-1 p-3 bg-white border-t-2 border-t-gray-100">
+        <View className="gap-y-1 p-3 pt-1 bg-white border-t-2 border-t-gray-100">
             <View className="flex-row gap-x-1 items-center">
                 <Image
                     // source={require('../../static/images/products/1.png')} 
@@ -42,8 +44,27 @@ const ReviewCard = ({ review }) => {
             </View>
 
             <View>
-                <Text className="text-gray-600 text-sm">{review.comment}</Text>
+                <Text className="text-gray-700 text-sm">{review.comment}</Text>
             </View>
+
+            {
+                review.images && (
+                    <View className="flex-row flex-wrap gap-2">
+                        {
+                            review.images.map((image, index) => (
+                                <Image
+                                    key={image.id}
+                                    // source={require('../../static/images/products/1.png')} 
+                                    source={{ uri: image.url }}
+                                    className="rounded-md"
+                                    style={{ width: width / 3 - 14, height: width / 3 - 14 }}
+                                />
+                            ))
+                        }
+                    </View>
+                )
+            }
+
         </View>
     )
 }

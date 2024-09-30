@@ -23,7 +23,7 @@ const ReviewOverall = ({ overallReview }) => {
     };
 
     return (
-        <View className="bg-white pt-1">
+        <View className="bg-white pt-1 pb-4">
             <View className="flex-row items-center gap-x-3 mt-1 px-4">
                 <Text className="text-3xl font-bold">{overallReview?.averageRate?.toFixed(1)}</Text>
                 <Rating

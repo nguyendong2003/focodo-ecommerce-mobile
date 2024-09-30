@@ -35,7 +35,29 @@
                 "id": 101,
                 "name": "Nguyễn Văn A",
                 "avatar": "https://i.pravatar.cc/150?img=1"
-            }
+            },
+            "images": [
+                {
+                    "id": 1,
+                    "url": "https://i.pravatar.cc/150?img=1"
+                },
+                {
+                    "id": 2,
+                    "url": "https://i.pravatar.cc/150?img=2"
+                },
+                {
+                    "id": 3,
+                    "url": "https://i.pravatar.cc/150?img=3"
+                },
+                {
+                    "id": 4,
+                    "url": "https://i.pravatar.cc/150?img=4"
+                },
+                {
+                    "id": 5,
+                    "url": "https://i.pravatar.cc/150?img=5"
+                }
+            ]
         },
         {
             "id": 2,

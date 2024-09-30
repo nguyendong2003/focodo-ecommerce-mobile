@@ -2,7 +2,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native"
 import { formatCurrency } from "../../utils/FormatNumber"
 
 const OrderCard = ({ navigation, order }) => {
-    const getStatus = (status) => {
+    const getStatusText = (status) => {
         switch (status) {
             case 'process':
                 return 'Đang xử lý'
@@ -20,7 +20,7 @@ const OrderCard = ({ navigation, order }) => {
     return (
         <>
             <Text className="mx-2 py-2 border-b-2 border-b-gray-200 text-gray-500 font-bold text-base"
-                style={{ borderBottomWidth: 1 }}>{getStatus(order?.status)}</Text>
+                style={{ borderBottomWidth: 1 }}>{getStatusText(order?.status)}</Text>
 
             <TouchableOpacity activeOpacity={0.7}
                 className="p-2"
@@ -37,17 +37,20 @@ const OrderCard = ({ navigation, order }) => {
 
                 <View className="flex-row justify-between items-center mt-4 mb-1 gap-x-2">
                     <TouchableOpacity activeOpacity={0.7}
-                        className="rounded  border-blue-700 py-2 grow"
-                        style={{ borderWidth: 1 }}
+                        className="rounded  border-black py-2 grow border-2"
+                        // style={{ borderWidth: 2 }}
                         onPress={() => navigation.navigate('OrderDetail', { orderId: order?.id })}
                     >
-                        <Text className="text-center text-blue-700 font-bold">Xem chi tiết</Text>
+                        <Text className="text-center text-black font-bold">Xem chi tiết</Text>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.7}
-                        className="rounded  border-blue-700 py-2 grow"
-                        style={{ borderWidth: 1 }}
+                        className="rounded  border-black py-2 grow border-2 bg-black"
+                        // style={{ borderWidth: 2 }}
+                        onPress={() => {
+                            navigation.navigate('OrderDetail', { orderId: order?.id })
+                        }}
                     >
-                        <Text className="text-center text-blue-700 font-bold">Mua lại</Text>
+                        <Text className="text-center text-white font-bold">Mua lại</Text>
                     </TouchableOpacity>
                 </View>
             </TouchableOpacity>

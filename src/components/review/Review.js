@@ -35,7 +35,7 @@ const Review = ({ navigation, productId }) => {
             </View>
 
             <TouchableOpacity activeOpacity={0.5}
-                className="mb-6 p-2 "
+                className="mb-3 p-2 "
                 onPress={() => navigation.navigate('Review', {
                     productId
                 })}>

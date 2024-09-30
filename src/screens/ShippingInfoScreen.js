@@ -34,17 +34,6 @@ const ShippingInfoScreen = ({ navigation }) => {
                 }) => (
                     <>
                         <Text className="text-base text-black font-bold">Tên người nhận</Text>
-                        {/* <TextInput
-                                name="name"
-                                placeholder="Nhập Họ tên"
-                                className="text-base grow shrink rounded border border-gray-500 px-3 py-1 my-1 text-black"
-                                onChangeText={handleChange('name')}
-                                onBlur={handleBlur('name')}
-                                value={values.name}
-                            />
-                            {(errors.name && touched.name) &&
-                                <Text className="text-red-500 text-sm">{errors.name}</Text>
-                            } */}
                         <Field
                             name="name"
                             placeholder="Nhập Họ tên"
@@ -52,18 +41,6 @@ const ShippingInfoScreen = ({ navigation }) => {
                         />
 
                         <Text className="text-base text-black font-bold">Số điện thoại</Text>
-                        {/* <TextInput
-                                name="phone"
-                                placeholder="Nhập Số điện thoại"
-                                className="text-base grow shrink rounded border border-gray-500 px-3 py-1 my-1 text-black"
-                                onChangeText={handleChange('phone')}
-                                onBlur={handleBlur('phone')}
-                                value={values.phone}
-                                keyboardType="numeric"
-                            />
-                            {(errors.phone && touched.phone) &&
-                                <Text className="text-red-500 text-sm">{errors.phone}</Text>
-                            } */}
                         <Field
                             name="phone"
                             placeholder="Nhập Số điện thoại"
@@ -71,17 +48,6 @@ const ShippingInfoScreen = ({ navigation }) => {
                         />
 
                         <Text className="text-base text-black font-bold">Địa chỉ nhận hàng</Text>
-                        {/* <TextInput
-                                name="address"
-                                placeholder="Nhập Tòa nhà, số nhà, tên đường"
-                                className="text-base grow shrink rounded border border-gray-500 px-3 py-1 my-1 text-black"
-                                onChangeText={handleChange('address')}
-                                onBlur={handleBlur('address')}
-                                value={values.address}
-                            />
-                            {(errors.address && touched.address) &&
-                                <Text className="text-red-500 text-sm">{errors.address}</Text>
-                            } */}
                         <Field
                             name="address"
                             placeholder="Nhập Tòa nhà, số nhà, tên đường"
