@@ -22,7 +22,7 @@ const ProductSlider = ({ product, navigation }) => {
                     <Text className="text-white text-sm font-bold">OFF</Text>
                 </View>
             </View>
-            <Text className="text-black text-base leading-6 font-bold h-12 mt-1" numberOfLines={2} ellipsizeMode="tail">
+            <Text className="text-black text-base leading-5 font-bold h-10 mt-1" numberOfLines={2} ellipsizeMode="tail">
                 {product.name}
             </Text>
 
@@ -37,10 +37,10 @@ const ProductSlider = ({ product, navigation }) => {
                 <Text className="text-gray-500 text-sm mx-1">(23)</Text>
             </View>
 
-            <Text className="text-red-500 text-lg italic">
+            <Text className="text-red-500 text-lg italic leading-5">
                 {formatCurrency(product?.price)}
             </Text>
-            <Text className="text-slate-500 text-base line-through italic">
+            <Text className="text-slate-500 text-base line-through italic leading-5">
                 {formatCurrency(product?.originPrice)}
             </Text>
 

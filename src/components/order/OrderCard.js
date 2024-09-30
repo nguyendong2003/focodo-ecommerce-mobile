@@ -1,6 +1,52 @@
 import { Image, Text, TouchableOpacity, View } from "react-native"
 import { formatCurrency } from "../../utils/FormatNumber"
 
+const OrderButton = ({ navigation, order }) => {
+    const getButtonText = (status) => {
+        switch (status) {
+            case 'process':
+                return 'Hủy đơn'
+            case 'shipping':
+                return 'Hủy đơn'
+            case 'finish':
+                return 'Đánh giá'
+            case 'cancel':
+                return 'Mua lại'
+            default:
+                return 'Mua lại'
+        }
+    }
+
+    const optionButtonPress = (status) => {
+        switch (status) {
+            case 'process':
+                navigation.navigate('OrderDetail', { orderId: order?.id });
+                break;
+            case 'shipping':
+                // call api cancel order
+                break;
+            case 'finish':
+                navigation.navigate('Review', { productId: order?.productId });
+                break;
+            case 'cancel':
+                // call api buy again
+                break;
+            default:
+                // call api buy again
+                break;
+        }
+    }
+
+    return (
+        <TouchableOpacity activeOpacity={0.7}
+            className="rounded  border-black py-2 grow border-2 bg-black"
+            onPress={() => optionButtonPress(order?.status)}
+        >
+            <Text className="text-center text-white font-bold">{getButtonText(order?.status)}</Text>
+        </TouchableOpacity>
+    )
+}
+
 const OrderCard = ({ navigation, order }) => {
     const getStatusText = (status) => {
         switch (status) {
@@ -37,21 +83,14 @@ const OrderCard = ({ navigation, order }) => {
 
                 <View className="flex-row justify-between items-center mt-4 mb-1 gap-x-2">
                     <TouchableOpacity activeOpacity={0.7}
-                        className="rounded  border-black py-2 grow border-2"
+                        className="rounded  border-black py-2 grow border-2 mr-2"
                         // style={{ borderWidth: 2 }}
                         onPress={() => navigation.navigate('OrderDetail', { orderId: order?.id })}
                     >
                         <Text className="text-center text-black font-bold">Xem chi tiết</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.7}
-                        className="rounded  border-black py-2 grow border-2 bg-black"
-                        // style={{ borderWidth: 2 }}
-                        onPress={() => {
-                            navigation.navigate('OrderDetail', { orderId: order?.id })
-                        }}
-                    >
-                        <Text className="text-center text-white font-bold">Mua lại</Text>
-                    </TouchableOpacity>
+
+                    <OrderButton navigation={navigation} order={order} />
                 </View>
             </TouchableOpacity>
         </>

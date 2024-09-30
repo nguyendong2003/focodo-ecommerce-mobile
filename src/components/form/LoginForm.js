@@ -6,23 +6,21 @@ import CustomTextInput from '../custom/CustomTextInput';
 import { loginValidationSchema } from '../../utils/ValidationForm';
 import { AuthContext } from '../context/AuthProvider';
 
-const LoginForm = ({ navigation }) => {
+const LoginForm = ({ navigation, routeName, options }) => {
     const { userLogin, setUserLogin, login, logout } = useContext(AuthContext)
 
     const handleLogin = (values, actions) => {
-        // setTimeout(() => {
-        //     Alert.alert('Đăng nhập thành công!', JSON.stringify(values, null, 2));
-        //     actions.setSubmitting(false);
-        //     navigation.navigate('Home'); // Chuyển hướng đến trang chủ
-        // }, 1000);
         const { username, password } = values;
         if (username === '1' && password === '1') {
             login();
-            navigation.navigate('HomePage');
+            if (routeName) {
+                navigation.navigate(routeName, options || undefined);
+            } else {
+                navigation.navigate('HomePage');
+            }
         } else {
             Alert.alert('Đăng nhập thất bại', 'Tên đăng nhập hoặc mật khẩu không chính xác');
         }
-
     };
 
     return (

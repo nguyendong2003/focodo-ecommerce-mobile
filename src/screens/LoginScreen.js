@@ -2,7 +2,8 @@ import { Image, Text, View, TouchableOpacity } from 'react-native';
 import LoginForm from '../components/form/LoginForm';
 import { Icon } from '@rneui/themed';
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation, route }) => {
+    const { routeName, options } = route.params
 
     return (
         <View className="flex-1 bg-white p-4">
@@ -10,7 +11,7 @@ const LoginScreen = ({ navigation }) => {
                 <Image source={require('../static/images/banner/brand-image.png')} style={{ width: 80, height: 80 }} />
             </View>
 
-            <LoginForm navigation={navigation} />
+            <LoginForm navigation={navigation} routeName={routeName} options={options} />
 
             <View className="mt-5">
                 <Text className="text-base text-gray-500 text-center">Hoặc tiếp tục bằng</Text>

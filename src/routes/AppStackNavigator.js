@@ -60,24 +60,6 @@ const AppStackNavigator = () => {
                         })
                     )
                 }
-                {/* <Stack.Screen name="MainTab" component={MainTabNavigator} /> */}
-
-                {/* <Stack.Screen name="ProductDetail" component={ProductDetailScreen} /> */}
-
-
-                {/* <Stack.Screen name="Review" component={ReviewScreen} />
-                <Stack.Screen name="SearchProduct" component={SearchProductScreen} />
-                <Stack.Screen name="SearchProductResult" component={SearchProductResultScreen} />
-                <Stack.Screen name="Guide" component={GuideScreen} />
-                <Stack.Screen name="About" component={AboutScreen} />
-                <Stack.Screen name="Contact" component={ContactScreen} />
-
-
-
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Register" component={RegisterScreen} />
-                <Stack.Screen name="Order" component={OrderScreen} />
-                <Stack.Screen name="Payment" component={PaymentScreen} /> */}
             </Stack.Navigator>
         </NavigationContainer>
     )

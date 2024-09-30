@@ -1,19 +1,74 @@
 import { Button, Icon } from '@rneui/themed';
-import { useEffect, useState } from 'react';
-import { Dimensions, Image, PixelRatio, Text, TextInput, View } from 'react-native';
+import { useContext, useEffect, useState } from 'react';
+import { Dimensions, Image, Modal, PixelRatio, Pressable, Text, TextInput, View } from 'react-native';
 import { Rating } from 'react-native-ratings';
 import result from "../../data/products.json"
 import WebView from 'react-native-webview';
 import { TouchableOpacity } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import { formatCurrency, formatNumber } from '../../utils/FormatNumber';
+import { AuthContext } from '../context/AuthProvider';
 
 const screenWidth = Dimensions.get('screen').width;
 
+const ModalAddToCart = ({ navigation, visibleModalImage, setVisibleModalImage }) => {
+
+    return (
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={visibleModalImage}
+            onRequestClose={() => {
+                setVisibleModalImage(!visibleModalImage);
+            }}
+        >
+            <View className="flex-1 justify-end items-center " style={{ backgroundColor: "rgba(0,0,0,0.5)", }}>
+                <Pressable
+                    className="h-3/4 w-full"
+                    onPress={() => setVisibleModalImage(false)}
+                />
+                <View className="h-1/4 flex-1 bg-white w-full rounded-t-md p-3">
+                    <View className="flex-row items-center gap-x-1">
+                        <Icon type='antdesign' name="checkcircle" color={'#22c55e'} size={20} />
+                        <Text className="text-green-500 text-lg font-bold">Đã thêm vào giỏ hàng</Text>
+                    </View>
+
+                    <View className="flex-row bg-gray-100 rounded-md gap-x-2 my-4">
+                        <Image
+                            source={{ uri: 'https://i.pravatar.cc/150?img=1' }}
+                            className="rounded-lg w-14 h-14"
+                        />
+                        <Text className="text-gray-600 text-base font-semibold shrink lead p-1" numberOfLines={2}>Áo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun nam</Text>
+
+                    </View>
+
+                    <View className="flex-row justify-around items-center bg-white gap-x-2">
+                        <TouchableOpacity activeOpacity={0.7}
+                            className="rounded-md  border-black py-2 border-2 w-1/2"
+                            onPress={() => setVisibleModalImage(false)}
+                        >
+                            <Text className="text-center text-black font-bold">Đóng</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity activeOpacity={0.7}
+                            className="rounded-md  border-black py-2 grow border-2 bg-black"
+                            onPress={() => navigation.navigate('Cart')}
+                        >
+                            <Text className="text-center text-white font-bold">Xem giỏ hàng</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        </Modal>
+    )
+}
+
 const ProductInfo = ({ navigation, productId }) => {
+    const { userLogin, logout, handleNavigate } = useContext(AuthContext)
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState(null)
     const [currentPageImage, setCurrentPageImage] = useState(0);
+    const [visibleModalImage, setVisibleModalImage] = useState(false);
 
     useEffect(() => {
         // call api
@@ -138,6 +193,15 @@ const ProductInfo = ({ navigation, productId }) => {
                         containerStyle={{ flexGrow: 1 }}
                         buttonStyle={{ borderColor: '#000', borderWidth: 2, borderRadius: 8 }}
                         titleStyle={{ color: '#000' }}
+                        onPress={() => {
+                            if (userLogin) {
+                                setVisibleModalImage(true);
+                            } else {
+                                // call api add to cart
+
+                                handleNavigate(navigation, 'ProductDetail', { productId: product?.id })
+                            }
+                        }}
                     />
                     <Button
                         title="Thanh toán"
@@ -158,7 +222,7 @@ const ProductInfo = ({ navigation, productId }) => {
                 <View className="mt-2">
                     <Text className="text-black text-xl font-bold">Mô tả sản phẩm</Text>
                     <WebView
-                        style={{ height: 150 }} // Điều chỉnh chiều cao cho phù hợp
+                        style={{ height: 120 }} // Điều chỉnh chiều cao cho phù hợp
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         originWhitelist={['*']}
@@ -174,6 +238,8 @@ const ProductInfo = ({ navigation, productId }) => {
 
                 </View>
             </View>
+
+            <ModalAddToCart navigation={navigation} visibleModalImage={visibleModalImage} setVisibleModalImage={setVisibleModalImage} />
         </>
     )
 }

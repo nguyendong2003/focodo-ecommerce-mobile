@@ -31,11 +31,6 @@ const MainTabNavigator = ({ navigation }) => {
                     );
                 })
             }
-            {/* <Tab.Screen name="HomePage" component={HomePageScreen} />
-            <Tab.Screen name="ProductCategory" component={ProductCategoryScreen} /> */}
-            {/* <Tab.Screen name="Cart" component={CartScreen} />
-            <Tab.Screen name="Profile" component={ProfileScreen} />
-            <Tab.Screen name="Other" component={OtherScreen} /> */}
         </Tab.Navigator >
     )
 }
