@@ -7,7 +7,7 @@ const dimensionWidth = Dimensions.get('window').width;
 const ProductCard = ({ product, navigation }) => {
 
     return (
-        <TouchableOpacity activeOpacity={0.5}
+        <TouchableOpacity activeOpacity={0.8}
             onPress={() => navigation.navigate('ProductDetail', { productId: product.id })}
             className=" bg-white my-1 mx-1 rounded-lg"
             style={{ width: dimensionWidth / 2 - 12 }}

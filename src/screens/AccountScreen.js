@@ -99,7 +99,7 @@ const AccountScreen = ({ navigation }) => {
             <TouchableOpacity
                 activeOpacity={0.6}
                 className="flex-row justify-between items-center p-2 pl-4 border-b-4 border-b-gray-200"
-                onPress={() => handleNavigate(navigation, 'Review')}
+                onPress={() => handleNavigate(navigation, 'ReviewList')}
             >
                 <Text className="text-gray-600 text-lg font-bold">Đánh giá sản phẩm</Text>
                 <Icon type='feather' name='chevron-right' size={24} />

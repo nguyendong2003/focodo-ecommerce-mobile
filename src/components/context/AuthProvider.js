@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
     const userInfo2 = null
 
-    const [userLogin, setUserLogin] = useState(userInfo2)
+    const [userLogin, setUserLogin] = useState(userInfo)
     const login = () => {
         setUserLogin(userInfo);
     };

@@ -1,4 +1,4 @@
-import { View, Image, Text, Dimensions } from 'react-native';
+import { View, Image, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { Rating } from 'react-native-ratings';
 
 const { width, height } = Dimensions.get('window');
@@ -22,16 +22,27 @@ const getReviewText = (rate) => {
 const ReviewCard = ({ review }) => {
     return (
         <View className="gap-y-1 p-3 pt-1 bg-white border-t-2 border-t-gray-100">
-            <View className="flex-row gap-x-1 items-center">
+            <View className="flex-row gap-x-1 items-center shrink">
                 <Image
                     // source={require('../../static/images/products/1.png')} 
                     source={{ uri: review.user.avatar }}
 
                     className="w-9 h-9 rounded-full" />
-                <View>
-                    <Text className="text-black text-base font-bold">{review.user.name}</Text>
-                    <Text className="text-gray-600 text-sm">{review.time}</Text>
+                <View className="grow flex-row justify-between items-center ">
+                    <View className="shrink">
+                        <Text className="text-black text-base font-bold" numberOfLines={1}>{review.user.name}</Text>
+                        <Text className="text-gray-600 text-sm" numberOfLines={1}>{review.time}</Text>
+                    </View>
+
+                    <TouchableOpacity activeOpacity={0.7}
+                        className="rounded-md  border-black border-2 justify-center px-4 py-1"
+                    // onPress={() => setVisibleModalImage(false)}
+                    >
+                        <Text className="text-center text-black font-bold">Sửa</Text>
+                    </TouchableOpacity>
+
                 </View>
+
             </View>
             <View className="flex-row gap-x-3 mx-8 items-center">
                 <Rating

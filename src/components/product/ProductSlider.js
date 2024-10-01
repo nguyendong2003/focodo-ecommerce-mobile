@@ -7,7 +7,7 @@ const ProductSlider = ({ product, navigation }) => {
 
 
     return (
-        <TouchableOpacity activeOpacity={0.5}
+        <TouchableOpacity activeOpacity={0.8}
             onPress={() => navigation.navigate('ProductDetail', { productId: product.id })}
             className="w-32 px-2 bg-white"
         >

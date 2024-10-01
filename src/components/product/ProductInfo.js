@@ -38,7 +38,7 @@ const ModalAddToCart = ({ navigation, visibleModalImage, setVisibleModalImage })
                             source={{ uri: 'https://i.pravatar.cc/150?img=1' }}
                             className="rounded-lg w-14 h-14"
                         />
-                        <Text className="text-gray-600 text-base font-semibold shrink lead p-1" numberOfLines={2}>Áo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun nam</Text>
+                        <Text className="text-gray-600 text-base font-semibold shrink leading-5 p-1" numberOfLines={2}>Áo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun nam</Text>
 
                     </View>
 

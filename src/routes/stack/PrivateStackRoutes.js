@@ -8,6 +8,8 @@ import OrderTabNavigator from "../OrderTabNavigator"
 import OrderDetailScreen from "../../screens/OrderDetailScreen"
 import OrderConfirmScreen from "../../screens/OrderConfirmScreen"
 import OrderSuccessScreen from "../../screens/OrderSuccessScreen"
+import ReviewAddScreen from "../../screens/ReviewAddScreen"
+import ReviewListScreen from "../../screens/ReviewListScreen"
 
 const PrivateStackRoutes = [
     {
@@ -166,6 +168,56 @@ const PrivateStackRoutes = [
         // options: ({ navigation }) => ({
         //     headerBackVisible: false
         // })
+    },
+    {
+        name: 'ReviewAdd',
+        component: ReviewAddScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Đánh giá sản phẩm',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
+    },
+    {
+        name: 'ReviewList',
+        component: ReviewListScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Đánh giá sản phẩm',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
     },
     {
         name: 'Payment',

@@ -3,7 +3,7 @@ import LoginForm from '../components/form/LoginForm';
 import { Icon } from '@rneui/themed';
 
 const LoginScreen = ({ navigation, route }) => {
-    const { routeName, options } = route.params
+    const { routeName, options } = route.params || {}
 
     return (
         <View className="flex-1 bg-white p-4">
