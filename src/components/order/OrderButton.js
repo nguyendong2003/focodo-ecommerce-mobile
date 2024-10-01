@@ -5,7 +5,7 @@ const OrderButton = ({ navigation, order }) => {
     const getButtonText = (status) => {
         switch (status) {
             case 'process':
-                return 'Hủy đơn'
+                return 'Theo dõi đơn'
             case 'shipping':
                 return 'Đã nhận được hàng'
             case 'finish':
