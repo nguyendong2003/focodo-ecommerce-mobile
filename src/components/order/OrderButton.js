@@ -4,32 +4,33 @@ import { Text, TouchableOpacity } from "react-native"
 const OrderButton = ({ navigation, order }) => {
     const getButtonText = (status) => {
         switch (status) {
-            case 'process':
-                return 'Theo dõi đơn'
+            case 'processing':
+                return 'Hủy đơn'
             case 'shipping':
-                return 'Đã nhận được hàng'
-            case 'finish':
+                return 'Theo dõi đơn'
+            case 'finished':
                 return 'Đánh giá'
-            case 'cancel':
+            case 'cancelled':
                 return 'Mua lại'
             default:
-                return 'Mua lại'
+                return 'Mặc định'
         }
     }
 
     const optionButtonPress = (status) => {
         switch (status) {
-            case 'process':
-                navigation.navigate('OrderDetail', { orderId: order?.id });
+            case 'processing':
+                navigation.navigate('OrderCancelledReason', { orderId: order?.id });
                 break;
             case 'shipping':
-                // call api cancel order
+                navigation.navigate('OrderTracking', { orderId: order?.id });
                 break;
-            case 'finish':
+            case 'finished':
                 navigation.navigate('ReviewAdd', { orderId: order?.id });
                 break;
-            case 'cancel':
+            case 'cancelled':
                 // call api buy again
+                navigation.navigate('ProductDetail', { productId: order?.id });
                 break;
             default:
                 // call api buy again

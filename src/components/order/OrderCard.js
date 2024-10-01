@@ -1,22 +1,10 @@
 import { Image, Text, TouchableOpacity, View } from "react-native"
 import { formatCurrency } from "../../utils/FormatNumber"
 import OrderButton from "./OrderButton"
+import { getStatusText } from "../../utils/OrderUtils"
 
 const OrderCard = ({ navigation, order }) => {
-    const getStatusText = (status) => {
-        switch (status) {
-            case 'process':
-                return 'Đang xử lý'
-            case 'shipping':
-                return 'Đang vận chuyển'
-            case 'finish':
-                return 'Đã giao'
-            case 'cancel':
-                return 'Đã hủy'
-            default:
-                return 'Đã hủy'
-        }
-    }
+
 
     return (
         <>
@@ -28,10 +16,11 @@ const OrderCard = ({ navigation, order }) => {
                 onPress={() => navigation.navigate('OrderDetail', { orderId: order?.id })}
             >
                 <View className="flex-row items-center gap-x-2">
-                    <Image source={{ uri: order?.image }} className="w-16 h-16 rounded-lg" />
+                    <Image source={{ uri: order?.image }} className="w-24 h-24 rounded-lg" />
                     <View className="shrink h-full w-full ">
                         <Text className="text-base text-gray-600 font-semibold leading-5" numberOfLines={2}>{order?.title}</Text>
-                        <Text className="text-sm text-gray-500 leading-6" numberOfLines={1}>Tổng tiền: {formatCurrency(order?.total)}</Text>
+                        <Text className="text-sm text-gray-500 leading-6" numberOfLines={1}>02/10/2024 16:20</Text>
+                        <Text className="text-sm text-gray-500 leading-6 font-bold" numberOfLines={1}>{formatCurrency(order?.total)}</Text>
                     </View>
                 </View>
 

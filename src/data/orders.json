@@ -6,7 +6,7 @@
             "quantity": 1,
             "total": 275000,
             "image": "https://i.pravatar.cc/150?img=1",
-            "status": "process"
+            "status": "processing"
         },
         {
             "id": 2,
@@ -22,7 +22,7 @@
             "quantity": 1,
             "total": 300000,
             "image": "https://i.pravatar.cc/150?img=3",
-            "status": "finish"
+            "status": "finished"
         },
         {
             "id": 4,
@@ -30,7 +30,7 @@
             "quantity": 3,
             "total": 450000,
             "image": "https://i.pravatar.cc/150?img=4",
-            "status": "cancel"
+            "status": "cancelled"
         },
         {
             "id": 5,
@@ -38,7 +38,7 @@
             "quantity": 1,
             "total": 200000,
             "image": "https://i.pravatar.cc/150?img=5",
-            "status": "cancel"
+            "status": "cancelled"
         },
         {
             "id": 6,
@@ -46,7 +46,7 @@
             "quantity": 2,
             "total": 350000,
             "image": "https://i.pravatar.cc/150?img=6",
-            "status": "finish"
+            "status": "finished"
         }
     ]
 }

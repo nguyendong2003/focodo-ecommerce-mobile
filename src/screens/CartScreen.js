@@ -72,7 +72,7 @@ const CartScreen = ({ navigation }) => {
 
             </ScrollView>
 
-            <View className="px-4 pb-5">
+            <View className="px-4 mb-5 mt-5 ">
                 <Button
                     title="Mua hàng"
                     buttonStyle={{ backgroundColor: '#000', borderRadius: 8 }}

@@ -1,8 +1,8 @@
 import OrderScreen from '../screens/OrderScreen';
-import OrderProcessScreen from "../screens/OrderProcessScreen";
+import OrderProcessingScreen from "../screens/OrderProcessingScreen";
 import OrderShippingScreen from "../screens/OrderShippingScreen";
-import OrderFinishScreen from "../screens/OrderFinishScreen";
-import OrderCancelScreen from '../screens/OrderCancelScreen';
+import OrderFinishedScreen from "../screens/OrderFinishedScreen";
+import OrderCancelledScreen from '../screens/OrderCancelledScreen';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();
@@ -14,7 +14,7 @@ const OrderTabNavigator = () => {
             className="text-gray-500"
             screenOptions={{
                 // tabBarActiveTintColor: '#e91e63',
-                tabBarLabelStyle: { fontSize: 15, textTransform: 'none', fontWeight: 'bold' },
+                tabBarLabelStyle: { fontSize: 14, textTransform: 'none', fontWeight: 'bold' },
                 tabBarStyle: { backgroundColor: 'white' },
                 tabBarActiveTintColor: '#2563EB',
                 tabBarInactiveTintColor: '#6b7280',
@@ -27,8 +27,8 @@ const OrderTabNavigator = () => {
                 options={{ tabBarLabel: 'Tất cả đơn' }}
             />
             <Tab.Screen
-                name="OrderProcess"
-                component={OrderProcessScreen}
+                name="OrderProcessing"
+                component={OrderProcessingScreen}
                 options={{ tabBarLabel: 'Đang xử lý' }}
             />
             <Tab.Screen
@@ -37,13 +37,13 @@ const OrderTabNavigator = () => {
                 options={{ tabBarLabel: 'Đang vận chuyển' }}
             />
             <Tab.Screen
-                name="OrderFinish"
-                component={OrderFinishScreen}
+                name="OrderFinished"
+                component={OrderFinishedScreen}
                 options={{ tabBarLabel: 'Đã giao' }}
             />
             <Tab.Screen
-                name="OrderCancel"
-                component={OrderCancelScreen}
+                name="OrderCancelled"
+                component={OrderCancelledScreen}
                 options={{ tabBarLabel: 'Đã hủy' }}
             />
         </Tab.Navigator>

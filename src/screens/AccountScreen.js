@@ -61,7 +61,7 @@ const AccountScreen = ({ navigation }) => {
                     <TouchableOpacity
                         activeOpacity={0.6}
                         // className="w-1/3"
-                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderProcess' })}
+                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderProcessing' })}
                     >
                         <Icon type='material-community' name='timer-sand' size={28} color={'#2563eb'} />
                         <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Đang xử lý</Text>
@@ -79,7 +79,7 @@ const AccountScreen = ({ navigation }) => {
                     <TouchableOpacity
                         activeOpacity={0.6}
                         // className="w-1/3"
-                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderFinish' })}
+                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderFinished' })}
                     >
                         <Icon type='octicon' name='checklist' size={28} color={'#2563eb'} />
                         <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Đã giao</Text>
@@ -88,7 +88,7 @@ const AccountScreen = ({ navigation }) => {
                     <TouchableOpacity
                         activeOpacity={0.6}
                         // className="w-1/3"
-                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderCancel' })}
+                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderCancelled' })}
                     >
                         <Icon type='material-community' name='cancel' size={28} color={'#2563eb'} />
                         <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Đã hủy</Text>

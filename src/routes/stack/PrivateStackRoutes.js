@@ -10,6 +10,8 @@ import OrderConfirmScreen from "../../screens/OrderConfirmScreen"
 import OrderSuccessScreen from "../../screens/OrderSuccessScreen"
 import ReviewAddScreen from "../../screens/ReviewAddScreen"
 import ReviewListScreen from "../../screens/ReviewListScreen"
+import OrderTrackingScreen from "../../screens/OrderTrackingScreen"
+import OrderCancelledReasonScreen from "../../screens/OrderCancelledReasonScreen"
 
 const PrivateStackRoutes = [
     {
@@ -138,11 +140,61 @@ const PrivateStackRoutes = [
         })
     },
     {
+        name: 'OrderTracking',
+        component: OrderTrackingScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Theo dõi đơn hàng',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
+    },
+    {
         name: 'OrderConfirm',
         component: OrderConfirmScreen,
         options: ({ navigation }) => ({
             headerShown: true,
             headerTitle: 'Xác nhận đơn hàng',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
+    },
+    {
+        name: 'OrderCancelledReason',
+        component: OrderCancelledReasonScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Hủy đơn hàng',
             headerTitleAlign: 'center',
             headerStyle: {
                 shadowColor: '#000',
