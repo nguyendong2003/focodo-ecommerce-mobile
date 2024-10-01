@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, FlatList, ScrollView } from 'react-native';
+import { View, Text, Button, FlatList } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import ReviewAdd from '../components/review/ReviewAdd';
@@ -47,6 +47,7 @@ const ReviewAddScreen = ({ navigation, route }) => {
             acc[product.id] = Yup.object({
                 review: Yup.string().required('Bình luận là bắt buộc'),
                 rating: Yup.number().required('Đánh giá là bắt buộc'),
+                // images: Yup.array().of(Yup.string().url()).max(3, 'Tối đa 3 ảnh'),
             });
             return acc;
         }, {})

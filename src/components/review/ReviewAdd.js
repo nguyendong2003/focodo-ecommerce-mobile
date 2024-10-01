@@ -1,9 +1,49 @@
 import React from 'react';
-import { View, Text, Image, TextInput } from 'react-native';
+import { View, Text, Image, TextInput, LogBox, TouchableOpacity, Dimensions } from 'react-native';
 import { AirbnbRating } from 'react-native-ratings';
+import * as ImagePicker from 'expo-image-picker';
+import { Icon } from '@rneui/themed';
+
+const screenWidth = Dimensions.get('window').width;
+
+// Bỏ qua cảnh báo về defaultProps
+LogBox.ignoreLogs([
+    'Warning: Star: Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead.',
+    'Warning: TapRating: Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead.',
+]);
 
 const ReviewAdd = ({ item, handleChange, handleBlur, setFieldValue, values, errors, touched }) => {
     const hasError = touched[item.id]?.review && errors[item.id]?.review;
+
+    // Upload avatar
+    const handlePickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            // allowsEditing: true,
+            quality: 1,
+            allowsMultipleSelection: true,
+            selectionLimit: 5,
+        });
+
+        if (!result.canceled) {
+            const selectedImages = result.assets.map(asset => asset.uri);
+            const currentImages = values[item.id].images || [];
+            const newImages = [...currentImages, ...selectedImages]
+            setFieldValue(`${item.id}.images`, newImages);
+        }
+    };
+
+    // Xóa ảnh đã chọn
+    const handleRemoveImage = (index) => {
+        const currentImages = values[item.id].images || [];
+        const newImages = currentImages.filter((_, i) => i !== index);
+        if (newImages.length === 0) {
+            // Xóa khóa images nếu mảng trống
+            const { [item.id]: { images, ...restItem }, ...restValues } = values;
+            setFieldValue(item.id, { ...restItem });
+        } else {
+            setFieldValue(`${item.id}.images`, newImages);
+        }
+    };
 
     return (
         <View>
@@ -22,8 +62,41 @@ const ReviewAdd = ({ item, handleChange, handleBlur, setFieldValue, values, erro
                 defaultRating={values[item.id].rating} // Giá trị hiện tại của rating
                 size={28}
                 reviewSize={16}
+                starContainerStyle={{ margin: -8 }}
                 onFinishRating={(rating) => setFieldValue(`${item.id}.rating`, rating)} // Lưu giá trị rating
             />
+            {/* Nút upload hình ảnh */}
+            <View className="items-center">
+                <TouchableOpacity
+                    activeOpacity={0.7}
+                    className="flex-row justify-center items-center gap-x-1 rounded-md border-2 border-gray-600 p-1 mt-5"
+                    onPress={handlePickImage}
+                >
+                    <Icon type='antdesign' name='camerao' />
+                    <Text className="text-center text-black text-base">Chọn hình ảnh</Text>
+
+                </TouchableOpacity>
+            </View>
+
+
+            {/* Hiển thị hình ảnh đã upload */}
+            <View className="flex-row flex-wrap mt-2 px-2">
+                {values[item.id].images && values[item.id].images.map((uri, index) => (
+                    <View key={index} className="relative m-1"
+                        style={{ width: screenWidth / 3 - 14, height: screenWidth / 3 - 14 }}
+                    >
+                        <Image source={{ uri }} className="w-full h-full rounded-md" />
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            className="absolute top-0 right-0 rounded-full w-6 h-6 flex items-center justify-center"
+                            onPress={() => handleRemoveImage(index)}
+                        >
+                            <Icon type='antdesign' name='close' color='white' />
+                            {/* <Text className="text-white text-xs">x</Text> */}
+                        </TouchableOpacity>
+                    </View>
+                ))}
+            </View>
 
             {/* TextInput cho nội dung đánh giá */}
             <View className="p-3">
