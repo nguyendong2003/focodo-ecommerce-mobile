@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, Text, FlatList, Alert } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import ReviewAdd from '../components/review/ReviewAdd';
 import { Button } from '@rneui/themed';
+import { OrderContext } from '../components/context/OrderProvider';
 
 const ReviewAddScreen = ({ navigation, route }) => {
+    const { orderContextValue, setOrderContextValue } = useContext(OrderContext);
     const { orderId } = route.params;
     const [data, setData] = useState(null); // State để lưu dữ liệu từ API
     const [loading, setLoading] = useState(true); // State để kiểm tra trạng thái loading
     const [error, setError] = useState(null); // State để lưu thông báo lỗi
+    const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,6 +30,35 @@ const ReviewAddScreen = ({ navigation, route }) => {
 
         fetchData(); // Gọi hàm fetch dữ liệu
     }, []); // Chỉ chạy một lần khi component mount
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+            if (!hasUnsavedChanges) {
+                // Nếu không có thay đổi chưa lưu, không cần làm gì
+                return;
+            }
+
+            // Ngăn chặn hành động mặc định (rời khỏi màn hình)
+            e.preventDefault();
+
+            // Hiển thị thông báo xác nhận
+            Alert.alert(
+                'Xác nhận rời khỏi',
+                'Bạn có thay đổi chưa được lưu. Bạn có chắc chắn muốn hủy bỏ chúng và rời khỏi màn hình không?',
+                [
+                    { text: "Không", style: 'cancel', onPress: () => { } },
+                    {
+                        text: 'Đồng ý',
+                        style: 'destructive',
+                        // Nếu người dùng xác nhận, tiếp tục hành động bị chặn trước đó
+                        onPress: () => navigation.dispatch(e.data.action),
+                    },
+                ]
+            );
+        });
+
+        return unsubscribe;
+    }, [navigation, hasUnsavedChanges]);
 
     if (loading) {
         return <Text>Loading...</Text>; // Hiển thị loading
@@ -55,8 +87,21 @@ const ReviewAddScreen = ({ navigation, route }) => {
     );
 
     const handleSubmit = (values) => {
-        console.log('Submitted Reviews:', values);
-        // Xử lý logic gửi đánh giá ở đây
+        // console.log('Submitted Reviews:', values);
+        setHasUnsavedChanges(false); // Đánh dấu là không còn thay đổi chưa lưu
+
+        // Chuyển đổi values thành mảng các object với key được thêm vào value tương ứng
+        const reviewsArray = Object.entries(values).map(([key, value]) => ({
+            productId: key,
+            ...value
+        }));
+
+        console.log('Reviews Array:', reviewsArray);
+        //
+        setOrderContextValue((prev) => {
+            return { ...prev, id: orderId, status: 'reviewed' }
+        })
+        navigation.goBack()
     };
 
     return (
@@ -71,13 +116,19 @@ const ReviewAddScreen = ({ navigation, route }) => {
                         data={data.products} // Sử dụng dữ liệu từ API
                         renderItem={({ item }) => (
                             <ReviewAdd
+                                navigation={navigation}
                                 item={item}
-                                handleChange={handleChange}
+                                // handleChange={handleChange}
+                                handleChange={(field) => (value) => {
+                                    handleChange(field)(value);
+                                    setHasUnsavedChanges(true); // Đánh dấu là có thay đổi chưa lưu
+                                }}
                                 handleBlur={handleBlur}
                                 setFieldValue={setFieldValue}
                                 values={values}
                                 errors={errors}
                                 touched={touched}
+                                setHasUnsavedChanges={setHasUnsavedChanges}
                             />
                         )}
                         showsVerticalScrollIndicator={false}

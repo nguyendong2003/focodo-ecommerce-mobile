@@ -27,7 +27,7 @@ const Review = ({ navigation, productId }) => {
                 {
                     reviews.map((review) => (
                         <View key={review.id}>
-                            <ReviewCard review={review} />
+                            <ReviewCard navigation={navigation} review={review} isProductVisible={false} />
                         </View>
 
                     ))
@@ -37,6 +37,7 @@ const Review = ({ navigation, productId }) => {
             <TouchableOpacity activeOpacity={0.5}
                 className="mb-3 p-2 "
                 onPress={() => navigation.navigate('Review', {
+                    screen: 'Settings',
                     productId
                 })}>
                 <Text className="text-center text-base text-blue-600">Xem tất cả 119 đánh giá</Text>

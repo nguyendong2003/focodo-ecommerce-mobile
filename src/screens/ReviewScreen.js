@@ -20,7 +20,7 @@ const ReviewScreen = ({ navigation, productId }) => {
     return (
         <FlatList
             data={reviews}
-            renderItem={({ item }) => <ReviewCard review={item} />}
+            renderItem={({ item }) => <ReviewCard navigation={navigation} review={item} />}
             keyExtractor={item => item.id.toString()}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={() => <View className="border-t-2 border-gray-400" />}

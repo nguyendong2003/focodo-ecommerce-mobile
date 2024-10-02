@@ -12,7 +12,7 @@ LogBox.ignoreLogs([
     'Warning: TapRating: Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead.',
 ]);
 
-const ReviewAdd = ({ item, handleChange, handleBlur, setFieldValue, values, errors, touched }) => {
+const ReviewAdd = ({ navigation, item, handleChange, handleBlur, setFieldValue, values, errors, touched, setHasUnsavedChanges }) => {
     const hasError = touched[item.id]?.review && errors[item.id]?.review;
 
     // Upload avatar
@@ -29,6 +29,7 @@ const ReviewAdd = ({ item, handleChange, handleBlur, setFieldValue, values, erro
             const currentImages = values[item.id].images || [];
             const newImages = [...currentImages, ...selectedImages]
             setFieldValue(`${item.id}.images`, newImages);
+            setHasUnsavedChanges(true);
         }
     };
 
@@ -43,17 +44,22 @@ const ReviewAdd = ({ item, handleChange, handleBlur, setFieldValue, values, erro
         } else {
             setFieldValue(`${item.id}.images`, newImages);
         }
+        setHasUnsavedChanges(true);
     };
 
     return (
         <View>
-            <View className="flex-row bg-blue-200 rounded-md gap-x-2 p-2">
+            <TouchableOpacity
+                activeOpacity={0.7}
+                className="flex-row bg-blue-200 rounded-md gap-x-2 p-2"
+                onPress={() => navigation.navigate('ProductDetail', { productId: item.id })}
+            >
                 <Image
                     source={{ uri: item.image }}
                     className="rounded-lg w-12 h-12"
                 />
                 <Text className="text-gray-600 text-sm font-semibold shrink leading-5 p-1" numberOfLines={2}>{item.name}</Text>
-            </View>
+            </TouchableOpacity>
 
             {/* Component AirbnbRating */}
             <AirbnbRating
@@ -101,10 +107,10 @@ const ReviewAdd = ({ item, handleChange, handleBlur, setFieldValue, values, erro
             {/* TextInput cho nội dung đánh giá */}
             <View className="p-3">
                 <TextInput
-                    className={`rounded-md border-2 p-2 text-base ${hasError ? 'border-red-500' : 'border-gray-300'}`}
+                    className={`rounded-md border-2 p-2 text-base h-36 max-h-36 ${hasError ? 'border-red-500' : 'border-gray-300'}`}
                     style={{ textAlignVertical: 'top' }}
                     placeholder="Hãy chia sẻ nhận xét cho sản phẩm này!"
-                    multiline={false}
+                    multiline={true}
                     numberOfLines={5}
                     returnKeyType='done'
                     onChangeText={handleChange(`${item.id}.review`)} // Sử dụng product.id.review

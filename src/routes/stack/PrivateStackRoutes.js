@@ -12,6 +12,8 @@ import ReviewAddScreen from "../../screens/ReviewAddScreen"
 import ReviewListScreen from "../../screens/ReviewListScreen"
 import OrderTrackingScreen from "../../screens/OrderTrackingScreen"
 import OrderCancelledReasonScreen from "../../screens/OrderCancelledReasonScreen"
+import ReviewOrderScreen from "../../screens/ReviewOrderScreen"
+import ReviewUpdateScreen from "../../screens/ReviewUpdateScreen"
 
 const PrivateStackRoutes = [
     {
@@ -247,11 +249,61 @@ const PrivateStackRoutes = [
         })
     },
     {
+        name: 'ReviewUpdate',
+        component: ReviewUpdateScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Cập nhật đánh giá',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
+    },
+    {
         name: 'ReviewList',
         component: ReviewListScreen,
         options: ({ navigation }) => ({
             headerShown: true,
             headerTitle: 'Đánh giá sản phẩm',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
+    },
+    {
+        name: 'ReviewOrder',
+        component: ReviewOrderScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Đánh giá đơn hàng',
             headerTitleAlign: 'center',
             headerStyle: {
                 shadowColor: '#000',

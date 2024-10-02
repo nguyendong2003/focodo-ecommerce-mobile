@@ -1,17 +1,20 @@
+import { useEffect } from "react"
 import { Text, TouchableOpacity } from "react-native"
 
 
-const OrderButton = ({ navigation, order }) => {
+const OrderButton = ({ navigation, order, orderStatus }) => {
     const getButtonText = (status) => {
         switch (status) {
             case 'processing':
                 return 'Hủy đơn'
-            case 'shipping':
-                return 'Theo dõi đơn'
-            case 'finished':
-                return 'Đánh giá'
             case 'cancelled':
                 return 'Mua lại'
+            case 'shipping':
+                return 'Theo dõi đơn hàng'
+            case 'finished':
+                return 'Đánh giá'
+            case 'reviewed':
+                return 'Xem đánh giá'
             default:
                 return 'Mặc định'
         }
@@ -20,7 +23,16 @@ const OrderButton = ({ navigation, order }) => {
     const optionButtonPress = (status) => {
         switch (status) {
             case 'processing':
-                navigation.navigate('OrderCancelledReason', { orderId: order?.id });
+                navigation.navigate({
+                    name: 'OrderCancelledReason',
+                    params: {
+                        orderId: order?.id,
+                    },
+                });
+                break;
+            case 'cancelled':
+                // call api buy again
+                navigation.navigate('Cart');
                 break;
             case 'shipping':
                 navigation.navigate('OrderTracking', { orderId: order?.id });
@@ -28,9 +40,8 @@ const OrderButton = ({ navigation, order }) => {
             case 'finished':
                 navigation.navigate('ReviewAdd', { orderId: order?.id });
                 break;
-            case 'cancelled':
-                // call api buy again
-                navigation.navigate('ProductDetail', { productId: order?.id });
+            case 'reviewed':
+                navigation.navigate('ReviewOrder', { orderId: order?.id });
                 break;
             default:
                 // call api buy again
@@ -41,9 +52,9 @@ const OrderButton = ({ navigation, order }) => {
     return (
         <TouchableOpacity activeOpacity={0.7}
             className="rounded-md  border-black py-2 border-2 bg-black"
-            onPress={() => optionButtonPress(order?.status)}
+            onPress={() => optionButtonPress(orderStatus)}
         >
-            <Text className="text-center text-white font-bold">{getButtonText(order?.status)}</Text>
+            <Text className="text-center text-white font-bold">{getButtonText(orderStatus)}</Text>
         </TouchableOpacity>
     )
 }

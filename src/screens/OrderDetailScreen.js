@@ -1,22 +1,31 @@
 import { Icon } from "@rneui/themed";
 import { Dimensions, Image, ScrollView, TouchableOpacity, Text, View } from "react-native";
 import { formatCurrency } from "../utils/FormatNumber";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import orderDetail from '../data/orderDetail.json'
 import OrderButton from "../components/order/OrderButton";
 import { getStatusText } from "../utils/OrderUtils";
+import { OrderContext } from "../components/context/OrderProvider";
 
 const screenWidth = Dimensions.get('window').width;
 
 const OrderDetailScreen = ({ navigation, route }) => {
+    const { orderContextValue, setOrderContextValue } = useContext(OrderContext);
     const { orderId } = route.params
     const [order, setOrder] = useState({})
+    const [orderStatus, setOrderStatus] = useState(order?.status);
 
     useEffect(() => {
-        // const orderDetail = result.orders.find(item => item.id === orderId)
         setOrder(orderDetail)
+        setOrderStatus(orderDetail?.status)
     }, [])
 
+
+    useEffect(() => {
+        if (orderContextValue?.id === orderId) {
+            setOrderStatus(orderContextValue?.status)
+        }
+    }, [orderContextValue])
 
     return (
         <View className="flex-1 bg-white">
@@ -28,7 +37,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
                     <View>
                         <Text className="text-lg font-semibold leading-5">Mã Đơn Hàng: {order?.id}</Text>
                         <Text className="text-base text-gray-500 ">Ngày Đặt: {order?.time}</Text>
-                        <Text className="text-base text-gray-500 font-semibold">Trạng Thái: {getStatusText(order?.status)}</Text>
+                        <Text className="text-base text-gray-500 font-semibold">Trạng Thái: {getStatusText(orderStatus)}</Text>
                     </View>
                 </View>
                 <View className="flex-row gap-x-2 border-b-8 border-gray-200 p-3">
@@ -113,7 +122,11 @@ const OrderDetailScreen = ({ navigation, route }) => {
                                 <Text className="text-center text-black font-bold">Theo dõi đơn hàng</Text>
                             </TouchableOpacity>
                             <View style={{ width: screenWidth / 2 - 16 }}>
-                                <OrderButton navigation={navigation} order={order} />
+                                <OrderButton
+                                    navigation={navigation}
+                                    order={order}
+                                    orderStatus={orderStatus}
+                                />
                             </View>
                         </View>
                     )

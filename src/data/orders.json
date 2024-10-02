@@ -18,7 +18,7 @@
         },
         {
             "id": 3,
-            "title": "Product 3",
+            "title": "Product 3Product 3Product 3Product 3Product 3Product 3Product 3Product 3Product 3Product 3Product 3",
             "quantity": 1,
             "total": 300000,
             "image": "https://i.pravatar.cc/150?img=3",
@@ -38,7 +38,7 @@
             "quantity": 1,
             "total": 200000,
             "image": "https://i.pravatar.cc/150?img=5",
-            "status": "cancelled"
+            "status": "processing"
         },
         {
             "id": 6,
@@ -46,6 +46,22 @@
             "quantity": 2,
             "total": 350000,
             "image": "https://i.pravatar.cc/150?img=6",
+            "status": "processing"
+        },
+        {
+            "id": 7,
+            "title": "Product 7",
+            "quantity": 2,
+            "total": 350000,
+            "image": "https://i.pravatar.cc/150?img=7",
+            "status": "reviewed"
+        },
+        {
+            "id": 8,
+            "title": "Product 8",
+            "quantity": 2,
+            "total": 350000,
+            "image": "https://i.pravatar.cc/150?img=8",
             "status": "finished"
         }
     ]

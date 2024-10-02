@@ -3,7 +3,7 @@ import { View, ScrollView, FlatList } from 'react-native';
 import result from '../data/reviews.json'
 import ReviewCard from '../components/review/ReviewCard';
 
-const ReviewListScreen = ({ navigation }) => {
+const ReviewOrderScreen = ({ navigation }) => {
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
@@ -25,4 +25,4 @@ const ReviewListScreen = ({ navigation }) => {
     );
 };
 
-export default ReviewListScreen;
+export default ReviewOrderScreen;
