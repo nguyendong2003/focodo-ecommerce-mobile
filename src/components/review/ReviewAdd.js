@@ -47,7 +47,7 @@ const ReviewAdd = ({ item, handleChange, handleBlur, setFieldValue, values, erro
 
     return (
         <View>
-            <View className="flex-row bg-slate-100 rounded-md gap-x-2 p-2">
+            <View className="flex-row bg-blue-200 rounded-md gap-x-2 p-2">
                 <Image
                     source={{ uri: item.image }}
                     className="rounded-lg w-12 h-12"

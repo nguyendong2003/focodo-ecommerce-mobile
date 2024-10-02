@@ -1,11 +1,12 @@
 import { Icon } from "@rneui/themed";
-import { Image, ScrollView, TouchableOpacity } from "react-native";
-import { Text, View } from "react-native";
+import { Dimensions, Image, ScrollView, TouchableOpacity, Text, View } from "react-native";
 import { formatCurrency } from "../utils/FormatNumber";
 import { useEffect, useState } from "react";
 import orderDetail from '../data/orderDetail.json'
 import OrderButton from "../components/order/OrderButton";
 import { getStatusText } from "../utils/OrderUtils";
+
+const screenWidth = Dimensions.get('window').width;
 
 const OrderDetailScreen = ({ navigation, route }) => {
     const { orderId } = route.params
@@ -31,7 +32,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
                     </View>
                 </View>
                 <View className="flex-row gap-x-2 border-b-8 border-gray-200 p-3">
-                    <Icon type="ionicon" name="document-text-outline" />
+                    <Icon type="ionicon" name="location-outline" />
                     <View className="shrink">
                         <Text className="text-lg font-semibold leading-5">Địa chỉ người nhận</Text>
                         <Text className="text-base text-gray-700">{order?.receiveInfo?.fullName}</Text>
@@ -103,16 +104,17 @@ const OrderDetailScreen = ({ navigation, route }) => {
             <View>
                 {
                     order?.status !== 'shipping' && (
-                        <View className="flex-row justify-between items-center gap-x-2 my-4 mx-2">
+                        <View className="flex-row justify-between items-center py-4 mx-3">
                             <TouchableOpacity activeOpacity={0.7}
-                                className="rounded-md  border-black py-2 w-1/2 border-2 mr-2"
-                                // style={{ borderWidth: 2 }}
-                                onPress={() => navigation.navigate('OrderDetail', { orderId: order?.id })}
+                                className="rounded-md  border-black py-2 border-2"
+                                style={{ width: screenWidth / 2 - 16 }}
+                                onPress={() => navigation.navigate('OrderTracking', { orderId: order?.id })}
                             >
                                 <Text className="text-center text-black font-bold">Theo dõi đơn hàng</Text>
                             </TouchableOpacity>
-
-                            <OrderButton navigation={navigation} order={order} />
+                            <View style={{ width: screenWidth / 2 - 16 }}>
+                                <OrderButton navigation={navigation} order={order} />
+                            </View>
                         </View>
                     )
                 }
@@ -121,9 +123,8 @@ const OrderDetailScreen = ({ navigation, route }) => {
                 {
                     order?.status === 'shipping' && (
                         <TouchableOpacity activeOpacity={0.7}
-                            className="rounded-md  border-black py-2 border-2 ml-4 mr-3 my-4 bg-black"
-                            // style={{ borderWidth: 2 }}
-                            onPress={() => navigation.navigate('OrderDetail', { orderId: order?.id })}
+                            className="rounded-md  border-black py-2 border-2 my-4 mx-3 bg-black"
+                            onPress={() => navigation.navigate('OrderTracking', { orderId: order?.id })}
                         >
                             <Text className="text-center text-white font-bold">Theo dõi đơn hàng</Text>
                         </TouchableOpacity>

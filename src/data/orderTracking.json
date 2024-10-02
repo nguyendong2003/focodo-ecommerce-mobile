@@ -1,0 +1,19 @@
+{
+    "orderTracking": [
+        {
+            "id": 1,
+            "status": "ordered",
+            "time": "26/09/2024 12:54"
+        },
+        {
+            "id": 2,
+            "status": "cancelled",
+            "time": "27/09/2024 12:54"
+        },
+        {
+            "id": 3,
+            "status": "processing",
+            "time": "28/09/2024 12:54"
+        }
+    ]
+}

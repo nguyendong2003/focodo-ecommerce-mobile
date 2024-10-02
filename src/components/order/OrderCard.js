@@ -1,7 +1,9 @@
-import { Image, Text, TouchableOpacity, View } from "react-native"
+import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native"
 import { formatCurrency } from "../../utils/FormatNumber"
 import OrderButton from "./OrderButton"
 import { getStatusText } from "../../utils/OrderUtils"
+
+const screenWidth = Dimensions.get('window').width;
 
 const OrderCard = ({ navigation, order }) => {
 
@@ -25,16 +27,18 @@ const OrderCard = ({ navigation, order }) => {
                 </View>
 
 
-                <View className="flex-row justify-between items-center mt-4 mb-1 gap-x-2">
+                <View className="flex-row justify-between items-center mt-4 mb-1">
                     <TouchableOpacity activeOpacity={0.7}
-                        className="rounded-md  border-black py-2 w-1/2 border-2 mr-2"
-                        // style={{ borderWidth: 2 }}
+                        className="rounded-md  border-black py-2 border-2"
+                        style={{ width: screenWidth / 2 - 12 }}
                         onPress={() => navigation.navigate('OrderDetail', { orderId: order?.id })}
                     >
                         <Text className="text-center text-black font-bold">Xem chi tiết</Text>
                     </TouchableOpacity>
 
-                    <OrderButton navigation={navigation} order={order} />
+                    <View style={{ width: screenWidth / 2 - 12 }}>
+                        <OrderButton navigation={navigation} order={order} />
+                    </View>
                 </View>
             </TouchableOpacity>
         </>

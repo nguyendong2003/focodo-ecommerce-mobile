@@ -40,7 +40,7 @@ const OrderButton = ({ navigation, order }) => {
 
     return (
         <TouchableOpacity activeOpacity={0.7}
-            className="rounded-md  border-black py-2 grow border-2 bg-black"
+            className="rounded-md  border-black py-2 border-2 bg-black"
             onPress={() => optionButtonPress(order?.status)}
         >
             <Text className="text-center text-white font-bold">{getButtonText(order?.status)}</Text>
