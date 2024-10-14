@@ -1,40 +1,54 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
+import { callFetchAccount } from '../../services/api';
+import * as SecureStore from 'expo-secure-store';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userLogin, setUserLogin] = useState(null)
 
-    // const login = () => {
-    //     setIsLoggedIn(true);
-    // };
+    // console.log('userLogin', userLogin);
 
-    // const logout = () => {
-    //     setIsLoggedIn(false);
-    // };
-
-    const userInfo = {
-        id: 1,
-        email: 'dong123@gmail.com',
-        fullName: 'Dong Nguyen',
-        // image: null,
-        image: "https://static.vecteezy.com/system/resources/previews/002/002/257/non_2x/beautiful-woman-avatar-character-icon-free-vector.jpg",
-        phone: '0123456789',
-        address: 'K360/96 Ngũ Hành Sơn',
-        province: 'Đà Nẵng',
-        district: 'Hải Châu',
-        ward: 'Hòa Cường Bắc',
-        role: 'USER'
+    const fetchAccount = async () => {
+        const response = await callFetchAccount();
+        if (response && response.result) {
+            const user = {
+                id: '',
+                email: '',
+                fullName: '',
+                image: '',
+                phone: '',
+                address: '',
+                province: '',
+                district: '',
+                ward: '',
+                role: '',
+                ...response.result,
+                fullName: response.result.full_name ? response.result.full_name : ''
+            }
+            setUserLogin(user);
+        }
     }
 
-    const userInfo2 = null
 
-    const [userLogin, setUserLogin] = useState(userInfo)
-    const login = () => {
-        setUserLogin(userInfo);
+    useEffect(() => {
+        fetchAccount();
+    }, [])
+
+    const login = (user) => {
+        setUserLogin(user);
+    }
+
+    const deleteToken = async () => {
+        try {
+            await SecureStore.deleteItemAsync('token');
+        } catch (error) {
+            console.error("Error deleting tokens:", error);
+        }
     };
 
     const logout = () => {
+        deleteToken();
         setUserLogin(null);
     };
 
