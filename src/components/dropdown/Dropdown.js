@@ -56,7 +56,7 @@ export default DropdownComponent;
 
 const styles = StyleSheet.create({
     dropdown: {
-        height: 40,
+        height: 60,
         backgroundColor: 'white',
         borderRadius: 8,
         padding: 12,
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     selectedTextStyle: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: 'bold',
         marginLeft: 4
     },

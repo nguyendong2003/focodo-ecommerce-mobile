@@ -14,13 +14,15 @@ const SubCategoryList = ({ subCategories, selectedCategory, navigation }) => {
                     style={{ width: dimensionWidth / 4 - 12 }}
                     className="items-center rounded mx-1 py-2"
                     onPress={() => navigation.navigate('ProductList', {
-                        subCategory: item
+                        category: item
                     })}
 
 
                 >
                     <View>
-                        <Image source={require('../../static/images/products/1.png')}
+                        <Image
+                            source={{ uri: item.image }}
+                            // source={require('../../static/images/products/1.png')}
                             className="w-20 h-20 rounded"
                         />
                         <Text className="text-slate-600 text-center" numberOfLines={3}>{item.name}</Text>

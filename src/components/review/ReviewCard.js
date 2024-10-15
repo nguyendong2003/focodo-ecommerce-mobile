@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { Icon } from '@rneui/themed';
+import { memo, useState } from 'react';
 import { View, Image, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { Rating } from 'react-native-ratings';
+import { formatDateTime } from '../../utils/FormatNumber';
 
 const { width, height } = Dimensions.get('window');
 
@@ -20,22 +22,29 @@ const getReviewText = (rate) => {
             return "Không có đánh giá";
     }
 };
-const ReviewCard = ({ navigation, review, isEditable = false, isProductVisible = true }) => {
+const ReviewCard = ({ navigation, review, isEditable = false, isProductVisible = false }) => {
     const [reviewItem, setReviewItem] = useState(review);
 
     return (
         <>
             <View className="gap-y-1 p-3 pt-1 bg-white border-t-2 border-t-gray-100">
                 <View className="flex-row gap-x-1 items-center shrink">
-                    <Image
-                        // source={require('../../static/images/products/1.png')} 
-                        source={{ uri: reviewItem.user.avatar }}
+                    {
+                        reviewItem.user.avatar ? (
+                            <Image
+                                source={{ uri: reviewItem.user.avatar }}
+                                className="w-9 h-9 rounded-full" />
+                        ) : (
+                            <Icon type="octicon" name="smiley" size={36} color={'#2563eb'} />
+                        )
+                    }
 
-                        className="w-9 h-9 rounded-full" />
                     <View className="grow flex-row justify-between items-center ">
                         <View className="shrink">
                             <Text className="text-black text-base font-bold" numberOfLines={1}>{reviewItem.user.name}</Text>
-                            <Text className="text-gray-600 text-sm" numberOfLines={1}>{reviewItem.time}</Text>
+                            <Text className="text-gray-600 text-sm" numberOfLines={1}>
+                                {formatDateTime(reviewItem.time)}
+                            </Text>
                         </View>
 
                         {
@@ -72,9 +81,8 @@ const ReviewCard = ({ navigation, review, isEditable = false, isProductVisible =
                                 {
                                     reviewItem.images.map((image, index) => (
                                         <Image
-                                            key={image.id}
-                                            // source={require('../../static/images/products/1.png')} 
-                                            source={{ uri: image.url }}
+                                            key={index}
+                                            source={{ uri: image }}
                                             className="rounded-md"
                                             style={{ width: width / 3 - 14, height: width / 3 - 14 }}
                                         />
@@ -105,4 +113,4 @@ const ReviewCard = ({ navigation, review, isEditable = false, isProductVisible =
     )
 }
 
-export default ReviewCard;
+export default memo(ReviewCard);

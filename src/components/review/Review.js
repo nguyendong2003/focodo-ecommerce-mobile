@@ -1,33 +1,48 @@
-import { FlatList, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import ReviewOverall from "./ReviewOverall";
+import { Text, TouchableOpacity, View } from "react-native";
 import ReviewCard from "./ReviewCard";
 import { useEffect, useState } from "react";
-import result from '../../data/reviews.json'
+import { callFetchReviewsByProductId } from "../../services/api";
 
 const Review = ({ navigation, productId }) => {
-    const [overallReview, setOverallReview] = useState({});
     const [reviews, setReviews] = useState([]);
+
+    const fetchReviews = async (productId) => {
+        const res = await callFetchReviewsByProductId(productId, 0, 3);
+        if (res && res.result) {
+            const data = res.result.data
+            const dataReviews = data.map((item) => {
+                return {
+                    id: item.id,
+                    time: item.date,
+                    rate: item.rating,
+                    comment: item.content,
+                    user: {
+                        id: item.user.id,
+                        name: item.user.full_name,
+                        avatar: item.user.avatar ? item.user.avatar : null,
+                    },
+                    images: item.images
+                }
+            })
+            setReviews(dataReviews);
+        }
+    }
 
     useEffect(() => {
         // call api
-        const overallReviewCallAPI = result.overallReview;
-        const reviewsCallAPI = result.reviews;
+        if (productId) {
+            fetchReviews(productId);
+        }
 
-        setOverallReview(overallReviewCallAPI);
-        setReviews(reviewsCallAPI);
     }, [productId]);
 
     return (
         <>
-            <Text className="text-xl font-bold mt-4 px-4">Khách hàng đánh giá</Text>
-
-            <ReviewOverall overallReview={overallReview} />
-
             <View className="mt-4 border-b-2 border-b-gray-100">
                 {
                     reviews.map((review) => (
                         <View key={review.id}>
-                            <ReviewCard navigation={navigation} review={review} isProductVisible={false} />
+                            <ReviewCard navigation={navigation} review={review} />
                         </View>
 
                     ))

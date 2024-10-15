@@ -2,9 +2,38 @@ import { FlatList, Image, ScrollView, StatusBar, Text, TouchableOpacity, View } 
 import result from "../data/products.json"
 import ProductSlider from "../components/product/ProductSlider";
 import CategorySlider from "../components/category/CategorySlider";
-import ProductList from "../components/product/ProductList";
+import { callFetchCategories, callFetchProductsPagination } from "../services/api";
+import { useEffect, useState } from "react";
+import ProductListHomePage from "../components/product/ProductListHomePage";
 
 const HomePageScreen = ({ navigation }) => {
+    const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [page, setPage] = useState(0);
+    const [size, setSize] = useState(20);
+    const [totalPage, setTotalPage] = useState(1);
+
+    const fetchCategories = async () => {
+        const res = await callFetchCategories();
+        if (res && res.result) {
+            setCategories(res.result);
+        }
+    }
+
+    const fetchProducts = async () => {
+        const res = await callFetchProductsPagination(page, size);
+        if (res && res.result) {
+            setProducts(res.result.data);
+            setPage(res.result.pagination.current_page);
+            setTotalPage(res.result.pagination.total_pages);
+        }
+    }
+
+    useEffect(() => {
+        fetchCategories();
+        fetchProducts();
+    }, [])
+
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
@@ -23,7 +52,7 @@ const HomePageScreen = ({ navigation }) => {
 
 
                 <FlatList
-                    data={result.category}
+                    data={categories}
                     renderItem={({ item }) => <CategorySlider category={item} navigation={navigation} />}
                     keyExtractor={item => item.id}
                     horizontal={true}
@@ -73,8 +102,11 @@ const HomePageScreen = ({ navigation }) => {
                 scrollEnabled={false}
             >
 
-                {/* <ProductList products={result.products} navigation={navigation} /> */}
-                <ProductList products={result.products} navigation={navigation} />
+                <ProductListHomePage
+                    navigation={navigation}
+                    products={products}
+                />
+
             </ScrollView>
         </ScrollView>
 

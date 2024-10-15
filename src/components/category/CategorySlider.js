@@ -6,7 +6,7 @@ const CategorySlider = ({ category, navigation }) => {
             className="w-20 px-2 items-center bg-white"
             onPress={() => navigation.navigate('ProductList', { category })}
         >
-            <Image source={require('../../static/images/products/1.png')}
+            <Image source={{ uri: category.image }}
                 className="w-12 h-12 rounded-full"
             />
             <Text className="text-slate-600 text-center" numberOfLines={2}>{category.name}</Text>

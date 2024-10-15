@@ -1,9 +1,13 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PublicTabRoutes from './tab/PublicTabRoutes';
+import { AuthContext } from "../components/context/AuthProvider";
+import { useContext } from "react";
 
 const Tab = createBottomTabNavigator();
 
 const MainTabNavigator = ({ navigation }) => {
+    const { handleNavigate } = useContext(AuthContext);
+
     return (
         <Tab.Navigator
             initialRouteName="HomePage"
@@ -18,7 +22,7 @@ const MainTabNavigator = ({ navigation }) => {
             }}
         >
             {
-                PublicTabRoutes(navigation).map((route) => {
+                PublicTabRoutes(handleNavigate).map((route) => {
                     const { name, component, options, listeners } = route;
                     return (
                         <Tab.Screen

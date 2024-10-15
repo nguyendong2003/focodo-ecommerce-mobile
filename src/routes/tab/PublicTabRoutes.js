@@ -1,16 +1,12 @@
-import React, { useContext } from 'react';
 import HomePageScreen from "../../screens/HomePageScreen";
 import CategoryScreen from "../../screens/CategoryScreen";
 import { Icon } from "@rneui/themed";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import NotificationScreen from "../../screens/NotificationScreen";
 import AccountScreen from "../../screens/AccountScreen";
-import { AuthContext } from '../../components/context/AuthProvider';
 
 
-const PublicTabRoutes = (navigation) => {
-    const { handleNavigate } = useContext(AuthContext);
-
+const PublicTabRoutes = (handleNavigate) => {
     return [
         {
             name: 'HomePage',

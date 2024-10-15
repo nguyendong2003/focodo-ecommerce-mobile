@@ -63,22 +63,11 @@ const ModalAddToCart = ({ navigation, visibleModalImage, setVisibleModalImage })
     )
 }
 
-const ProductInfo = ({ navigation, productId }) => {
+const ProductInfo = ({ navigation, product }) => {
     const { userLogin, logout, handleNavigate } = useContext(AuthContext)
     const [quantity, setQuantity] = useState(1);
-    const [product, setProduct] = useState(null)
     const [currentPageImage, setCurrentPageImage] = useState(0);
     const [visibleModalImage, setVisibleModalImage] = useState(false);
-
-    useEffect(() => {
-        // call api
-        const products = result.products;
-
-        const productFind = products.find((product) => product.id === productId);
-
-        setProduct(productFind);
-
-    }, [productId]);
 
     // Quantity product
     const handleIncrease = () => {
@@ -108,42 +97,17 @@ const ProductInfo = ({ navigation, productId }) => {
                     onPageSelected={(e) => setCurrentPageImage(e.nativeEvent.position)}
 
                 >
-
-                    <View key="1">
-                        <Image
-                            source={require('../../static/images/products/1.png')}
-                            className="rounded-lg"
-                            style={{ width: screenWidth, height: screenWidth }}
-                        />
-                    </View>
-                    <View key="2">
-                        <Image
-                            source={require('../../static/images/products/2.png')}
-                            className="rounded-lg"
-                            style={{ width: screenWidth, height: screenWidth }}
-                        />
-                    </View>
-                    <View key="3">
-                        <Image
-                            source={require('../../static/images/products/3.png')}
-                            className="rounded-lg"
-                            style={{ width: screenWidth, height: screenWidth }}
-                        />
-                    </View>
-                    <View key="4">
-                        <Image
-                            source={require('../../static/images/products/4.png')}
-                            className="rounded-lg"
-                            style={{ width: screenWidth, height: screenWidth }}
-                        />
-                    </View>
-                    <View key="5">
-                        <Image
-                            source={require('../../static/images/products/5.png')}
-                            className="rounded-lg"
-                            style={{ width: screenWidth, height: screenWidth }}
-                        />
-                    </View>
+                    {
+                        product?.images?.map((image, index) => (
+                            <View key={index}>
+                                <Image
+                                    source={{ uri: image }}
+                                    className="rounded-lg"
+                                    style={{ width: screenWidth, height: screenWidth }}
+                                />
+                            </View>
+                        ))
+                    }
                 </PagerView>
 
                 <View style={{ position: 'absolute', bottom: 10, right: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 5, borderRadius: 5 }}>
@@ -153,25 +117,37 @@ const ProductInfo = ({ navigation, productId }) => {
             <View className="mt-2 px-4">
                 <Text className="text-black text-lg font-bold leading-5">{product?.name}</Text>
 
-                <View className="flex-row items-center gap-x-2" >
-                    <Text className="text-black text-base font-bold">{product?.rate.toFixed(1)}</Text>
-                    <Rating
-                        type="star"
-                        startingValue={product?.rate}
-                        readonly={true}
-                        imageSize={14}
-                        className="items-start"
-                    />
-                    <Text className="text-gray-500 text-sm">({formatNumber(product?.reviewQuantity)})</Text>
-                    <Text className="text-gray-500 text-sm">Đã bán: {formatNumber(product?.soldQuantity)}</Text>
-                </View>
+                {
+                    product?.review?.avg_rating !== "NaN" ? (
+                        <View className="flex-row items-center gap-x-2" >
+                            <Text className="text-black text-base font-bold">{product?.review?.avg_rating?.toFixed(1)}</Text>
+                            <Rating
+                                type="star"
+                                startingValue={product?.review?.avg_rating}
+                                readonly={true}
+                                imageSize={14}
+                                className="items-start"
+                            />
+                            {/* <Text className="text-gray-500 text-sm">({formatNumber(product?.reviewQuantity)})</Text> */}
+                            <Text className="text-gray-500 text-sm">Đã bán: {formatNumber(product?.sold_quantity)}</Text>
+                        </View>
+                    ) : (
+                        <View className="flex-row items-center gap-x-2" >
+                            <Text className="text-gray-500 text-base font-bold">Chưa có đánh giá</Text>
+                            <Text className="text-gray-500 text-sm">Đã bán: {formatNumber(product?.sold_quantity)}</Text>
+                        </View>
+                    )
+                }
+
+
+
                 <View className="flex-row items-center gap-x-4">
-                    <Text className=" text-red-500 text-2xl font-bold">{formatCurrency(product?.price)}</Text>
-                    <Text className=" text-gray-500 text-sm bg-gray-200 rounded-lg px-1">-{product?.salePercent}%</Text>
-                    <Text className=" text-gray-500 text-sm line-through">{formatCurrency(product?.originPrice)}</Text>
+                    <Text className=" text-red-500 text-2xl font-bold">{formatCurrency(product?.sell_price)}</Text>
+                    <Text className=" text-gray-500 text-sm bg-gray-200 rounded-lg px-1">-{product?.discount * 100}%</Text>
+                    <Text className=" text-gray-500 text-sm line-through">{formatCurrency(product?.original_price)}</Text>
                 </View>
 
-                <Text className="text-black text-sm ">{product?.shortDescription}</Text>
+                <Text className="text-black text-sm ">{product?.sub_description}</Text>
 
 
                 <View className="flex-row items-center mt-1">
@@ -226,12 +202,12 @@ const ProductInfo = ({ navigation, productId }) => {
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         originWhitelist={['*']}
-                        source={{ html: product?.longDescription || '' }}
+                        source={{ html: product?.main_description || '' }}
                     />
                     <TouchableOpacity activeOpacity={0.5}
                         className="p-2 "
                         onPress={() => navigation.navigate('ProductDescription', {
-                            productDescription: product?.longDescription
+                            productDescription: product?.main_description
                         })}>
                         <Text className="text-center text-base text-blue-600">Xem tất cả</Text>
                     </TouchableOpacity>

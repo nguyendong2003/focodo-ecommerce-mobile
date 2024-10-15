@@ -1,6 +1,7 @@
 import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
 import { Rating } from 'react-native-ratings';
 import { formatCurrency, formatNumber } from '../../utils/FormatNumber';
+import { memo } from 'react';
 
 const dimensionWidth = Dimensions.get('window').width;
 
@@ -14,13 +15,13 @@ const ProductCard = ({ product, navigation }) => {
         >
             <View>
                 <Image
-                    // source={{ uri: item.image }}
-                    source={require('../../static/images/products/1.png')}
+                    source={{ uri: product.image }}
+                    // source={require('../../static/images/products/1.png')}
                     className="rounded-lg items-center"
                     style={{ width: dimensionWidth / 2 - 12, height: dimensionWidth / 2 - 12 }}
                 />
                 <View className="bg-red-500 absolute top-0 right-0 rounded-lg p-1">
-                    <Text className="text-white text-sm">{product.salePercent}%</Text>
+                    <Text className="text-white text-sm">{product.discount * 100}%</Text>
                     <Text className="text-white text-sm">OFF</Text>
                 </View>
             </View>
@@ -30,26 +31,34 @@ const ProductCard = ({ product, navigation }) => {
                     {product.name}
                 </Text>
 
-                <View className="flex-row items-center" >
-                    <Rating
-                        type="star"
-                        fractions={1}
-                        startingValue={product?.rate}
-                        readonly={true}
-                        imageSize={14}
-                    />
-                    <Text className="text-gray-500 text-sm mx-1 shrink" numberOfLines={1}>
-                        ({formatNumber(product?.reviewQuantity)})
-                    </Text>
-                </View>
+                {
+                    product.review !== "NaN" && (
+                        <View className="flex-row items-center my-1" >
+                            <Text className="text-gray-500 text-sm shrink mr-1" numberOfLines={1}>
+                                {product.review?.toFixed(1)}
+                            </Text>
+                            <Rating
+                                type="star"
+                                fractions={1}
+                                startingValue={product.review}
+                                readonly={true}
+                                imageSize={14}
+                            />
+                            {/* <Text className="text-gray-500 text-sm mx-1 shrink" numberOfLines={1}>
+                                ({formatNumber(product?.reviewQuantity)})
+                            </Text> */}
 
-                <Text className="text-sm text-slate-600 leading-5">Đã bán: {formatNumber(product?.soldQuantity)}</Text>
+                        </View>
+                    )
+                }
+
+                <Text className="text-sm text-slate-600 leading-5">Đã bán: {formatNumber(product?.sold_quantity)}</Text>
 
                 <Text className="text-red-500 text-lg italic leading-5">
-                    {formatCurrency(product?.price)}
+                    {formatCurrency(product?.sell_price)}
                 </Text>
                 <Text className="text-slate-500 text-base line-through italic leading-5">
-                    {formatCurrency(product?.originPrice)}
+                    {formatCurrency(product?.original_price)}
                 </Text>
             </View>
 
@@ -59,4 +68,4 @@ const ProductCard = ({ product, navigation }) => {
     );
 }
 
-export default ProductCard;
+export default memo(ProductCard);
