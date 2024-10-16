@@ -1,9 +1,9 @@
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
+import API_URL from "./api-config";
 
 const instance = axios.create({
-    baseURL: process.env.EXPO_PUBLIC_API_URL,
-    // baseURL: 'http://192.168.0.104:8080'
+    baseURL: API_URL,
 });
 
 const getTokens = async () => {
