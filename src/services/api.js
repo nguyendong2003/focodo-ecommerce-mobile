@@ -35,3 +35,21 @@ export const callFetchProductById = (id) => {
 export const callFetchReviewsByProductId = (id, page, size) => {
     return axios.get(`/api/v1/reviews/getReviewsOfProduct/${id}?page=${page}&size=${size}`)
 }
+
+// Cart
+export const callFetchCart = () => {
+    return axios.get('/api/v1/carts/getCartOfUser')
+}
+
+// Voucher
+export const callCheckVoucher = (voucher) => {
+    return axios.get(`/api/v1/vouchers/checkVoucher/${voucher}`)
+}
+
+export const callFetchVouchers = () => {
+    return axios.get('/api/v1/vouchers/getAllVouchers')
+}
+
+export const callFetchVoucherById = (id) => {
+    return axios.get(`/api/v1/vouchers/getVoucherById/${id}`)
+}

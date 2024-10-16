@@ -5,7 +5,7 @@ import { useFocusEffect } from "@react-navigation/native"
 import { useCallback } from "react"
 
 const OrderSuccessScreen = ({ navigation, route }) => {
-    const { order } = route.params
+    const { customer, order } = route.params
 
 
     // Ngăn chặn hành động back press (nút back trên thiết bị)
@@ -31,13 +31,13 @@ const OrderSuccessScreen = ({ navigation, route }) => {
             >
                 <View className="h-52 justify-center" style={{ backgroundColor: '#1ba8ff' }}>
                     <Icon type="antdesign" name="checkcircle" color={'white'} size={50} />
-                    <Text className="text-center text-xl text-white mt-2">Cảm ơn Nguyễn Đông!</Text>
+                    <Text className="text-center text-xl text-white mt-2">Cảm ơn quý khách!</Text>
                     <Text className="text-center text-lg text-white">Đặt hàng thành công</Text>
                 </View>
 
                 <View className="border-b-4 border-gray-200 py-3">
                     <Text className="text-center text-base">Số tiền đơn hàng</Text>
-                    <Text className="text-center text-xl text-blue-600 font-bold">{formatCurrency(order?.money?.finalPrice)}</Text>
+                    <Text className="text-center text-xl text-blue-600 font-bold">{formatCurrency(order?.final_price)}</Text>
                 </View>
 
                 <View className="flex-row justify-between items-center p-3 border-b-2 border-gray-100">
@@ -52,18 +52,18 @@ const OrderSuccessScreen = ({ navigation, route }) => {
                 <View className="border-b-8 border-gray-200">
 
                     {
-                        order?.products?.map((item, index) => (
+                        order?.details?.map((item, index) => (
                             <TouchableOpacity
-                                key={item.id}
+                                key={item.id_product}
                                 activeOpacity={0.7}
                                 className="p-2 px-3 border-b-2 border-b-gray-100"
-                                onPress={() => navigation.navigate('ProductDetail', { productId: item.id })}
+                                onPress={() => navigation.navigate('ProductDetail', { productId: item.id_product })}
                             >
                                 <View className="flex-row items-center gap-x-2">
                                     <Image source={{ uri: item?.image }} className="w-16 h-16 rounded-lg" />
                                     <View className="shrink h-full w-full ">
                                         <Text className="text-base text-gray-600 font-semibold leading-5" numberOfLines={2}>{item?.name}</Text>
-                                        <Text className="text-sm text-gray-500 leading-6" numberOfLines={1}>x{item?.quantity}  | {formatCurrency(item?.price)}</Text>
+                                        <Text className="text-sm text-gray-500 leading-6" numberOfLines={1}>x{item?.quantity}  | {formatCurrency(item?.unit_price)}</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>

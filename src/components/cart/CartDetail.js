@@ -2,14 +2,12 @@ import { Alert, Text, TextInput, View } from "react-native";
 import { formatCurrency } from "../../utils/FormatNumber";
 import { useEffect, useState } from "react";
 import { Button } from "@rneui/themed";
+import { callCheckVoucher } from "../../services/api";
 
 
-const CartDetail = ({ selectedItems }) => {
+const CartDetail = ({ selectedItems, totalPrice, setTotalPrice, discountPrice, setDiscountPrice, finalPrice, setFinalPrice, voucherId, setVoucherId }) => {
     const [discountCode, setDiscountCode] = useState('');
     const [discountPercent, setDiscountPercent] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0);
-    const [discountPrice, setDiscountPrice] = useState(0);
-    const [finalPrice, setFinalPrice] = useState(0);
 
     useEffect(() => {
         // const total = selectedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -25,18 +23,22 @@ const CartDetail = ({ selectedItems }) => {
         setFinalPrice(final);
     }, [selectedItems, discountPercent]);
 
-    const handlePress = () => {
+    const handlePress = async () => {
         if (discountCode === '') {
             setDiscountPercent(0);
             Alert.alert('Thông báo', 'Chưa nhập mã giảm giá');
             return;
         }
 
-        if (discountCode === '10') {
-            setDiscountPercent(10);
-        } else {
-            setDiscountPercent(0);
-        }
+        // const res = await callCheckVoucher(discountCode);
+        // if (res && res.result) {
+        //     const result = res.result;
+        // }
+        // if (discountCode === '10') {
+        //     setDiscountPercent(10);
+        // } else {
+        //     setDiscountPercent(0);
+        // }
     }
 
     return (

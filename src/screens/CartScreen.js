@@ -4,29 +4,53 @@ import CartItem from "../components/cart/CartItem";
 import CartDetail from "../components/cart/CartDetail";
 import result from "../data/cart.json"
 import { Button } from "@rneui/themed";
+import { callFetchCart } from "../services/api";
 
 const CartScreen = ({ navigation }) => {
     const [cartList, setCartList] = useState([]);
     const [selectedItems, setSelectedItems] = useState({});
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [discountPrice, setDiscountPrice] = useState(0);
+    const [finalPrice, setFinalPrice] = useState(0);
+    const [voucherId, setVoucherId] = useState(null);
 
-    // console.log(selectedItems);
+
+    const fetchCart = async () => {
+        const res = await callFetchCart();
+        if (res && res.result) {
+            const result = res.result;
+            const carts = result.map(item => ({
+                id_cart: item.id_cart,
+                id: item.id_product,
+                name: item.product_name,
+                quantity: item.quantity,
+                price: item.unit_price,
+                originPrice: item.original_price,
+                image: item.image,
+                isChecked: item.check
+            }));
+
+            const checkedItems = {}
+            carts.forEach(item => {
+                if (item.isChecked) {
+                    checkedItems[item.id] = {
+                        price: item.price,
+                        quantity: item.quantity,
+
+
+                        image: item.image,
+                        name: item.name
+                    };
+                }
+            });
+
+            setCartList(carts);
+            setSelectedItems(checkedItems);
+        }
+    }
 
     useEffect(() => {
-        // call api here
-        const carts = result.cart;
-        //
-        const checkedItems = {}
-        carts.forEach(item => {
-            if (item.isChecked) {
-                checkedItems[item.id] = {
-                    price: item.price,
-                    quantity: item.quantity
-                };
-            }
-        });
-
-        setCartList(carts);
-        setSelectedItems(checkedItems);
+        fetchCart();
     }, []);
 
     const handleRemoveCartItem = (id) => {
@@ -39,9 +63,29 @@ const CartScreen = ({ navigation }) => {
     }
 
     const handlePurchase = () => {
-        // call api here
-        console.log('ids:', Object.keys(selectedItems));
-        navigation.navigate('ShippingInfo');
+        // console.log('ids:', Object.keys(selectedItems));
+        const details = Object.keys(selectedItems).map(productId => ({
+            id_product: productId,
+            unit_price: selectedItems[productId].price,
+            quantity: selectedItems[productId].quantity,
+
+            image: selectedItems[productId].image,
+            name: selectedItems[productId].name
+        }));
+
+        const order = {}
+        if (voucherId !== null) {
+            order.id_voucher = voucherId
+        }
+
+        order.total_price = totalPrice;
+        order.discount_price = discountPrice;
+        order.final_price = finalPrice;
+        order.details = details;
+
+        navigation.navigate('ShippingInfo', {
+            order
+        });
     };
 
     return (
@@ -65,7 +109,19 @@ const CartScreen = ({ navigation }) => {
                     }
                 </View>
 
-                <CartDetail selectedItems={selectedItems} />
+                <CartDetail
+                    selectedItems={selectedItems}
+
+                    totalPrice={totalPrice}
+                    discountPrice={discountPrice}
+                    finalPrice={finalPrice}
+                    voucherId={voucherId}
+
+                    setTotalPrice={setTotalPrice}
+                    setDiscountPrice={setDiscountPrice}
+                    setFinalPrice={setFinalPrice}
+                    setVoucherId={setVoucherId}
+                />
 
 
 

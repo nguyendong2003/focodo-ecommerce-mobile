@@ -111,7 +111,7 @@ const ProductInfo = ({ navigation, product }) => {
                 </PagerView>
 
                 <View style={{ position: 'absolute', bottom: 10, right: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 5, borderRadius: 5 }}>
-                    <Text className="text-white">{currentPageImage + 1}/5</Text>
+                    <Text className="text-white">{currentPageImage + 1}/{product?.images?.length}</Text>
                 </View>
             </View>
             <View className="mt-2 px-4">
@@ -209,7 +209,7 @@ const ProductInfo = ({ navigation, product }) => {
                         onPress={() => navigation.navigate('ProductDescription', {
                             productDescription: product?.main_description
                         })}>
-                        <Text className="text-center text-base text-blue-600">Xem tất cả</Text>
+                        <Text className="text-center text-base text-blue-600">Xem tất cả mô tả</Text>
                     </TouchableOpacity>
 
                 </View>

@@ -23,6 +23,7 @@ const ReviewOverall = ({ overallReview }) => {
     };
 
     return (
+
         <View className="bg-white pt-1 pb-4">
             <View className="flex-row items-center gap-x-3 mt-1 px-4">
                 <Text className="text-3xl font-bold">{overallReview?.averageRate?.toFixed(1)}</Text>
@@ -46,34 +47,10 @@ const ReviewOverall = ({ overallReview }) => {
                             </View>
                         ))
                     }
-                    {/* <View className="flex-row items-center gap-x-2">
-                        <Text className="text-sm text-black w-20">Rất hài lòng</Text>
-                        <Progress.Bar progress={0.9} width={150} color="#FFB547" />
-                        <Text className="text-sm text-gray-600">1831</Text>
-                    </View>
-                    <View className="flex-row items-center gap-x-2">
-                        <Text className="text-sm  text-black w-20">Hài lòng</Text>
-                        <Progress.Bar progress={0.5} width={150} color="#FFB547" />
-                        <Text className="text-sm text-gray-600">1000</Text>
-                    </View>
-                    <View className="flex-row items-center gap-x-2">
-                        <Text className="text-sm  text-black w-20">Bình thường</Text>
-                        <Progress.Bar progress={0.3} width={150} color="#FFB547" />
-                        <Text className="text-sm text-gray-600">200</Text>
-                    </View>
-                    <View className="flex-row items-center gap-x-2">
-                        <Text className="text-sm  text-black w-20">Tệ</Text>
-                        <Progress.Bar progress={0.2} width={150} color="#FFB547" />
-                        <Text className="text-sm text-gray-600">10</Text>
-                    </View>
-                    <View className="flex-row items-center gap-x-2">
-                        <Text className="text-sm  text-black w-20">Rất tệ</Text>
-                        <Progress.Bar progress={0.05} width={150} color="#FFB547" />
-                        <Text className="text-sm text-gray-600">5</Text>
-                    </View> */}
                 </View>
             </View>
         </View>
+
 
     )
 }

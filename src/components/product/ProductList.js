@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, View } from "react-native";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import ProductCard from "./ProductCard";
 
 const ProductList = ({ navigation, products, ListHeaderComponent, handleFetchMoreProducts, isLoadingMore, refreshing, setRefreshing }) => {
@@ -16,6 +16,11 @@ const ProductList = ({ navigation, products, ListHeaderComponent, handleFetchMor
                 numColumns={2}
                 key={'all_products'}
                 showsVerticalScrollIndicator={false}
+                ListEmptyComponent={() => (
+                    <View className="flex-1 items-center justify-center">
+                        <Text className="text-lg text-gray-500 font-bold">Không có sản phẩm nào</Text>
+                    </View>
+                )}
 
                 onEndReachedThreshold={0}
                 onEndReached={handleFetchMoreProducts}

@@ -7,11 +7,25 @@ import CustomTextInput from "../components/custom/CustomTextInput";
 
 // https://formik.org/docs/guides/validation
 // uncontrolled component with Formik: https://blog.logrocket.com/react-native-form-validations-with-formik-and-yup
-const ShippingInfoScreen = ({ navigation }) => {
+const ShippingInfoScreen = ({ navigation, route }) => {
+    const order = route.params.order;
 
     const handleConfirm = (values) => {
-        // console.log(values)
-        navigation.navigate('OrderConfirm')
+        const customer = {
+            full_name: values.name,
+            phone: values.phone,
+            address: values.address,
+        }
+        const shipping_price = 10000
+        const payment_method = values.paymentMethod === 'cash' ? 1 : 2;
+
+        order.shipping_price = shipping_price
+        order.payment_method = payment_method
+
+        navigation.navigate('OrderConfirm', {
+            customer,
+            order
+        })
     }
 
     return (

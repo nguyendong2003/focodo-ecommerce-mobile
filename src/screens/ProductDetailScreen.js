@@ -63,11 +63,19 @@ const ProductDetailScreen = ({ navigation, route }) => {
 
             <ProductInfo navigation={navigation} product={product} />
 
-            <Text className="text-xl font-bold mt-4 px-4">Khách hàng đánh giá</Text>
+            {
+                overallReview?.averageRate !== "NaN" && (
+                    <>
+                        <Text className="text-xl font-bold mt-4 px-4">Khách hàng đánh giá</Text>
 
-            <ReviewOverall overallReview={overallReview} />
+                        <ReviewOverall overallReview={overallReview} />
 
-            <Review navigation={navigation} productId={productId} />
+                        <Review navigation={navigation} productId={productId} />
+                    </>
+                )
+            }
+
+
 
             {/* <View>
                 <Text className="text-2xl font-bold p-2">Sản phẩm liên quan</Text>

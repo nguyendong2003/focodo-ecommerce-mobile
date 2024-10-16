@@ -84,7 +84,7 @@ const CartItem = ({
 
                 />
                 <Image
-                    source={require('../../static/images/products/1.png')}
+                    source={{ uri: item?.image }}
                     className="w-20 h-20 rounded-lg"
                 />
                 <View className="shrink ml-2 justify-between">
