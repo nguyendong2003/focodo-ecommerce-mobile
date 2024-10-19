@@ -4,7 +4,7 @@ import CartItem from "../components/cart/CartItem";
 import CartDetail from "../components/cart/CartDetail";
 import result from "../data/cart.json"
 import { Button, Icon } from "@rneui/themed";
-import { callFetchCart } from "../services/api";
+import { callDeleteCart, callFetchCart } from "../services/api";
 
 const CartScreen = ({ navigation }) => {
     const [cartList, setCartList] = useState([]);
@@ -14,13 +14,17 @@ const CartScreen = ({ navigation }) => {
     const [finalPrice, setFinalPrice] = useState(0);
     const [voucherId, setVoucherId] = useState(null);
 
+    useEffect(() => {
+        fetchCart();
+    }, []);
+
     const fetchCart = async () => {
         const res = await callFetchCart();
         if (res && res.result) {
             const result = res.result;
             const carts = result.map(item => ({
                 id_cart: item.id_cart,
-                id: item.id_product,
+                id_product: item.id_product,
                 name: item.product_name,
                 quantity: item.quantity,
                 price: item.unit_price,
@@ -32,7 +36,8 @@ const CartScreen = ({ navigation }) => {
             const checkedItems = {}
             carts.forEach(item => {
                 if (item.isChecked) {
-                    checkedItems[item.id] = {
+                    checkedItems[item.id_cart] = {
+                        id_product: item.id_product,
                         price: item.price,
                         quantity: item.quantity,
 
@@ -48,32 +53,26 @@ const CartScreen = ({ navigation }) => {
         }
     }
 
-    useEffect(() => {
-        fetchCart();
-    }, []);
-
-    const handleRemoveCartItem = (id) => {
-        const newCartList = cartList.filter(item => item.id !== id);
+    const handleRemoveCartItem = async (cartId) => {
+        const res = await callDeleteCart(cartId);
+        const newCartList = cartList.filter(item => item.id_cart !== cartId);
         const newSelectedItems = { ...selectedItems };
-        delete newSelectedItems[id];
+        delete newSelectedItems[cartId];
 
         setCartList(newCartList);
         setSelectedItems(newSelectedItems);
     }
 
     const handlePurchase = () => {
-        // console.log('ids:', Object.keys(selectedItems));
-        const details = Object.keys(selectedItems).map(productId => ({
-            id_product: parseInt(productId),
-            unit_price: selectedItems[productId].price,
-            quantity: selectedItems[productId].quantity,
+        const details = Object.keys(selectedItems).map(cartId => ({
+            id_cart: parseInt(cartId),
+            id_product: selectedItems[cartId].id_product,
+            unit_price: selectedItems[cartId].price,
+            quantity: selectedItems[cartId].quantity,
 
-            image: selectedItems[productId].image,
-            name: selectedItems[productId].name
+            image: selectedItems[cartId].image,
+            name: selectedItems[cartId].name
         }));
-
-        console.log('details:', details);
-
 
         const order = {}
         if (voucherId !== null) {
@@ -113,7 +112,7 @@ const CartScreen = ({ navigation }) => {
                                     cartList.map((item, index) => (
                                         <CartItem
                                             navigation={navigation}
-                                            key={item.id}
+                                            key={item.id_cart}
                                             item={item}
                                             selectedItems={selectedItems}
                                             setSelectedItems={setSelectedItems}

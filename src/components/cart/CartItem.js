@@ -1,8 +1,9 @@
 import { CheckBox, Divider, Icon } from "@rneui/themed";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Image, Text, TouchableOpacity, View, TextInput } from "react-native";
 import { formatCurrency } from "../../utils/FormatNumber";
 import Dialog from "react-native-dialog";
+import { callUpdateCheckCart, callUpdateQuantityCart } from "../../services/api";
 
 const CartItem = ({
     navigation,
@@ -11,51 +12,60 @@ const CartItem = ({
     handleRemoveCartItem
 }) => {
     const [visible, setVisible] = useState(false);
-    const { id, price, image, name } = item;
+    const { id_cart, id_product, price, image, name } = item;
     const [quantity, setQuantity] = useState(item.quantity);
     const [isChecked, setIsChecked] = useState(item.isChecked);
+    const isMounted = useRef(false);
 
     useEffect(() => {
-        if (isChecked) {
-            const timerId = setTimeout(() => {
-                // call api to update
+        if (!isMounted.current) {
+            // isMounted.current = true;
+            return;
+        }
 
+        const handleCheckCartItem = async () => {
+            await callUpdateCheckCart(id_cart);
 
+            if (isChecked) {
+                // Call API to update
                 setSelectedItems(prev => ({
                     ...prev,
-                    [id]: { price, quantity, image, name }
+                    [id_cart]: { id_product, price, quantity, image, name }
                 }));
-            }, 500);
-
-            return () => {
-                clearTimeout(timerId);
-            };
-        } else {
-            const timerId = setTimeout(() => {
+            } else {
                 setSelectedItems(prev => {
                     const newSelectedItems = { ...prev };
-                    delete newSelectedItems[id];
+                    delete newSelectedItems[id_cart];
                     return newSelectedItems;
-                })
-            }, 500);
+                });
+            }
+        };
 
-            return () => {
-                clearTimeout(timerId);
-            };
-        }
+        const timerId = setTimeout(handleCheckCartItem, 500);
+
+        return () => {
+            clearTimeout(timerId);
+        };
     }, [isChecked]);
 
     useEffect(() => {
-        if (isChecked) {
-            setSelectedItems(prev => ({
-                ...prev,
-                [id]: { price, quantity, image, name }
-            }));
+        if (!isMounted.current) {
+            isMounted.current = true;
+            return;
         }
-        // Call api to update quantity
-        const timerId = setTimeout(() => {
 
-        }, 500);
+        const updateQuantity = async () => {
+            if (isChecked) {
+                setSelectedItems(prev => ({
+                    ...prev,
+                    [id_cart]: { id_product, price, quantity, image, name }
+                }));
+            }
+            // Call API to update quantity
+            await callUpdateQuantityCart(id_cart, quantity);
+        };
+
+        const timerId = setTimeout(updateQuantity, 500);
 
         return () => {
             clearTimeout(timerId);
@@ -85,7 +95,7 @@ const CartItem = ({
     return (
         <View>
             <TouchableOpacity activeOpacity={0.7} className="flex-row p-2 pl-0 items-center border-b-2 border-gray-100"
-                onPress={() => navigation.navigate('ProductDetail', { productId: id })}
+                onPress={() => navigation.navigate('ProductDetail', { productId: id_product })}
             >
                 <CheckBox
                     iconType="material-community"
@@ -151,7 +161,7 @@ const CartItem = ({
                     Bạn có muốn xóa sản phẩm đang chọn
                 </Dialog.Description>
                 <Dialog.Button label="Không" onPress={() => setVisible(!visible)} />
-                <Dialog.Button label="Xóa" onPress={() => handleRemoveCartItem(id)} />
+                <Dialog.Button label="Xóa" onPress={() => handleRemoveCartItem(id_cart)} />
             </Dialog.Container>
         </View>
     )

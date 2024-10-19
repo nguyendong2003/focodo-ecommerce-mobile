@@ -56,8 +56,16 @@ export const callAddToCart = (productId, quantity) => {
     })
 }
 
-export const callUpdateCart = (id) => {
+export const callUpdateCheckCart = (id) => {
     return axios.put(`/api/v1/carts/updateCart/${id}`)
+}
+
+export const callUpdateQuantityCart = (id, quantity) => {
+    return axios.put(`/api/v1/carts/updateQuantityCart/${id}?quantity=${quantity}`)
+}
+
+export const callDeleteCart = (id) => {
+    return axios.delete(`/api/v1/carts/deleteCart/${id}`)
 }
 
 // Voucher
@@ -93,14 +101,6 @@ export const callCreateOrder = (data) => {
         },
     });
 };
-
-export const callCreateOrderWithPayment = (data) => {
-    return axios.post('/api/v1/orders/createWithPayment', data, {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-}
 
 // Payment
 export const callGetPayment = (url) => {
