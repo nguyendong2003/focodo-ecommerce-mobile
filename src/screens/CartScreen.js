@@ -65,13 +65,16 @@ const CartScreen = ({ navigation }) => {
     const handlePurchase = () => {
         // console.log('ids:', Object.keys(selectedItems));
         const details = Object.keys(selectedItems).map(productId => ({
-            id_product: productId,
+            id_product: parseInt(productId),
             unit_price: selectedItems[productId].price,
             quantity: selectedItems[productId].quantity,
 
             image: selectedItems[productId].image,
             name: selectedItems[productId].name
         }));
+
+        console.log('details:', details);
+
 
         const order = {}
         if (voucherId !== null) {

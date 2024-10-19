@@ -53,3 +53,37 @@ export const callFetchVouchers = () => {
 export const callFetchVoucherById = (id) => {
     return axios.get(`/api/v1/vouchers/getVoucherById/${id}`)
 }
+
+// Order
+export const callFetchOrders = () => {
+    return axios.get('/api/v1/orders/getOrdersOfUser')
+}
+
+export const callCreateOrder = (data) => {
+    const order = {
+        customer: data.customer,
+        order: data.order,
+    };
+
+    console.log(order);
+
+
+    return axios.post('/api/v1/orders/create', order, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+};
+
+export const callCreateOrderWithPayment = (data) => {
+    return axios.post('/api/v1/orders/createWithPayment', data, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+}
+
+// Payment
+export const callGetPayment = (url) => {
+    return axios.get(url);
+};

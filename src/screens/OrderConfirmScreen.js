@@ -3,27 +3,44 @@ import { Alert, Image, ScrollView, TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
 import { formatCurrency } from "../utils/FormatNumber";
 import { useEffect, useState } from "react";
-import orderDetail from '../data/orderDetail.json'
+import { callCreateOrder } from "../services/api";
 
 const OrderConfirmScreen = ({ navigation, route }) => {
     const [customer, setCustomer] = useState(route.params.customer);
     const [order, setOrder] = useState(route.params.order);
 
-    const handleSubmit = () => {
-        const orderData = {
-            ...order,
-            id: 123456789
-        }
-
-        const submitData = {
+    const handleSubmit = async () => {
+        const res = await callCreateOrder({
             customer,
-            order: orderData,
+            order,
+        });
+
+        console.log('res: ', res);
+
+
+        if (res && res.result) {
+            // 
+            if (res.result.payment_url === "") {
+                navigation.navigate('OrderSuccess', {
+                    customer,
+                    order: {
+                        ...order,
+                        id_order: res.result.id_order
+                    }
+                })
+            } else {
+                navigation.navigate('VnPayPayment', {
+                    customer,
+                    order: {
+                        ...order,
+                        id_order: res.result.id_order
+                    },
+                    paymentUrl: res.result.payment_url
+                })
+            }
+        } else {
+            Alert.alert('Đặt hàng thất bại', 'Vui lòng thử lại')
         }
-
-        console.log(submitData);
-
-
-        navigation.navigate('OrderSuccess', submitData)
     }
 
     return (

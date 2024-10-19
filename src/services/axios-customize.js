@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
-import API_URL from "./api-config";
+import { API_URL } from './api-config';
 
 const instance = axios.create({
     baseURL: API_URL,
@@ -67,26 +67,27 @@ instance.interceptors.response.use(function (response) {
         && +error.response.status === 400      // thêm dấu + để chuyển string sang kiểu number
         && !error.config.headers[NO_RETRY_HEADER]  // nếu không có header 'x-no-retry' thì mới thực hiện refresh token và retry request
     ) {
-        const value = await handleRefreshToken();
-        if (value) {
-            const { access_token, refresh_token } = value;
-            error.config.headers[NO_RETRY_HEADER] = 'true'    // thêm header 'x-no-retry' vào request để tránh việc request bị lặp lại vô tận
-            if (access_token && refresh_token) {
+        // const value = await handleRefreshToken();
+        // if (value) {
+        //     const { access_token, refresh_token } = value;
+        //     error.config.headers[NO_RETRY_HEADER] = 'true'    // thêm header 'x-no-retry' vào request để tránh việc request bị lặp lại vô tận
+        //     if (access_token && refresh_token) {
 
-                error.config.headers['Authorization'] = `Bearer ${access_token}`;   // update access token mới vào header của request
+        //         error.config.headers['Authorization'] = `Bearer ${access_token}`;   // update access token mới vào header của request
 
-                // store new access_token and refresh_token to SecureStore
-                await SecureStore.setItemAsync(
-                    'token',
-                    JSON.stringify({
-                        access_token,
-                        refresh_token,
-                    }),
-                );
+        //         // store new access_token and refresh_token to SecureStore
+        //         await SecureStore.setItemAsync(
+        //             'token',
+        //             JSON.stringify({
+        //                 access_token,
+        //                 refresh_token,
+        //             }),
+        //         );
 
-                return instance.request(error.config);      // retry request
-            }
-        }
+        //         // return instance.request(error.config);      // retry request
+        //         return instance(error.config);      // retry request
+        //     }
+        // }
 
     }
 
@@ -100,7 +101,8 @@ instance.interceptors.response.use(function (response) {
     //         window.location.href = '/login';        // chuyển hướng về trang login
     // }
 
-    return error?.response?.data ?? Promise.reject(error);
+    // return error?.response?.data ?? Promise.reject(error);
+    return error?.response?.data;
 });
 
 export default instance

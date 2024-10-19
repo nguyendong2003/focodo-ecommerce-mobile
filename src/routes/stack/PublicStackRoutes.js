@@ -11,6 +11,7 @@ import HeaderProductList from "../../components/header/HeaderProductList";
 import ProductDescriptionScreen from "../../screens/ProductDescriptionScreen";
 import { TouchableOpacity } from "react-native";
 import { Icon } from "@rneui/themed";
+import VnPayPaymentScreen from "../../screens/VnPayPaymentScreen";
 
 // options: {
 //     // tabBarButton: (props) => null,
@@ -194,6 +195,31 @@ const PublicStackRoutes = [
                 )
             }
         })
+    },
+    {
+        name: 'VnPayPayment',
+        component: VnPayPaymentScreen,
+        // options: ({ navigation }) => ({
+        //     headerShown: true,
+        //     headerTitle: 'Thanh toán VNPay',
+        //     headerTitleAlign: 'center',
+        //     headerStyle: {
+        //         shadowColor: '#000',
+        //         shadowOffset: { width: 0, height: 2 },
+        //         shadowOpacity: 0.25,
+        //         shadowRadius: 3.84,
+        //         elevation: 5,
+        //     },
+        //     headerLeft: () => {
+        //         return (
+        //             <TouchableOpacity
+        //                 className="px-4"
+        //                 onPress={() => navigation.goBack()}>
+        //                 <Icon type="feather" name="chevron-left" />
+        //             </TouchableOpacity>
+        //         )
+        //     }
+        // })
     },
 ];
 
