@@ -1,6 +1,6 @@
 import OrderScreen from '../screens/OrderScreen';
 import OrderProcessingScreen from "../screens/OrderProcessingScreen";
-import OrderShippingScreen from "../screens/OrderShippingScreen";
+import OrderConfirmationScreen from "../screens/OrderConfirmationScreen";
 import OrderFinishedScreen from "../screens/OrderFinishedScreen";
 import OrderCancelledScreen from '../screens/OrderCancelledScreen';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -29,12 +29,12 @@ const OrderTabNavigator = () => {
             <Tab.Screen
                 name="OrderProcessing"
                 component={OrderProcessingScreen}
-                options={{ tabBarLabel: 'Đang xử lý' }}
+                options={{ tabBarLabel: 'Chưa xác nhận' }}
             />
             <Tab.Screen
-                name="OrderShipping"
-                component={OrderShippingScreen}
-                options={{ tabBarLabel: 'Đang vận chuyển' }}
+                name="OrderConfirmation"
+                component={OrderConfirmationScreen}
+                options={{ tabBarLabel: 'Đã xác nhận' }}
             />
             <Tab.Screen
                 name="OrderFinished"

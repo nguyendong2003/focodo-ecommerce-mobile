@@ -30,7 +30,7 @@ const OrderCancelledReasonScreen = ({ navigation, route }) => {
 
     const handleCancelOrder = () => {
         setOrderContextValue((prev) => {
-            return { ...prev, id: orderId, status: 'cancelled' }
+            return { ...prev, id: orderId, status: 'Đã hủy' }
         })
         navigation.goBack()
     }

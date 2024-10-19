@@ -99,7 +99,7 @@ const ReviewAddScreen = ({ navigation, route }) => {
         console.log('Reviews Array:', reviewsArray);
         //
         setOrderContextValue((prev) => {
-            return { ...prev, id: orderId, status: 'reviewed' }
+            return { ...prev, id: orderId, status: 'Đã đánh giá' }
         })
         navigation.goBack()
     };

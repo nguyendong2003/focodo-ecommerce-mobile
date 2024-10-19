@@ -7,22 +7,22 @@
         },
         {
             "id": 2,
-            "status": "cancelled",
+            "status": "Đã hủy",
             "time": "27/09/2024 12:54"
         },
         {
             "id": 3,
-            "status": "processing",
+            "status": "Chưa xác nhận",
             "time": "28/09/2024 12:54"
         },
         {
             "id": 4,
-            "status": "shipping",
+            "status": "Đã xác nhận",
             "time": "29/09/2024 13:00"
         },
         {
             "id": 5,
-            "status": "finished",
+            "status": "Đã giao",
             "time": "30/09/2024 16:55"
         }
     ]

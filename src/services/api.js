@@ -86,14 +86,15 @@ export const callFetchOrders = () => {
     return axios.get('/api/v1/orders/getOrdersOfUser')
 }
 
+export const callFetchOrderById = (id) => {
+    return axios.get(`/api/v1/orders/getOrderById/${id}`)
+}
+
 export const callCreateOrder = (data) => {
     const order = {
         customer: data.customer,
         order: data.order,
     };
-
-    console.log(order);
-
 
     return axios.post('/api/v1/orders/create', order, {
         headers: {

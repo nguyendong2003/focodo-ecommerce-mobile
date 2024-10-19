@@ -5,15 +5,15 @@ import { Text, TouchableOpacity } from "react-native"
 const OrderButton = ({ navigation, order, orderStatus }) => {
     const getButtonText = (status) => {
         switch (status) {
-            case 'processing':
+            case 'Chưa xác nhận':
                 return 'Hủy đơn'
-            case 'cancelled':
+            case 'Đã hủy':
                 return 'Mua lại'
-            case 'shipping':
+            case 'Đã xác nhận':
                 return 'Theo dõi đơn hàng'
-            case 'finished':
+            case 'Đã giao':
                 return 'Đánh giá'
-            case 'reviewed':
+            case 'Đã đánh giá':
                 return 'Xem đánh giá'
             default:
                 return 'Mặc định'
@@ -22,7 +22,7 @@ const OrderButton = ({ navigation, order, orderStatus }) => {
 
     const optionButtonPress = (status) => {
         switch (status) {
-            case 'processing':
+            case 'Chưa xác nhận':
                 navigation.navigate({
                     name: 'OrderCancelledReason',
                     params: {
@@ -30,17 +30,17 @@ const OrderButton = ({ navigation, order, orderStatus }) => {
                     },
                 });
                 break;
-            case 'cancelled':
+            case 'Đã hủy':
                 // call api buy again
                 navigation.navigate('Cart');
                 break;
-            case 'shipping':
+            case 'Đã xác nhận':
                 navigation.navigate('OrderTracking', { orderId: order?.id });
                 break;
-            case 'finished':
+            case 'Đã giao':
                 navigation.navigate('ReviewAdd', { orderId: order?.id });
                 break;
-            case 'reviewed':
+            case 'Đã đánh giá':
                 navigation.navigate('ReviewOrder', { orderId: order?.id });
                 break;
             default:

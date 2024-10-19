@@ -107,7 +107,7 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
         console.log('Updated Review:', updatedReview);
 
         setOrderContextValue((prev) => {
-            return { ...prev, id: review.product.id, status: 'reviewed' }
+            return { ...prev, id: review.product.id, status: 'Đã đánh giá' }
         });
         navigation.goBack();
     };

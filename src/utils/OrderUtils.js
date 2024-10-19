@@ -1,15 +1,15 @@
 
 export const getStatusText = (status) => {
     switch (status) {
-        case 'processing':
-            return 'Đang xử lý'
-        case 'cancelled':
+        case 'Chưa xác nhận':
+            return 'Chưa xác nhận'
+        case 'Đã hủy':
             return 'Đã hủy'
-        case 'shipping':
-            return 'Đang vận chuyển'
-        case 'finished':
+        case 'Đã xác nhận':
+            return 'Đã xác nhận'
+        case 'Đã giao':
             return 'Đã giao'
-        case 'reviewed':
+        case 'Đã đánh giá':
             return 'Đã giao'
         default:
             return 'Mặc định'

@@ -7,12 +7,12 @@
         },
         {
             "id": 2,
-            "status": "cancelled",
+            "status": "Đã hủy",
             "time": "27/09/2024 12:54"
         },
         {
             "id": 3,
-            "status": "processing",
+            "status": "Chưa xác nhận",
             "time": "28/09/2024 12:54"
         }
     ]

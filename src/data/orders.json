@@ -6,7 +6,7 @@
             "quantity": 1,
             "total": 275000,
             "image": "https://i.pravatar.cc/150?img=1",
-            "status": "processing"
+            "status": "Chưa xác nhận"
         },
         {
             "id": 2,
@@ -14,7 +14,7 @@
             "quantity": 2,
             "total": 150000,
             "image": "https://i.pravatar.cc/150?img=2",
-            "status": "shipping"
+            "status": "Đã xác nhận"
         },
         {
             "id": 3,
@@ -22,7 +22,7 @@
             "quantity": 1,
             "total": 300000,
             "image": "https://i.pravatar.cc/150?img=3",
-            "status": "finished"
+            "status": "Đã giao"
         },
         {
             "id": 4,
@@ -30,7 +30,7 @@
             "quantity": 3,
             "total": 450000,
             "image": "https://i.pravatar.cc/150?img=4",
-            "status": "cancelled"
+            "status": "Đã hủy"
         },
         {
             "id": 5,
@@ -38,7 +38,7 @@
             "quantity": 1,
             "total": 200000,
             "image": "https://i.pravatar.cc/150?img=5",
-            "status": "processing"
+            "status": "Chưa xác nhận"
         },
         {
             "id": 6,
@@ -46,7 +46,7 @@
             "quantity": 2,
             "total": 350000,
             "image": "https://i.pravatar.cc/150?img=6",
-            "status": "processing"
+            "status": "Chưa xác nhận"
         },
         {
             "id": 7,
@@ -54,7 +54,7 @@
             "quantity": 2,
             "total": 350000,
             "image": "https://i.pravatar.cc/150?img=7",
-            "status": "reviewed"
+            "status": "Đã đánh giá"
         },
         {
             "id": 8,
@@ -62,7 +62,7 @@
             "quantity": 2,
             "total": 350000,
             "image": "https://i.pravatar.cc/150?img=8",
-            "status": "finished"
+            "status": "Đã giao"
         }
     ]
 }

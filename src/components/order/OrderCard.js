@@ -16,7 +16,7 @@ const OrderCard = ({ navigation, order }) => {
     useEffect(() => {
         if (orderContextValue?.id === order?.id) {
             setOrderStatus(orderContextValue?.status)
-            // if (orderContextValue?.status === 'reviewed') {
+            // if (orderContextValue?.status === 'Đã đánh giá') {
             //     setStateText('Đã đánh giá')
             // }
         }

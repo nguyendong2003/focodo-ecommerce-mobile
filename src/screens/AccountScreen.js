@@ -64,16 +64,16 @@ const AccountScreen = ({ navigation }) => {
                         onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderProcessing' })}
                     >
                         <Icon type='material-community' name='timer-sand' size={28} color={'#2563eb'} />
-                        <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Đang xử lý</Text>
+                        <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Chưa xác nhận</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         activeOpacity={0.6}
                         // className="w-1/3"
-                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderShipping' })}
+                        onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderConfirmation' })}
                     >
                         <Icon type='feather' name='truck' size={28} color={'#2563eb'} />
-                        <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Đang vận chuyển</Text>
+                        <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Đã xác nhận</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity

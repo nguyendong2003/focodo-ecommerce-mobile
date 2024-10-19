@@ -30,13 +30,13 @@ const OrderTrackingScreen = ({ navigation, route }) => {
         switch (status) {
             case 'ordered':
                 return 'Đặt hàng thành công';
-            case 'cancelled':
+            case 'Đã hủy':
                 return 'Hủy đơn hàng';
-            case 'processing':
-                return 'Đang xử lý đơn hàng';
-            case 'shipping':
+            case 'Chưa xác nhận':
+                return 'Chưa xác nhận đơn hàng';
+            case 'Đã xác nhận':
                 return 'Đang giao hàng';
-            case 'finished':
+            case 'Đã giao':
                 return 'Giao hàng thành công';
             default:
                 return 'Mặc định';
@@ -50,17 +50,17 @@ const OrderTrackingScreen = ({ navigation, route }) => {
             'ordered': {
                 status: 'ordered',
             },
-            'cancelled': {
-                status: 'cancelled',
+            'Đã hủy': {
+                status: 'Đã hủy',
             },
-            'processing': {
-                status: 'processing',
+            'Chưa xác nhận': {
+                status: 'Chưa xác nhận',
             },
-            'shipping': {
-                status: 'shipping',
+            'Đã xác nhận': {
+                status: 'Đã xác nhận',
             },
-            'finished': {
-                status: 'finished',
+            'Đã giao': {
+                status: 'Đã giao',
             },
         }
 
@@ -73,7 +73,7 @@ const OrderTrackingScreen = ({ navigation, route }) => {
         }, itemValues);
 
 
-        const orderKeys = ['finished', 'shipping', 'processing', 'cancelled', 'ordered'];
+        const orderKeys = ['Đã giao', 'Đã xác nhận', 'Chưa xác nhận', 'Đã hủy', 'ordered'];
 
         const sortedOrderTracking = orderKeys
             .map(key => orderTracking[key])
