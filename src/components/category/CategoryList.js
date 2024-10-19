@@ -25,7 +25,9 @@ const CategoryList = ({ categories, selectedCategory, setSelectedCategory }) => 
                         ${item.id === selectedCategory?.id ? 'bg-white border-black' : 'bg-transparent border-transparent'}`}
                 >
 
-                    <Image source={require('../../static/images/products/1.png')}
+                    <Image
+                        // source={require('../../static/images/products/1.png')}
+                        source={{ uri: item.image }}
                         className="w-12 h-12 rounded"
                     />
                     <Text className="text-slate-600 text-base leading-5 text-center mt-1" numberOfLines={3}>{item.name}</Text>

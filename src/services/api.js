@@ -31,6 +31,14 @@ export const callFetchProductById = (id) => {
     return axios.get(`/api/v1/products/getProductById/${id}`)
 }
 
+export const callFetchProductsBestSeller = () => {
+    return axios.get('/api/v1/products/getProductsBestSeller')
+}
+
+export const callFetchProductsDiscount = () => {
+    return axios.get('/api/v1/products/getProductsDiscount')
+}
+
 // Review
 export const callFetchReviewsByProductId = (id, page, size) => {
     return axios.get(`/api/v1/reviews/getReviewsOfProduct/${id}?page=${page}&size=${size}`)
@@ -39,6 +47,17 @@ export const callFetchReviewsByProductId = (id, page, size) => {
 // Cart
 export const callFetchCart = () => {
     return axios.get('/api/v1/carts/getCartOfUser')
+}
+
+export const callAddToCart = (productId, quantity) => {
+    return axios.post('/api/v1/carts/addCart', {
+        id_product: productId,
+        quantity
+    })
+}
+
+export const callUpdateCart = (id) => {
+    return axios.put(`/api/v1/carts/updateCart/${id}`)
 }
 
 // Voucher

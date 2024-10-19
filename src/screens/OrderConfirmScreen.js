@@ -15,9 +15,6 @@ const OrderConfirmScreen = ({ navigation, route }) => {
             order,
         });
 
-        console.log('res: ', res);
-
-
         if (res && res.result) {
             // 
             if (res.result.payment_url === "") {

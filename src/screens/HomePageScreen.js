@@ -2,12 +2,14 @@ import { FlatList, Image, ScrollView, StatusBar, Text, TouchableOpacity, View } 
 import result from "../data/products.json"
 import ProductSlider from "../components/product/ProductSlider";
 import CategorySlider from "../components/category/CategorySlider";
-import { callFetchCategories, callFetchProductsPagination } from "../services/api";
+import { callFetchCategories, callFetchProductsBestSeller, callFetchProductsDiscount, callFetchProductsPagination } from "../services/api";
 import { useEffect, useState } from "react";
 import ProductListHomePage from "../components/product/ProductListHomePage";
 
 const HomePageScreen = ({ navigation }) => {
     const [categories, setCategories] = useState([]);
+    const [productsBestSeller, setProductsBestSeller] = useState([]);
+    const [productsDiscount, setProductsDiscount] = useState([]);
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(20);
@@ -17,6 +19,20 @@ const HomePageScreen = ({ navigation }) => {
         const res = await callFetchCategories();
         if (res && res.result) {
             setCategories(res.result);
+        }
+    }
+
+    const fetchProductsBestSeller = async () => {
+        const res = await callFetchProductsBestSeller();
+        if (res && res.result) {
+            setProductsBestSeller(res.result);
+        }
+    }
+
+    const fetchProductsDiscount = async () => {
+        const res = await callFetchProductsDiscount();
+        if (res && res.result) {
+            setProductsDiscount(res.result);
         }
     }
 
@@ -31,6 +47,8 @@ const HomePageScreen = ({ navigation }) => {
 
     useEffect(() => {
         fetchCategories();
+        fetchProductsBestSeller();
+        fetchProductsDiscount();
         fetchProducts();
     }, [])
 
@@ -68,7 +86,7 @@ const HomePageScreen = ({ navigation }) => {
 
 
                 <FlatList
-                    data={result.products}
+                    data={productsBestSeller}
                     renderItem={({ item }) => <ProductSlider product={item} navigation={navigation} />}
                     keyExtractor={item => 'best_selling_products' + item.id}
                     horizontal={true}
@@ -84,7 +102,7 @@ const HomePageScreen = ({ navigation }) => {
 
 
                 <FlatList
-                    data={result.products}
+                    data={productsDiscount}
                     renderItem={({ item }) => <ProductSlider product={item} navigation={navigation} />}
                     keyExtractor={item => 'sale_products' + item.id}
                     horizontal={true}

@@ -1,6 +1,6 @@
 import { Button, Icon } from '@rneui/themed';
 import { useContext, useEffect, useState } from 'react';
-import { Dimensions, Image, Modal, PixelRatio, Pressable, Text, TextInput, View } from 'react-native';
+import { Alert, Dimensions, Image, Modal, PixelRatio, Pressable, Text, TextInput, View } from 'react-native';
 import { Rating } from 'react-native-ratings';
 import result from "../../data/products.json"
 import WebView from 'react-native-webview';
@@ -8,10 +8,11 @@ import { TouchableOpacity } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import { formatCurrency, formatNumber } from '../../utils/FormatNumber';
 import { AuthContext } from '../context/AuthProvider';
+import { callAddToCart } from '../../services/api';
 
 const screenWidth = Dimensions.get('screen').width;
 
-const ModalAddToCart = ({ navigation, visibleModalImage, setVisibleModalImage }) => {
+const ModalAddToCart = ({ navigation, product, visibleModalImage, setVisibleModalImage }) => {
 
     return (
         <Modal
@@ -35,10 +36,13 @@ const ModalAddToCart = ({ navigation, visibleModalImage, setVisibleModalImage })
 
                     <View className="flex-row bg-gray-100 rounded-md gap-x-2 my-4">
                         <Image
-                            source={{ uri: 'https://i.pravatar.cc/150?img=1' }}
+                            // source={{ uri: 'https://i.pravatar.cc/150?img=1' }}
+                            source={{ uri: product?.images[0] }}
                             className="rounded-lg w-14 h-14"
                         />
-                        <Text className="text-gray-600 text-base font-semibold shrink leading-5 p-1" numberOfLines={2}>Áo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun namÁo thun nam</Text>
+                        <Text className="text-gray-600 text-base font-semibold shrink leading-5 p-1" numberOfLines={2}>
+                            {product?.name}
+                        </Text>
 
                     </View>
 
@@ -83,37 +87,57 @@ const ProductInfo = ({ navigation, product }) => {
     const handleInputChange = (text) => {
         const newQuantity = parseInt(text);
         if (!isNaN(newQuantity) && newQuantity > 0) {
-            1
             setQuantity(newQuantity);
         } else {
             setQuantity(1);
         }
     };
+
+    const handleAddToCart = async () => {
+        if (userLogin) {
+            const res = await callAddToCart(product?.id, quantity);
+            if (res.status === 200) {
+                setVisibleModalImage(true);
+            } else if (res.status === 400) {
+                Alert.alert('Thông báo', 'Sản phẩm đã hết hàng')
+            }
+        } else {
+            // call api add to cart
+
+            handleNavigate(navigation, 'ProductDetail', { productId: product?.id })
+        }
+    }
+
     return (
         <>
-            <View>
-                <PagerView style={{ width: screenWidth, height: screenWidth }}
-                    initialPage={0}
-                    onPageSelected={(e) => setCurrentPageImage(e.nativeEvent.position)}
+            {
+                product?.images?.length > 1 && (
 
-                >
-                    {
-                        product?.images?.map((image, index) => (
-                            <View key={index}>
-                                <Image
-                                    source={{ uri: image }}
-                                    className="rounded-lg"
-                                    style={{ width: screenWidth, height: screenWidth }}
-                                />
-                            </View>
-                        ))
-                    }
-                </PagerView>
+                    <View>
+                        <PagerView style={{ width: screenWidth, height: screenWidth }}
+                            initialPage={0}
+                            onPageSelected={(e) => setCurrentPageImage(e.nativeEvent.position)}
 
-                <View style={{ position: 'absolute', bottom: 10, right: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 5, borderRadius: 5 }}>
-                    <Text className="text-white">{currentPageImage + 1}/{product?.images?.length}</Text>
-                </View>
-            </View>
+                        >
+                            {
+                                product?.images?.map((image, index) => (
+                                    <View key={index}>
+                                        <Image
+                                            source={{ uri: image }}
+                                            className="rounded-lg"
+                                            style={{ width: screenWidth, height: screenWidth }}
+                                        />
+                                    </View>
+                                ))
+                            }
+                        </PagerView>
+
+                        <View style={{ position: 'absolute', bottom: 10, right: 10, backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: 5, borderRadius: 5 }}>
+                            <Text className="text-white">{currentPageImage + 1}/{product?.images?.length}</Text>
+                        </View>
+                    </View>
+                )
+            }
             <View className="mt-2 px-4">
                 <Text className="text-black text-lg font-bold leading-5">{product?.name}</Text>
 
@@ -169,15 +193,7 @@ const ProductInfo = ({ navigation, product }) => {
                         containerStyle={{ flexGrow: 1 }}
                         buttonStyle={{ borderColor: '#000', borderWidth: 2, borderRadius: 8 }}
                         titleStyle={{ color: '#000' }}
-                        onPress={() => {
-                            if (userLogin) {
-                                setVisibleModalImage(true);
-                            } else {
-                                // call api add to cart
-
-                                handleNavigate(navigation, 'ProductDetail', { productId: product?.id })
-                            }
-                        }}
+                        onPress={handleAddToCart}
                     />
                     <Button
                         title="Thanh toán"
@@ -215,7 +231,12 @@ const ProductInfo = ({ navigation, product }) => {
                 </View>
             </View>
 
-            <ModalAddToCart navigation={navigation} visibleModalImage={visibleModalImage} setVisibleModalImage={setVisibleModalImage} />
+            <ModalAddToCart
+                navigation={navigation}
+                product={product}
+                visibleModalImage={visibleModalImage}
+                setVisibleModalImage={setVisibleModalImage}
+            />
         </>
     )
 }

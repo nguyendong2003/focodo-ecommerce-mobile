@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CartItem from "../components/cart/CartItem";
 import CartDetail from "../components/cart/CartDetail";
 import result from "../data/cart.json"
-import { Button } from "@rneui/themed";
+import { Button, Icon } from "@rneui/themed";
 import { callFetchCart } from "../services/api";
 
 const CartScreen = ({ navigation }) => {
@@ -13,7 +13,6 @@ const CartScreen = ({ navigation }) => {
     const [discountPrice, setDiscountPrice] = useState(0);
     const [finalPrice, setFinalPrice] = useState(0);
     const [voucherId, setVoucherId] = useState(null);
-
 
     const fetchCart = async () => {
         const res = await callFetchCart();
@@ -92,54 +91,66 @@ const CartScreen = ({ navigation }) => {
     };
 
     return (
-        <View className="flex-1 bg-white">
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-            >
-                <View className="my-2">
-                    {
-                        cartList.map((item, index) => (
-                            <CartItem
-                                navigation={navigation}
-                                key={item.id}
-                                item={item}
+        <>
+
+            {
+                cartList.length === 0 ? (
+                    <View className="flex-1 items-center justify-center bg-white">
+                        {/* <Image
+                            source={require('../static/images/empty-cart.png')}
+                            className="w-48 h-48"
+                        /> */}
+                        <Icon type="material-community" name="cart-off" size={48} color="#ccc" />
+                        <Text className="text-gray-500 text-lg mt-2">Giỏ hàng trống</Text>
+                    </View>
+                ) : (
+                    <View className="flex-1 bg-white">
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                        >
+                            <View className="my-2">
+                                {
+                                    cartList.map((item, index) => (
+                                        <CartItem
+                                            navigation={navigation}
+                                            key={item.id}
+                                            item={item}
+                                            selectedItems={selectedItems}
+                                            setSelectedItems={setSelectedItems}
+                                            handleRemoveCartItem={handleRemoveCartItem}
+
+                                        />
+                                    ))
+                                }
+                            </View>
+
+                            <CartDetail
                                 selectedItems={selectedItems}
-                                setSelectedItems={setSelectedItems}
-                                handleRemoveCartItem={handleRemoveCartItem}
 
+                                totalPrice={totalPrice}
+                                discountPrice={discountPrice}
+                                finalPrice={finalPrice}
+                                voucherId={voucherId}
+
+                                setTotalPrice={setTotalPrice}
+                                setDiscountPrice={setDiscountPrice}
+                                setFinalPrice={setFinalPrice}
+                                setVoucherId={setVoucherId}
                             />
-                        ))
-                    }
-                </View>
+                        </ScrollView>
 
-                <CartDetail
-                    selectedItems={selectedItems}
+                        <View className="px-4 mb-5 mt-5 ">
+                            <Button
+                                title="Mua hàng"
+                                buttonStyle={{ backgroundColor: '#000', borderRadius: 8 }}
+                                onPress={handlePurchase}
+                            />
+                        </View>
+                    </View>
+                )
+            }
 
-                    totalPrice={totalPrice}
-                    discountPrice={discountPrice}
-                    finalPrice={finalPrice}
-                    voucherId={voucherId}
-
-                    setTotalPrice={setTotalPrice}
-                    setDiscountPrice={setDiscountPrice}
-                    setFinalPrice={setFinalPrice}
-                    setVoucherId={setVoucherId}
-                />
-
-
-
-
-            </ScrollView>
-
-            <View className="px-4 mb-5 mt-5 ">
-                <Button
-                    title="Mua hàng"
-                    buttonStyle={{ backgroundColor: '#000', borderRadius: 8 }}
-                    onPress={handlePurchase}
-                />
-            </View>
-        </View>
-
+        </>
     );
 }
 

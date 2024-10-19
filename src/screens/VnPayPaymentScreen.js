@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Platform, Linking } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Platform, Linking, Alert } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { API_EXPO } from '../services/api-config';
 import { callGetPayment } from '../services/api';
@@ -22,7 +22,6 @@ const VnPayPaymentScreen = ({ navigation, route }) => {
             console.log('Updated URL: ', updatedUrl);
 
             const res = await callGetPayment(updatedUrl);
-            console.log('res: ', res);
 
             if (res && res.result) {
                 if (res.result.code === "00") {
@@ -39,7 +38,7 @@ const VnPayPaymentScreen = ({ navigation, route }) => {
             } else {
                 setIsHandled(true);
                 navigation.goBack();
-                alert('Thanh toán thất bại! Vui lòng thử lại');
+                Alert.alert('Thanh toán thất bại', 'Vui lòng thử lại');
             }
         }
     };

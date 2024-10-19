@@ -11,22 +11,37 @@ const CartItem = ({
     handleRemoveCartItem
 }) => {
     const [visible, setVisible] = useState(false);
-    const { id, price } = item;
+    const { id, price, image, name } = item;
     const [quantity, setQuantity] = useState(item.quantity);
     const [isChecked, setIsChecked] = useState(item.isChecked);
 
     useEffect(() => {
         if (isChecked) {
-            setSelectedItems(prev => ({
-                ...prev,
-                [id]: { price, quantity }
-            }));
+            const timerId = setTimeout(() => {
+                // call api to update
+
+
+                setSelectedItems(prev => ({
+                    ...prev,
+                    [id]: { price, quantity, image, name }
+                }));
+            }, 500);
+
+            return () => {
+                clearTimeout(timerId);
+            };
         } else {
-            setSelectedItems(prev => {
-                const newSelectedItems = { ...prev };
-                delete newSelectedItems[id];
-                return newSelectedItems;
-            })
+            const timerId = setTimeout(() => {
+                setSelectedItems(prev => {
+                    const newSelectedItems = { ...prev };
+                    delete newSelectedItems[id];
+                    return newSelectedItems;
+                })
+            }, 500);
+
+            return () => {
+                clearTimeout(timerId);
+            };
         }
     }, [isChecked]);
 
@@ -34,18 +49,18 @@ const CartItem = ({
         if (isChecked) {
             setSelectedItems(prev => ({
                 ...prev,
-                [id]: { price, quantity }
+                [id]: { price, quantity, image, name }
             }));
         }
+        // Call api to update quantity
+        const timerId = setTimeout(() => {
 
-        // // Call api to update quantity
-        // const timerId = setTimeout(() => {
-        //     // call api here
-        // }, 500);
+        }, 500);
 
-        // return () => {
-        //     clearTimeout(timerId);
-        // };
+        return () => {
+            clearTimeout(timerId);
+        };
+
     }, [quantity]);
 
     const handleIncrease = () => {
@@ -96,9 +111,13 @@ const CartItem = ({
                         <Text className="text-red-500 text-base font-bold">
                             {formatCurrency(item?.price)}
                         </Text>
-                        <Text className="text-gray-500 text-sm line-through">
-                            {formatCurrency(item?.originPrice)}
-                        </Text>
+                        {
+                            item?.originPrice !== item?.price && (
+                                <Text className="text-gray-500 text-sm line-through">
+                                    {formatCurrency(item?.originPrice)}
+                                </Text>
+                            )
+                        }
                     </View>
 
 

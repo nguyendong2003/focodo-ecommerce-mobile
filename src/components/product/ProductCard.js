@@ -20,10 +20,14 @@ const ProductCard = ({ product, navigation }) => {
                     className="rounded-lg items-center"
                     style={{ width: dimensionWidth / 2 - 12, height: dimensionWidth / 2 - 12 }}
                 />
-                <View className="bg-red-500 absolute top-0 right-0 rounded-lg p-1">
-                    <Text className="text-white text-sm">{product.discount * 100}%</Text>
-                    <Text className="text-white text-sm">OFF</Text>
-                </View>
+                {
+                    product.discount > 0 && (
+                        <View className="bg-red-500 absolute top-0 right-0 rounded-lg p-1">
+                            <Text className="text-white text-sm">{product.discount * 100}%</Text>
+                            <Text className="text-white text-sm">OFF</Text>
+                        </View>
+                    )
+                }
             </View>
 
             <View className="px-1">
@@ -32,8 +36,8 @@ const ProductCard = ({ product, navigation }) => {
                 </Text>
 
                 {
-                    product.review !== "NaN" && (
-                        <View className="flex-row items-center my-1" >
+                    product.review !== "NaN" ? (
+                        <View className="flex-row items-center" >
                             <Text className="text-gray-500 text-sm shrink mr-1" numberOfLines={1}>
                                 {product.review?.toFixed(1)}
                             </Text>
@@ -49,6 +53,12 @@ const ProductCard = ({ product, navigation }) => {
                             </Text> */}
 
                         </View>
+                    ) : (
+                        <View className="flex-row items-center" >
+                            <Text className="text-gray-500 text-sm shrink mr-1" numberOfLines={1}>
+                                Chưa có đánh giá
+                            </Text>
+                        </View>
                     )
                 }
 
@@ -57,9 +67,13 @@ const ProductCard = ({ product, navigation }) => {
                 <Text className="text-red-500 text-lg italic leading-5">
                     {formatCurrency(product?.sell_price)}
                 </Text>
-                <Text className="text-slate-500 text-base line-through italic leading-5">
-                    {formatCurrency(product?.original_price)}
-                </Text>
+                {
+                    product.original_price !== product.sell_price && (
+                        <Text className="text-slate-500 text-base line-through italic leading-5">
+                            {formatCurrency(product?.original_price)}
+                        </Text>
+                    )
+                }
             </View>
 
 

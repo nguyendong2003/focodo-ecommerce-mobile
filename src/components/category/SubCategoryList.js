@@ -39,7 +39,8 @@ const SubCategoryList = ({ subCategories, selectedCategory, navigation }) => {
                             category: selectedCategory
                         })}>
 
-                        {subCategories.length > 0 && <Text className="text-base  text-blue-500 font-bold">Xem tất cả ({subCategories.length})</Text>}
+                        {/* {subCategories.length > 0 && <Text className="text-base  text-blue-500 font-bold">Xem tất cả ({subCategories.length})</Text>} */}
+                        <Text className="text-base  text-blue-500 font-bold">Xem tất cả</Text>
 
                     </TouchableOpacity>
                 </View>
