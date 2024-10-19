@@ -3,24 +3,32 @@ import { Text, TextInput, View, TouchableOpacity } from "react-native";
 import { Field, Formik } from "formik";
 import { shippingInfoValidationSchema } from "../utils/ValidationForm";
 import CustomTextInput from "../components/custom/CustomTextInput";
+import { callFetchAllPaymentMethods } from "../services/api";
+import { useContext, useEffect, useState } from "react";
+import { getPaymentMethodText } from "../utils/PaymentUtils";
+import { AuthContext } from "../components/context/AuthProvider";
 
 
 // https://formik.org/docs/guides/validation
 // uncontrolled component with Formik: https://blog.logrocket.com/react-native-form-validations-with-formik-and-yup
 const ShippingInfoScreen = ({ navigation, route }) => {
-    const order = route.params.order;
+    const { order } = route.params;
+    const { userLogin, setUserLogin, login, logout } = useContext(AuthContext)
+    const [paymentMethods, setPaymentMethods] = useState([]);
 
     const handleConfirm = (values) => {
         const customer = {
-            full_name: values.name,
+            full_name: values.fullName,
             phone: values.phone,
             address: values.address,
         }
         const shipping_price = 10000
-        const payment_method = values.paymentMethod === 'cash' ? 1 : 2;
+        const payment_method = values.paymentMethod
+        // const payment_method = values.paymentMethod === 'COD' ? 1 : 2;
 
         order.shipping_price = shipping_price
         order.payment_method = payment_method
+        order.final_price = order.total_price + shipping_price
 
         navigation.navigate('OrderConfirm', {
             customer,
@@ -28,11 +36,27 @@ const ShippingInfoScreen = ({ navigation, route }) => {
         })
     }
 
+    const fetchAllPaymentMethods = async () => {
+        const res = await callFetchAllPaymentMethods();
+        if (res && res.result) {
+            setPaymentMethods(res.result);
+        }
+    }
+
+    useEffect(() => {
+        fetchAllPaymentMethods();
+    }, [])
+
     return (
         <View className="p-4 bg-white">
             <Formik
                 validationSchema={shippingInfoValidationSchema}
-                initialValues={{ name: '', phone: '', address: '', paymentMethod: 'cash' }}
+                initialValues={{
+                    fullName: userLogin.fullName ? userLogin.fullName : '',
+                    phone: userLogin.phone ? userLogin.phone : '',
+                    address: userLogin.address ? userLogin.address : '',
+                    paymentMethod: 1
+                }}
                 onSubmit={handleConfirm}
                 validateOnMount={true}
             >
@@ -49,7 +73,7 @@ const ShippingInfoScreen = ({ navigation, route }) => {
                     <>
                         <Text className="text-base text-black font-bold">Tên người nhận</Text>
                         <Field
-                            name="name"
+                            name="fullName"
                             placeholder="Nhập Họ tên"
                             component={CustomTextInput}
                         />
@@ -70,16 +94,39 @@ const ShippingInfoScreen = ({ navigation, route }) => {
 
                         <Text className="text-base text-black font-bold">Phương thức thanh toán</Text>
 
-                        <View className="flex-row items-center mt-2">
+                        {
+                            paymentMethods.map((method, index) => (
+                                <View className="flex-row items-center mt-2" key={index}>
+                                    <TouchableOpacity
+                                        activeOpacity={0.5}
+                                        onPress={() => setFieldValue('paymentMethod', method.id)}
+                                        className="flex-row items-center"
+                                    >
+                                        <View
+                                            className={`h-6 w-6 rounded-full border-2 ${values.paymentMethod === method.id ? 'border-black' : 'border-gray-400'} flex justify-center items-center`}
+                                        >
+                                            {values.paymentMethod === method.id && (
+                                                <View
+                                                    className="h-3 w-3 rounded-full bg-black"
+                                                />
+                                            )}
+                                        </View>
+                                        <Text className="ml-2">{getPaymentMethodText(method.method)}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            ))
+                        }
+
+                        {/* <View className="flex-row items-center mt-2">
                             <TouchableOpacity
                                 activeOpacity={0.5}
-                                onPress={() => setFieldValue('paymentMethod', 'cash')}
+                                onPress={() => setFieldValue('paymentMethod', 'COD')}
                                 className="flex-row items-center"
                             >
                                 <View
-                                    className={`h-6 w-6 rounded-full border-2 ${values.paymentMethod === 'cash' ? 'border-black' : 'border-gray-400'} flex justify-center items-center`}
+                                    className={`h-6 w-6 rounded-full border-2 ${values.paymentMethod === 'COD' ? 'border-black' : 'border-gray-400'} flex justify-center items-center`}
                                 >
-                                    {values.paymentMethod === 'cash' && (
+                                    {values.paymentMethod === 'COD' && (
                                         <View
                                             className="h-3 w-3 rounded-full bg-black"
                                         />
@@ -106,9 +153,9 @@ const ShippingInfoScreen = ({ navigation, route }) => {
                                         />
                                     )}
                                 </View>
-                                <Text className="ml-2">Thanh toán qua ví điện tử</Text>
+                                <Text className="ml-2">Thanh toán qua VNPAY</Text>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
 
                         {(errors.paymentMethod && touched.paymentMethod) &&
                             <Text className="text-red-500 text-sm">{errors.paymentMethod}</Text>

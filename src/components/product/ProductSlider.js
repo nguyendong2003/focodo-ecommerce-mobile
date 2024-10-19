@@ -32,7 +32,7 @@ const ProductSlider = ({ product, navigation }) => {
 
             {
                 product.review !== "NaN" ? (
-                    <View className="flex-row items-center my-1" >
+                    <View className="flex-row items-center " >
                         <Text className="text-gray-500 text-sm shrink mr-1" numberOfLines={1}>
                             {product.review?.toFixed(1)}
                         </Text>
@@ -49,7 +49,7 @@ const ProductSlider = ({ product, navigation }) => {
 
                     </View>
                 ) : (
-                    <View className="flex-row items-center my-1" >
+                    <View className="flex-row items-center " >
                         <Text className="text-gray-500 text-sm shrink mr-1" numberOfLines={1}>
                             Chưa có đánh giá
                         </Text>

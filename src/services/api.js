@@ -103,7 +103,15 @@ export const callCreateOrder = (data) => {
     });
 };
 
+export const callFetchAllOrderStatus = () => {
+    return axios.get('/api/v1/orders/getAllOrderStatus')
+}
+
 // Payment
 export const callGetPayment = (url) => {
     return axios.get(url);
 };
+
+export const callFetchAllPaymentMethods = () => {
+    return axios.get('/api/v1/orders/getAllPaymentMethod');
+}

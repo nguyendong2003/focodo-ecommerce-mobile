@@ -103,11 +103,11 @@ const OrderConfirmScreen = ({ navigation, route }) => {
                     </View>
                     <View className="flex-row justify-between items-center mx-1 py-1 border-b-2 border-gray-200">
                         <Text className="text-base text-gray-500">Phí vận chuyển</Text>
-                        <Text className="text-base text-gray-700 font-semibold">+{formatCurrency(order?.discount_price)}</Text>
+                        <Text className="text-base text-gray-700 font-semibold">+{formatCurrency(order?.shipping_price)}</Text>
                     </View>
                     <View className="flex-row justify-between items-center mx-1 py-1 border-b-2 border-gray-200">
                         <Text className="text-base text-gray-500">Khuyến mãi từ mã</Text>
-                        <Text className="text-base text-green-600 font-semibold">-{formatCurrency(order?.shipping_price)}</Text>
+                        <Text className="text-base text-green-600 font-semibold">-{formatCurrency(order?.discount_price)}</Text>
                     </View>
                     <View className="flex-row justify-between items-center mx-1 py-1">
                         <Text className="text-lg text-gray-700 text-bold">Thành tiền</Text>

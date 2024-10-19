@@ -7,7 +7,7 @@ import OrderButton from "../components/order/OrderButton";
 import { getStatusText } from "../utils/OrderUtils";
 import { OrderContext } from "../components/context/OrderProvider";
 import { callFetchOrderById } from "../services/api";
-import { getPaymentText } from "../utils/PaymentUtils";
+import { getPaymentMethodText } from "../utils/PaymentUtils";
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -55,7 +55,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
                     <Icon type="ionicon" name="location-outline" />
                     <View className="shrink">
                         <Text className="text-lg font-semibold leading-5">Địa chỉ người nhận</Text>
-                        <Text className="text-base text-gray-700">{order.customer?.fullName}</Text>
+                        <Text className="text-base text-gray-700">{order.customer?.full_name}</Text>
                         <Text className="text-base text-gray-500">{order.customer?.phone}</Text>
                         <Text className="text-base text-gray-500 leading-5">{order.customer?.address}</Text>
                     </View>
@@ -98,7 +98,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
                     <Icon type="ionicon" name="wallet-outline" />
                     <View>
                         <Text className="text-lg font-semibold leading-5">Hình thức thanh toán</Text>
-                        <Text className="text-base text-gray-500 ">{getPaymentText(order?.payment_method)}</Text>
+                        <Text className="text-base text-gray-500 ">{getPaymentMethodText(order?.payment_method)}</Text>
                     </View>
                 </View>
 

@@ -41,9 +41,9 @@ const OrderSuccessScreen = ({ navigation, route }) => {
                 </View>
 
                 <View className="flex-row justify-between items-center p-3 border-b-2 border-gray-100">
-                    <Text className="text-base text-gray-500 font-bold">Mã đơn hàng: {order?.id}</Text>
+                    <Text className="text-base text-gray-500 font-bold">Mã đơn hàng: {order?.id_order}</Text>
                     <TouchableOpacity activeOpacity={0.6}
-                        onPress={() => navigation.navigate('OrderDetail', { orderId: order?.id })}
+                        onPress={() => navigation.navigate('OrderDetail', { orderId: order?.id_order })}
                     >
                         <Text className="text-base text-blue-500 font-bold">Xem đơn hàng</Text>
                     </TouchableOpacity>

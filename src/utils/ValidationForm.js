@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
 const validation = {
-    name: yup
+    fullName: yup
         .string()
         // .matches(/(\w.+\s).+/, 'Enter at least 2 names')
         .min(2, 'Tên người nhận phải có ít nhất 2 ký tự')
@@ -28,7 +28,7 @@ const validation = {
         .required('Địa chỉ không được để trống'),
     paymentMethod: yup
         .string()
-        .oneOf(['cash', 'e-wallet'], 'Hãy chọn 1 phương thức thanh toán')
+        // .oneOf(['cash', 'e-wallet'], 'Hãy chọn 1 phương thức thanh toán')
         .required('Phương thức thanh toán không được để trống'),
     password: yup
         .string()
@@ -59,7 +59,7 @@ export const registerValidationSchema = yup.object().shape({
 })
 
 export const shippingInfoValidationSchema = yup.object().shape({
-    name: validation.name,
+    fullName: validation.fullName,
     phone: validation.phone,
     address: validation.address,
     paymentMethod: validation.paymentMethod

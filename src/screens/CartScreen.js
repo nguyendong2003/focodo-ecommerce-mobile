@@ -143,6 +143,7 @@ const CartScreen = ({ navigation }) => {
                                 title="Mua hàng"
                                 buttonStyle={{ backgroundColor: '#000', borderRadius: 8 }}
                                 onPress={handlePurchase}
+                                disabled={Object.keys(selectedItems).length === 0}
                             />
                         </View>
                     </View>
