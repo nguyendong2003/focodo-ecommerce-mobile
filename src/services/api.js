@@ -100,7 +100,7 @@ export const callCreateOrder = (data) => {
         order: data.order,
     };
 
-    return axios.post('/api/v1/orders/create', order, {
+    return axios.post('/api/v1/orders/create?platform=mobile', order, {
         headers: {
             'Content-Type': 'application/json',
         },

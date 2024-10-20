@@ -26,7 +26,7 @@ const OrderButton = ({ navigation, order, orderStatus }) => {
                 navigation.navigate({
                     name: 'OrderCancelledReason',
                     params: {
-                        orderId: order?.id,
+                        order: order
                     },
                 });
                 break;

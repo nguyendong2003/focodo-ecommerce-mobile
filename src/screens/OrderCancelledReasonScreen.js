@@ -2,35 +2,17 @@ import { useContext, useEffect, useState } from "react";
 import { Alert, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { getStatusText } from "../utils/OrderUtils";
 import { OrderContext } from "../components/context/OrderProvider";
-// import axios from 'axios';
+import { formatDateTime } from "../utils/FormatNumber";
 
 const OrderCancelledReasonScreen = ({ navigation, route }) => {
     const { orderContextValue, setOrderContextValue } = useContext(OrderContext);
-    const { orderId } = route.params
-    const [order, setOrder] = useState({})
+    const { order } = route.params
     const [reason, setReason] = useState('')
 
-    useEffect(() => {
-        const fetchOrderDetail = async () => {
-            try {
-                // const response = await axios.get(`https://api.example.com/orders/${orderId}`);
-                const response = require('../data/orderDetail.json');
-                const orderDetail = response;
-                setOrder(orderDetail);
-            } catch (error) {
-                console.error('Error fetching order detail:', error);
-            }
-        };
-
-        if (orderId) {
-            fetchOrderDetail();
-        }
-
-    }, [orderId])
 
     const handleCancelOrder = () => {
         setOrderContextValue((prev) => {
-            return { ...prev, id: orderId, status: 'Đã hủy' }
+            return { ...prev, id: order.id, status: 'Đã hủy' }
         })
         navigation.goBack()
     }
@@ -55,7 +37,7 @@ const OrderCancelledReasonScreen = ({ navigation, route }) => {
             <View className="flex-row gap-x-2 border-b-8 border-gray-200 p-3">
                 <View>
                     <Text className="text-lg font-semibold leading-5">Mã Đơn Hàng: {order?.id}</Text>
-                    <Text className="text-base text-gray-500 ">Ngày Đặt: {order?.time}</Text>
+                    <Text className="text-base text-gray-500 ">Ngày Đặt: {formatDateTime(order?.orderTime)}</Text>
                     <Text className="text-base text-gray-500 font-semibold">Trạng Thái: {getStatusText(order?.status)}</Text>
                 </View>
             </View>

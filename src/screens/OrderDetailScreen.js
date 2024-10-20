@@ -76,7 +76,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
                                     <Image source={{ uri: item.product?.image }} className="w-16 h-16 rounded-lg" />
                                     <View className="shrink h-full w-full ">
                                         <Text className="text-base text-gray-600 font-semibold leading-5" numberOfLines={2}>{item.product?.name}</Text>
-                                        <Text className="text-sm text-gray-500 leading-6" numberOfLines={1}>x{item.product?.quantity}  | {formatCurrency(item.product?.sell_price)}</Text>
+                                        <Text className="text-sm text-gray-500 leading-6" numberOfLines={1}>x{item?.quantity}  | {formatCurrency(item?.unit_price)}</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>
