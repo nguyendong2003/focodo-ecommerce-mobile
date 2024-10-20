@@ -1,10 +1,47 @@
 import { Icon } from '@rneui/themed';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { View, Text, Button, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { AuthContext } from '../components/context/AuthProvider';
+import { callFetchAllOrderStatus } from '../services/api';
 
 const AccountScreen = ({ navigation }) => {
     const { userLogin, logout, handleNavigate } = useContext(AuthContext)
+    const [allOrderStatus, setAllOrderStatus] = useState([]);
+
+    const fetchAllOrderStatus = async () => {
+        const res = await callFetchAllOrderStatus()
+        if (res && res.result) {
+            setAllOrderStatus(res.result)
+        }
+    }
+
+    useEffect(() => {
+        fetchAllOrderStatus()
+    }, [])
+
+    const statusMapping = {
+        "Chưa xác nhận": {
+            iconType: 'material-community',
+            iconName: 'timer-sand',
+            screen: 'OrderProcessing'
+        },
+        "Đã xác nhận": {
+            iconType: 'feather',
+            iconName: 'truck',
+            screen: 'OrderConfirmation'
+        },
+        "Đã giao": {
+            iconType: 'octicon',
+            iconName: 'checklist',
+            screen: 'OrderFinished'
+        },
+        "Đã hủy": {
+            iconType: 'material-community',
+            iconName: 'cancel',
+            screen: 'OrderCancelled'
+        }
+    };
+
     return (
         <ScrollView className="flex-1 bg-white">
             <View className="flex-row items-center gap-x-3 p-4 border-b-4 border-b-gray-200">
@@ -58,7 +95,19 @@ const AccountScreen = ({ navigation }) => {
                     <Icon type='feather' name='chevron-right' size={24} />
                 </TouchableOpacity>
                 <View className="flex-row justify-around mt-2 gap-x-3">
-                    <TouchableOpacity
+                    {allOrderStatus.map((item, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            activeOpacity={0.6}
+                            onPress={() => handleNavigate(navigation, 'OrderTabNavigator', {
+                                screen: statusMapping[item.status].screen,
+                            })}
+                        >
+                            <Icon type={statusMapping[item.status].iconType} name={statusMapping[item.status].iconName} size={28} color={'#2563eb'} />
+                            <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>{item.status}</Text>
+                        </TouchableOpacity>
+                    ))}
+                    {/* <TouchableOpacity
                         activeOpacity={0.6}
                         // className="w-1/3"
                         onPress={() => handleNavigate(navigation, 'OrderTabNavigator', { screen: 'OrderProcessing' })}
@@ -92,7 +141,7 @@ const AccountScreen = ({ navigation }) => {
                     >
                         <Icon type='material-community' name='cancel' size={28} color={'#2563eb'} />
                         <Text className="text-sm text-gray-600 text-center" numberOfLines={2}>Đã hủy</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </View>
 

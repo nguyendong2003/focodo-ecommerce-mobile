@@ -4,7 +4,7 @@
             "id": 1,
             "title": "Product 1Product 1Product 1Product 1Product 1Product 1Product 1Product 1Product 1Product 1",
             "quantity": 1,
-            "total": 275000,
+            "finalPrice": 275000,
             "image": "https://i.pravatar.cc/150?img=1",
             "status": "Chưa xác nhận"
         },
@@ -12,7 +12,7 @@
             "id": 2,
             "title": "Product 2",
             "quantity": 2,
-            "total": 150000,
+            "finalPrice": 150000,
             "image": "https://i.pravatar.cc/150?img=2",
             "status": "Đã xác nhận"
         },
@@ -20,7 +20,7 @@
             "id": 3,
             "title": "Product 3Product 3Product 3Product 3Product 3Product 3Product 3Product 3Product 3Product 3Product 3",
             "quantity": 1,
-            "total": 300000,
+            "finalPrice": 300000,
             "image": "https://i.pravatar.cc/150?img=3",
             "status": "Đã giao"
         },
@@ -28,7 +28,7 @@
             "id": 4,
             "title": "Product 4",
             "quantity": 3,
-            "total": 450000,
+            "finalPrice": 450000,
             "image": "https://i.pravatar.cc/150?img=4",
             "status": "Đã hủy"
         },
@@ -36,7 +36,7 @@
             "id": 5,
             "title": "Product 5",
             "quantity": 1,
-            "total": 200000,
+            "finalPrice": 200000,
             "image": "https://i.pravatar.cc/150?img=5",
             "status": "Chưa xác nhận"
         },
@@ -44,7 +44,7 @@
             "id": 6,
             "title": "Product 6",
             "quantity": 2,
-            "total": 350000,
+            "finalPrice": 350000,
             "image": "https://i.pravatar.cc/150?img=6",
             "status": "Chưa xác nhận"
         },
@@ -52,7 +52,7 @@
             "id": 7,
             "title": "Product 7",
             "quantity": 2,
-            "total": 350000,
+            "finalPrice": 350000,
             "image": "https://i.pravatar.cc/150?img=7",
             "status": "Đã đánh giá"
         },
@@ -60,7 +60,7 @@
             "id": 8,
             "title": "Product 8",
             "quantity": 2,
-            "total": 350000,
+            "finalPrice": 350000,
             "image": "https://i.pravatar.cc/150?img=8",
             "status": "Đã giao"
         }

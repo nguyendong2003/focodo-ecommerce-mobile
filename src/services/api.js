@@ -82,8 +82,12 @@ export const callFetchVoucherById = (id) => {
 }
 
 // Order
-export const callFetchOrders = () => {
-    return axios.get('/api/v1/orders/getOrdersOfUser')
+export const callFetchOrders = (page = 0, size = 10) => {
+    return axios.get(`/api/v1/orders/getOrdersOfUser?page=${page}&size=${size}`)
+}
+
+export const callFetchOrdersByStatus = (status, page, size) => {
+    return axios.get(`/api/v1/orders/getOrdersOfUserByOrderStatus?status=${status}&page=${page}&size=${size}`)
 }
 
 export const callFetchOrderById = (id) => {
@@ -106,6 +110,7 @@ export const callCreateOrder = (data) => {
 export const callFetchAllOrderStatus = () => {
     return axios.get('/api/v1/orders/getAllOrderStatus')
 }
+
 
 // Payment
 export const callGetPayment = (url) => {

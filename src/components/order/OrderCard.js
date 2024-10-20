@@ -1,7 +1,7 @@
 import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native"
-import { formatCurrency } from "../../utils/FormatNumber"
+import { formatCurrency, formatDateTime } from "../../utils/FormatNumber"
 import { getStatusText } from "../../utils/OrderUtils"
-import { useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import OrderButton from "./OrderButton"
 import { OrderContext } from "../context/OrderProvider";
 import { Icon } from "@rneui/themed";
@@ -35,8 +35,8 @@ const OrderCard = ({ navigation, order }) => {
                     <Image source={{ uri: order?.image }} className="w-24 h-24 rounded-lg" />
                     <View className="shrink h-full w-full ">
                         <Text className="text-base text-gray-600 font-semibold leading-5" numberOfLines={2}>{order?.title}</Text>
-                        <Text className="text-sm text-gray-500 leading-6" numberOfLines={1}>02/10/2024 16:20</Text>
-                        <Text className="text-sm text-gray-500 leading-6 font-bold" numberOfLines={1}>{formatCurrency(order?.total)}</Text>
+                        <Text className="text-sm text-gray-500 leading-6" numberOfLines={1}>{formatDateTime(order?.orderTime)}</Text>
+                        <Text className="text-sm text-gray-500 leading-6 font-bold" numberOfLines={1}>{formatCurrency(order?.finalPrice)}</Text>
                         {/* {
                             stateText !== '' &&
                             <View className="flex-row items-center gap-x-1">
@@ -72,4 +72,4 @@ const OrderCard = ({ navigation, order }) => {
     )
 }
 
-export default OrderCard
+export default memo(OrderCard)

@@ -1,11 +1,10 @@
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import ProductCard from "./ProductCard";
 
-const ProductList = ({ navigation, products, ListHeaderComponent, handleFetchMoreProducts, isLoadingMore, refreshing, setRefreshing }) => {
-
+const ProductList = ({ navigation, products, ListHeaderComponent, handleFetchMoreProducts, isLoadingMore, refreshing, handleRefreshing }) => {
     return (
         <View className="flex-1">
-            <View >
+            <View>
                 {ListHeaderComponent}
             </View>
             <FlatList
@@ -21,12 +20,11 @@ const ProductList = ({ navigation, products, ListHeaderComponent, handleFetchMor
                         <Text className="text-lg text-gray-500 font-bold">Không có sản phẩm nào</Text>
                     </View>
                 )}
-
-                onEndReachedThreshold={0}
+                onEndReachedThreshold={0.2} // Load more when 20% of the list is reached
                 onEndReached={handleFetchMoreProducts}
                 ListFooterComponent={isLoadingMore ? <ActivityIndicator size="large" color="#ccc" /> : null}
                 refreshing={refreshing}
-                onRefresh={() => setRefreshing(true)}
+                onRefresh={handleRefreshing}
             />
         </View>
     );

@@ -14,6 +14,7 @@ import OrderTrackingScreen from "../../screens/OrderTrackingScreen"
 import OrderCancelledReasonScreen from "../../screens/OrderCancelledReasonScreen"
 import ReviewOrderScreen from "../../screens/ReviewOrderScreen"
 import ReviewUpdateScreen from "../../screens/ReviewUpdateScreen"
+import VnPayPaymentScreen from "../../screens/VnPayPaymentScreen"
 
 const PrivateStackRoutes = [
     {
@@ -332,6 +333,10 @@ const PrivateStackRoutes = [
             // tabBarBadge: 3,
             // tabBarLabel: 'Login',
         },
+    },
+    {
+        name: 'VnPayPayment',
+        component: VnPayPaymentScreen,
     },
 ]
 
