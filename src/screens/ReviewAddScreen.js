@@ -18,7 +18,14 @@ const ReviewAddScreen = ({ navigation, route }) => {
         setLoading(true);
         const res = await callFetchOrderById(orderId);
         if (res && res.result) {
-            setData(res.result);
+            const dataAPI = res.result;
+            const orderId = dataAPI?.id_order;
+            const products = dataAPI?.order_details?.map((item) => ({
+                id: item?.product?.id,
+                name: item?.product?.name,
+                image: item?.product?.image,
+            }));
+            setData({ orderId, products });
         } else {
             Alert.alert('Error', 'Failed to fetch order');
         }
@@ -63,14 +70,14 @@ const ReviewAddScreen = ({ navigation, route }) => {
     }
 
     // Khởi tạo giá trị ban đầu cho review và rating
-    const initialValues = data.products.reduce((acc, product) => {
+    const initialValues = data?.products?.reduce((acc, product) => {
         acc[product.id] = { review: '', rating: 5 }; // Default rating là 5 sao
         return acc;
     }, {});
 
     // Validation schema cho cả review và rating
     const validationSchema = Yup.object().shape(
-        data.products.reduce((acc, product) => {
+        data?.products?.reduce((acc, product) => {
             acc[product.id] = Yup.object({
                 review: Yup.string().required('Bình luận là bắt buộc'),
                 rating: Yup.number().required('Đánh giá là bắt buộc'),
@@ -80,22 +87,43 @@ const ReviewAddScreen = ({ navigation, route }) => {
         }, {})
     );
 
-    const handleSubmit = (values) => {
-        // console.log('Submitted Reviews:', values);
+    const handleSubmit = async (values) => {
         setHasUnsavedChanges(false); // Đánh dấu là không còn thay đổi chưa lưu
-
         // Chuyển đổi values thành mảng các object với key được thêm vào value tương ứng
-        const reviewsArray = Object.entries(values).map(([key, value]) => ({
-            productId: key,
-            ...value
-        }));
+        // const reviewsArray = Object.entries(values).map(([key, value]) => ({
+        //     productId: key,
+        //     ...value
+        // }));
+        const reviewsArray = Object.entries(values).map(([key, value]) => {
+            const review = {
+                id_product: parseInt(key),
+                rating: value.rating,
+                content: value.review
+            }
 
-        console.log('Reviews Array:', reviewsArray);
-        //
-        setOrderContextValue((prev) => {
-            return { ...prev, id: orderId, status: 'Đã đánh giá' }
-        })
-        navigation.goBack()
+            const images = value.images || [];
+
+            return { id_order: orderId, review, images, };
+        });
+
+        // console.log('Reviews Array:', reviewsArray);
+
+        const res = await callCreateReview(reviewsArray);
+        console.log('Response:', res);
+
+        // Check if all responses have status 200 and a valid result
+        const allSuccess = res.every(res => res.code === 0 && res.result);
+
+        if (allSuccess) {
+            Alert.alert('Thông báo', 'Thêm đánh giá thành công');
+            setOrderContextValue((prev) => {
+                return { ...prev, id: orderId, status: 'Đã đánh giá' }
+            })
+            navigation.goBack()
+        }
+        else {
+            Alert.alert('Thông báo', 'Có lỗi khi thêm đánh giá');
+        }
     };
 
     return (

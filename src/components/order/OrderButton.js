@@ -1,5 +1,6 @@
 import { useEffect } from "react"
-import { Text, TouchableOpacity } from "react-native"
+import { Alert, Text, TouchableOpacity } from "react-native"
+import { callUpdateOrderStatus } from "../../services/api"
 
 
 const OrderButton = ({ navigation, order, orderStatus }) => {
@@ -20,15 +21,65 @@ const OrderButton = ({ navigation, order, orderStatus }) => {
         }
     }
 
+    const handleCancelOrder = async () => {
+        const res = await callUpdateOrderStatus(order.id, 'Đã hủy')
+        if (res.status === 200 && res.result) {
+            setOrderContextValue((prev) => {
+                return { ...prev, id: order.id, status: 'Đã hủy' }
+            })
+            navigation.goBack()
+            Alert.alert('Thông báo', 'Hủy đơn hàng thành công')
+        } else {
+            Alert.alert('Thông báo', 'Hủy đơn hàng thất bại. Vui lòng thử lại sau')
+        }
+
+    }
+
+    const confirmCancel = () =>
+        Alert.alert('Xác nhận hủy đơn hàng', 'Bạn có chắc chắn muốn hủy đơn hàng này không?',
+            [
+                {
+                    text: 'Không',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+                { text: 'Xác nhận', onPress: handleCancelOrder },
+            ],
+            {
+                cancelable: true,
+            },
+        );
+
+    // const handleBuyAgain = async() => {
+    //     const res = await callCreateReview(reviewsArray);
+    //     console.log('Response:', res);
+
+    //     // Check if all responses have status 200 and a valid result
+    //     const allSuccess = res.every(res => res.code === 0 && res.result);
+
+    //     if (allSuccess) {
+    //         Alert.alert('Thông báo', 'Thêm đánh giá thành công');
+    //         setOrderContextValue((prev) => {
+    //             return { ...prev, id: orderId, status: 'Đã đánh giá' }
+    //         })
+    //         navigation.goBack()
+    //     }
+    //     else {
+    //         Alert.alert('Thông báo', 'Có lỗi khi thêm đánh giá');
+    //     }
+    //     navigation.navigate('Cart');
+    // }
+
     const optionButtonPress = (status) => {
         switch (status) {
             case 'Chưa xác nhận':
-                navigation.navigate({
-                    name: 'OrderCancelledReason',
-                    params: {
-                        order: order
-                    },
-                });
+                confirmCancel()
+                // navigation.navigate({
+                //     name: 'OrderCancelledReason',
+                //     params: {
+                //         order: order
+                //     },
+                // });
                 break;
             case 'Đã hủy':
                 // call api buy again

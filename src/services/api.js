@@ -44,6 +44,39 @@ export const callFetchReviewsByProductId = (id, page, size) => {
     return axios.get(`/api/v1/reviews/getReviewsOfProduct/${id}?page=${page}&size=${size}`)
 }
 
+export const callCreateReview = (data) => {
+    const promises = data.map((item) => {
+        let formData = new FormData();
+
+        formData.append('id_order', item.id_order);
+        formData.append('review', JSON.stringify(item.review));
+        // formData.append('review', new Blob([JSON.stringify(item.review)], {
+        //     type: 'application/json'
+        // }));
+
+        const images = item.images || [];
+        images.forEach((image) => {
+            formData.append('images', {
+                uri: image.uri,
+                // type: image.type || 'image/jpeg',
+                type: "image/jpeg",
+                name: image.name,
+            });
+        });
+
+        return axios.post('/api/v1/reviews/create', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            // headers: {
+            //     'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+            // },
+        });
+    });
+
+    return Promise.all(promises);
+};
+
 // Cart
 export const callFetchCart = () => {
     return axios.get('/api/v1/carts/getCartOfUser')
@@ -54,6 +87,17 @@ export const callAddToCart = (productId, quantity) => {
         id_product: productId,
         quantity
     })
+}
+
+export const callBuyAgain = (data) => {
+    const promises = data.map((item) => {
+        return axios.post('/api/v1/carts/addCart', {
+            id_product: item.product.id,
+            quantity: item.quantity
+        });
+    })
+
+    return Promise.all(promises);
 }
 
 export const callUpdateCheckCart = (id) => {
@@ -109,6 +153,10 @@ export const callCreateOrder = (data) => {
 
 export const callFetchAllOrderStatus = () => {
     return axios.get('/api/v1/orders/getAllOrderStatus')
+}
+
+export const callUpdateOrderStatus = (id, status) => {
+    return axios.put(`/api/v1/orders/updateOrderStatus/${id}?status=${status}`)
 }
 
 

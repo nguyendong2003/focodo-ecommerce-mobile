@@ -20,15 +20,14 @@ const OrderDetailScreen = ({ navigation, route }) => {
     const fetchOrderById = async (orderId) => {
         const res = await callFetchOrderById(orderId);
         if (res && res.result) {
-            setOrder(res.result)
-            setOrderStatus(res.result.order_status)
+            const data = res.result;
+            setOrder(data)
+            setOrderStatus(data.review_check ? 'Đã đánh giá' : data.order_status)
         }
     }
 
     useEffect(() => {
         fetchOrderById(orderId)
-        // setOrder(orderDetail)
-        // setOrderStatus(orderDetail?.status)
     }, [])
 
 
@@ -124,7 +123,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
 
             <View>
                 {
-                    order?.status !== 'Đã xác nhận' && (
+                    orderStatus !== 'Đã xác nhận' ? (
                         <View className="flex-row justify-between items-center py-4 mx-3">
                             <TouchableOpacity activeOpacity={0.7}
                                 className="rounded-md  border-black py-2 border-2"
@@ -141,12 +140,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
                                 />
                             </View>
                         </View>
-                    )
-                }
-
-
-                {
-                    order?.status === 'Đã xác nhận' && (
+                    ) : (
                         <TouchableOpacity activeOpacity={0.7}
                             className="rounded-md  border-black py-2 border-2 my-4 mx-3 bg-black"
                             onPress={() => navigation.navigate('OrderTracking', { orderId: order?.id_order })}

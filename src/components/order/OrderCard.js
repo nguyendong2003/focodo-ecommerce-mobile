@@ -10,7 +10,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const OrderCard = ({ navigation, order }) => {
     const { orderContextValue, setOrderContextValue } = useContext(OrderContext);
-    const [orderStatus, setOrderStatus] = useState(order?.status);
+    const [orderStatus, setOrderStatus] = useState(order?.isReviewed ? 'Đã đánh giá' : order?.status);
     // const [stateText, setStateText] = useState('')
 
     useEffect(() => {

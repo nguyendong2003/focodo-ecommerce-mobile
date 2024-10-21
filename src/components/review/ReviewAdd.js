@@ -25,7 +25,11 @@ const ReviewAdd = ({ navigation, item, handleChange, handleBlur, setFieldValue, 
         });
 
         if (!result.canceled) {
-            const selectedImages = result.assets.map(asset => asset.uri);
+            const selectedImages = result.assets.map(asset => ({
+                uri: asset.uri,
+                type: asset.type || 'image/jpeg', // Default to 'image/jpeg' if type is not provided
+                name: asset.uri.split('/').pop(), // Extract the file name from the URI
+            }));
             const currentImages = values[item.id].images || [];
             const newImages = [...currentImages, ...selectedImages]
             setFieldValue(`${item.id}.images`, newImages);
@@ -87,18 +91,17 @@ const ReviewAdd = ({ navigation, item, handleChange, handleBlur, setFieldValue, 
 
             {/* Hiển thị hình ảnh đã upload */}
             <View className="flex-row flex-wrap mt-2 px-2">
-                {values[item.id].images && values[item.id].images.map((uri, index) => (
+                {values[item.id].images && values[item.id].images.map((image, index) => (
                     <View key={index} className="relative m-1"
                         style={{ width: screenWidth / 3 - 14, height: screenWidth / 3 - 14 }}
                     >
-                        <Image source={{ uri }} className="w-full h-full rounded-md" />
+                        <Image source={{ uri: image.uri }} className="w-full h-full rounded-md" />
                         <TouchableOpacity
                             activeOpacity={0.7}
                             className="absolute top-0 right-0 rounded-full w-6 h-6 flex items-center justify-center"
                             onPress={() => handleRemoveImage(index)}
                         >
                             <Icon type='antdesign' name='close' color='white' />
-                            {/* <Text className="text-white text-xs">x</Text> */}
                         </TouchableOpacity>
                     </View>
                 ))}

@@ -26,7 +26,8 @@ const OrderScreen = ({ navigation }) => {
                     finalPrice: item.final_price,
                     image: item?.order_details[0]?.product?.image,
                     status: item.order_status,
-                    orderTime: item.order_date
+                    orderTime: item.order_date,
+                    isReviewed: item.review_check
                 };
             });
 
