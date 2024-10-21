@@ -16,8 +16,8 @@ export const getStatusText = (status) => {
     }
 }
 
-export const convertOrders = (data) => {
-    const ordersData = data.map(item => {
+export const convertOrders = (orders) => {
+    const ordersData = orders.map(item => {
         return {
             id: item.id_order,
             title: item?.order_details[0]?.product?.name,
@@ -31,3 +31,11 @@ export const convertOrders = (data) => {
 
     return ordersData;
 }
+
+export const convertOrder = (order) => {
+    const { id_order, ...rest } = order;
+    return {
+        ...rest,
+        id: id_order,
+    };
+};

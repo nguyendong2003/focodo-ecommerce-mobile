@@ -44,6 +44,10 @@ export const callFetchReviewsByProductId = (id, page, size) => {
     return axios.get(`/api/v1/reviews/getReviewsOfProduct/${id}?page=${page}&size=${size}`)
 }
 
+export const callFetchReviewsByOrderId = (id) => {
+    return axios.get(`/api/v1/reviews/getReviewsOfOrder/${id}`)
+}
+
 export const callCreateReview = (data) => {
     const promises = data.map((item) => {
         let formData = new FormData();

@@ -1,9 +1,12 @@
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { Alert, Text, TouchableOpacity } from "react-native"
 import { callUpdateOrderStatus } from "../../services/api"
+import { OrderContext } from "../context/OrderProvider";
 
 
 const OrderButton = ({ navigation, order, orderStatus }) => {
+    const { orderContextValue, setOrderContextValue } = useContext(OrderContext);
+
     const getButtonText = (status) => {
         switch (status) {
             case 'Chưa xác nhận':
@@ -23,11 +26,11 @@ const OrderButton = ({ navigation, order, orderStatus }) => {
 
     const handleCancelOrder = async () => {
         const res = await callUpdateOrderStatus(order.id, 'Đã hủy')
-        if (res.status === 200 && res.result) {
+        
+        if (res && res.result) {
             setOrderContextValue((prev) => {
                 return { ...prev, id: order.id, status: 'Đã hủy' }
             })
-            navigation.goBack()
             Alert.alert('Thông báo', 'Hủy đơn hàng thành công')
         } else {
             Alert.alert('Thông báo', 'Hủy đơn hàng thất bại. Vui lòng thử lại sau')

@@ -2,16 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { View, ScrollView, FlatList } from 'react-native';
 import result from '../data/reviews.json'
 import ReviewCard from '../components/review/ReviewCard';
+import { callFetchReviewsByOrderId } from '../services/api';
 
-const ReviewOrderScreen = ({ navigation }) => {
+const ReviewOrderScreen = ({ navigation, route }) => {
+    const { orderId } = route.params;
     const [reviews, setReviews] = useState([]);
 
-    useEffect(() => {
-        // call api
-        const reviewsCallAPI = result.reviews;
+    const fetchReviewsByOrderId = async(orderId) => {
+        const res = await callFetchReviewsByOrderId(orderId);
+        if (res && res.result) {
+            const dataReviews = res.result.map((item) => {
+                return {
+                    id: item.id,
+                    time: item.date,
+                    rate: item.rating,
+                    comment: item.content,
+                    user: {
+                        id: item.user.id,
+                        name: item.user.full_name,
+                        avatar: item.user.avatar ? item.user.avatar : null,
+                    },
+                    images: item.images
+                }
+            })
+            setReviews(dataReviews);
+        }
+    }
 
-        setReviews(reviewsCallAPI);
-    }, []);
+    useEffect(() => {
+        fetchReviewsByOrderId(orderId);
+    }, [orderId]);
 
     return (
         <FlatList

@@ -4,7 +4,7 @@ import { formatCurrency, formatDateTime } from "../utils/FormatNumber";
 import { useEffect, useState, useContext } from "react";
 import orderDetail from '../data/orderDetail.json'
 import OrderButton from "../components/order/OrderButton";
-import { getStatusText } from "../utils/OrderUtils";
+import { convertOrder, convertOrders, getStatusText } from "../utils/OrderUtils";
 import { OrderContext } from "../components/context/OrderProvider";
 import { callFetchOrderById } from "../services/api";
 import { getPaymentMethodText } from "../utils/PaymentUtils";
@@ -20,7 +20,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
     const fetchOrderById = async (orderId) => {
         const res = await callFetchOrderById(orderId);
         if (res && res.result) {
-            const data = res.result;
+            const data = convertOrder(res.result);
             setOrder(data)
             setOrderStatus(data.review_check ? 'Đã đánh giá' : data.order_status)
         }
@@ -28,14 +28,18 @@ const OrderDetailScreen = ({ navigation, route }) => {
 
     useEffect(() => {
         fetchOrderById(orderId)
-    }, [])
+    }, [orderId])
 
+    useEffect(() => {
+        setOrderStatus(order?.review_check ? 'Đã đánh giá' : order?.order_status);
+    }, [order]);
 
     useEffect(() => {
         if (orderContextValue?.id === orderId) {
             setOrderStatus(orderContextValue?.status)
         }
     }, [orderContextValue])
+
 
     return (
         <View className="flex-1 bg-white">
@@ -45,7 +49,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
                 <View className="flex-row gap-x-2 border-b-8 border-gray-200 p-3">
                     <Icon type="ionicon" name="document-text-outline" />
                     <View>
-                        <Text className="text-lg font-semibold leading-5">Mã Đơn Hàng: {order?.id_order}</Text>
+                        <Text className="text-lg font-semibold leading-5">Mã Đơn Hàng: {order?.id}</Text>
                         <Text className="text-base text-gray-500 ">Ngày Đặt: {formatDateTime(order?.order_date)}</Text>
                         <Text className="text-base text-gray-500 font-semibold">Trạng Thái: {getStatusText(orderStatus)}</Text>
                     </View>

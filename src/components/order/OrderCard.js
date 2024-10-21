@@ -1,7 +1,7 @@
 import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native"
 import { formatCurrency, formatDateTime } from "../../utils/FormatNumber"
 import { getStatusText } from "../../utils/OrderUtils"
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useRef, useState } from "react";
 import OrderButton from "./OrderButton"
 import { OrderContext } from "../context/OrderProvider";
 import { Icon } from "@rneui/themed";
@@ -11,16 +11,22 @@ const screenWidth = Dimensions.get('window').width;
 const OrderCard = ({ navigation, order }) => {
     const { orderContextValue, setOrderContextValue } = useContext(OrderContext);
     const [orderStatus, setOrderStatus] = useState(order?.isReviewed ? 'Đã đánh giá' : order?.status);
-    // const [stateText, setStateText] = useState('')
+    const isFirstRender = useRef(true);
 
     useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false; // Set to false after the first render
+            return; // Exit the effect early on the first render
+        }
+
         if (orderContextValue?.id === order?.id) {
             setOrderStatus(orderContextValue?.status)
-            // if (orderContextValue?.status === 'Đã đánh giá') {
-            //     setStateText('Đã đánh giá')
-            // }
         }
     }, [orderContextValue])
+
+    useEffect(() => {
+        setOrderStatus(order?.isReviewed ? 'Đã đánh giá' : order?.status);
+    }, [order]);
 
     return (
         <>
@@ -45,6 +51,15 @@ const OrderCard = ({ navigation, order }) => {
 
                             </View>
                         } */}
+
+                        {
+                            orderStatus==='Đã đánh giá' && (
+                                <View className="flex-row items-center gap-x-1">
+                                <Icon type="antdesign" name="checkcircle" color={'#22c55e'} size={18} />
+                                <Text className="text-base text-green-500 leading-6 font-bold" numberOfLines={1}>Đã đánh giá</Text>
+                            </View>
+                            )
+                        }
                     </View>
                 </View>
 
