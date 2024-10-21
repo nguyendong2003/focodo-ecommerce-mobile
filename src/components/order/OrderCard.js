@@ -43,15 +43,6 @@ const OrderCard = ({ navigation, order }) => {
                         <Text className="text-base text-gray-600 font-semibold leading-5" numberOfLines={2}>{order?.title}</Text>
                         <Text className="text-sm text-gray-500 leading-6" numberOfLines={1}>{formatDateTime(order?.orderTime)}</Text>
                         <Text className="text-sm text-gray-500 leading-6 font-bold" numberOfLines={1}>{formatCurrency(order?.finalPrice)}</Text>
-                        {/* {
-                            stateText !== '' &&
-                            <View className="flex-row items-center gap-x-1">
-                                <Icon type="antdesign" name="checkcircle" color={'#22c55e'} size={18} />
-                                <Text className="text-base text-green-500 leading-6 font-bold" numberOfLines={1}>{stateText}</Text>
-
-                            </View>
-                        } */}
-
                         {
                             orderStatus==='Đã đánh giá' && (
                                 <View className="flex-row items-center gap-x-1">

@@ -93,16 +93,18 @@ export const callAddToCart = (productId, quantity) => {
     })
 }
 
-export const callBuyAgain = (data) => {
-    const promises = data.map((item) => {
-        return axios.post('/api/v1/carts/addCart', {
-            id_product: item.product.id,
-            quantity: item.quantity
-        });
-    })
+// export const callBuyAgain = (products) => {
+//     console.log('Products:', products);
+    
+//     const promises = products.map((item) => {
+//         return axios.post('/api/v1/carts/addCart', {
+//             id_product: item.id,
+//             quantity: item.quantity
+//         });
+//     })
 
-    return Promise.all(promises);
-}
+//     return Promise.all(promises);
+// }
 
 export const callUpdateCheckCart = (id) => {
     return axios.put(`/api/v1/carts/updateCart/${id}`)

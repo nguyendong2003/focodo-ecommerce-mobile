@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
 import { Alert, Text, TouchableOpacity } from "react-native"
-import { callUpdateOrderStatus } from "../../services/api"
+import { callAddToCart, callBuyAgain, callUpdateOrderStatus } from "../../services/api"
 import { OrderContext } from "../context/OrderProvider";
 
 
@@ -53,25 +53,28 @@ const OrderButton = ({ navigation, order, orderStatus }) => {
             },
         );
 
-    // const handleBuyAgain = async() => {
-    //     const res = await callCreateReview(reviewsArray);
-    //     console.log('Response:', res);
+    const handleBuyAgain = async() => {
+        const products = order.products
+        let isSuccess = false;
+        try {
+            for (const item of products) {
+                const res = await callAddToCart(item.id, item.quantity);
 
-    //     // Check if all responses have status 200 and a valid result
-    //     const allSuccess = res.every(res => res.code === 0 && res.result);
+                if (res.status === 200) {
+                    isSuccess = true;
+                }
+            }
 
-    //     if (allSuccess) {
-    //         Alert.alert('Thông báo', 'Thêm đánh giá thành công');
-    //         setOrderContextValue((prev) => {
-    //             return { ...prev, id: orderId, status: 'Đã đánh giá' }
-    //         })
-    //         navigation.goBack()
-    //     }
-    //     else {
-    //         Alert.alert('Thông báo', 'Có lỗi khi thêm đánh giá');
-    //     }
-    //     navigation.navigate('Cart');
-    // }
+            if (isSuccess) {
+                navigation.navigate('Cart');
+            } else {
+                Alert.alert('Thông báo', 'Có lỗi xảy ra. Vui lòng thử lại sau');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            Alert.alert('Thông báo', 'Có lỗi xảy ra. Vui lòng thử lại sau');
+        }
+    }
 
     const optionButtonPress = (status) => {
         switch (status) {
@@ -86,7 +89,7 @@ const OrderButton = ({ navigation, order, orderStatus }) => {
                 break;
             case 'Đã hủy':
                 // call api buy again
-                navigation.navigate('Cart');
+                handleBuyAgain()
                 break;
             case 'Đã xác nhận':
                 navigation.navigate('OrderTracking', { orderId: order?.id });
