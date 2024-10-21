@@ -40,6 +40,10 @@ export const callFetchProductsDiscount = () => {
 }
 
 // Review
+export const callFetchReviews = (page, size) => {
+    return axios.get(`/api/v1/reviews/getReviewsOfUser?page=${page}&size=${size}`)
+}
+
 export const callFetchReviewsByProductId = (id, page, size) => {
     return axios.get(`/api/v1/reviews/getReviewsOfProduct/${id}?page=${page}&size=${size}`)
 }

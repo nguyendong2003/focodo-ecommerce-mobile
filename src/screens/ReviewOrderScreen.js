@@ -11,7 +11,7 @@ const ReviewOrderScreen = ({ navigation, route }) => {
     const fetchReviewsByOrderId = async(orderId) => {
         const res = await callFetchReviewsByOrderId(orderId);
         if (res && res.result) {
-            const dataReviews = res.result.map((item) => {
+            const dataReviews = res.result?.map((item) => {
                 return {
                     id: item.id,
                     time: item.date,
@@ -22,7 +22,8 @@ const ReviewOrderScreen = ({ navigation, route }) => {
                         name: item.user.full_name,
                         avatar: item.user.avatar ? item.user.avatar : null,
                     },
-                    images: item.images
+                    images: item.images,
+                    product: item.product
                 }
             })
             setReviews(dataReviews);
@@ -40,7 +41,6 @@ const ReviewOrderScreen = ({ navigation, route }) => {
             keyExtractor={item => item.id.toString()}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={() => <View className="border-t-2 border-gray-400" />}
-        // ListHeaderComponent={() => <ReviewOverall overallReview={overallReview} />}
         />
     );
 };
