@@ -4,6 +4,7 @@ import result from '../data/orders.json'
 import { useEffect, useState } from 'react';
 import { callFetchOrdersByStatus } from '../services/api';
 import { Icon } from '@rneui/themed';
+import { convertOrders } from '../utils/OrderUtils';
 
 const OrderFinishedScreen = ({ navigation }) => {
     const [orders, setOrders] = useState([])
@@ -19,17 +20,7 @@ const OrderFinishedScreen = ({ navigation }) => {
         const res = await callFetchOrdersByStatus('Đã giao', currentPage, size);
         if (res && res.result) {
             const data = res.result?.data;
-            const ordersData = data.map(item => {
-                return {
-                    id: item.id_order,
-                    title: item?.order_details[0]?.product?.name,
-                    finalPrice: item.final_price,
-                    image: item?.order_details[0]?.product?.image,
-                    status: item.order_status,
-                    orderTime: item.order_date,
-                    isReviewed: item.review_check
-                };
-            });
+            const ordersData = convertOrders(data);
             if (currentPage === 0) {
                 setOrders(ordersData);
             } else {
