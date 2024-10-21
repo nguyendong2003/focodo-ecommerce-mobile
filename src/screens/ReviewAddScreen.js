@@ -5,31 +5,29 @@ import * as Yup from 'yup';
 import ReviewAdd from '../components/review/ReviewAdd';
 import { Button } from '@rneui/themed';
 import { OrderContext } from '../components/context/OrderProvider';
+import { callCreateReview, callFetchOrderById } from '../services/api';
 
 const ReviewAddScreen = ({ navigation, route }) => {
     const { orderContextValue, setOrderContextValue } = useContext(OrderContext);
     const { orderId } = route.params;
-    const [data, setData] = useState(null); // State để lưu dữ liệu từ API
-    const [loading, setLoading] = useState(true); // State để kiểm tra trạng thái loading
-    const [error, setError] = useState(null); // State để lưu thông báo lỗi
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // const response = await fetch('https://api.example.com/products'); // Thay thế URL bằng API của bạn
-                // const result = await response.json();
-                const result = require('../data/reviewAdd.json'); // Sử dụng dữ liệu mẫu
-                setData(result); // Lưu dữ liệu vào state
-            } catch (error) {
-                setError(error); // Lưu lỗi nếu có
-            } finally {
-                setLoading(false); // Đánh dấu là đã tải xong
-            }
-        };
+    const fetchOrder = async () => {
+        setLoading(true);
+        const res = await callFetchOrderById(orderId);
+        if (res && res.result) {
+            setData(res.result);
+        } else {
+            Alert.alert('Error', 'Failed to fetch order');
+        }
+        setLoading(false);
+    }
 
-        fetchData(); // Gọi hàm fetch dữ liệu
-    }, []); // Chỉ chạy một lần khi component mount
+    useEffect(() => {
+        fetchOrder();
+    }, []);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
@@ -62,10 +60,6 @@ const ReviewAddScreen = ({ navigation, route }) => {
 
     if (loading) {
         return <Text>Loading...</Text>; // Hiển thị loading
-    }
-
-    if (error) {
-        return <Text>Error: {error.message}</Text>; // Hiển thị thông báo lỗi
     }
 
     // Khởi tạo giá trị ban đầu cho review và rating
@@ -118,7 +112,6 @@ const ReviewAddScreen = ({ navigation, route }) => {
                             <ReviewAdd
                                 navigation={navigation}
                                 item={item}
-                                // handleChange={handleChange}
                                 handleChange={(field) => (value) => {
                                     handleChange(field)(value);
                                     setHasUnsavedChanges(true); // Đánh dấu là có thay đổi chưa lưu
