@@ -19,6 +19,7 @@ const MainTabNavigator = ({ navigation }) => {
                     marginBottom: 4,
                     marginTop: 4,
                 },
+                tabBarHideOnKeyboard: true,
             }}
         >
             {
