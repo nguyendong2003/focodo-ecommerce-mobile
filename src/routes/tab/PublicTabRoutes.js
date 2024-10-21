@@ -96,48 +96,48 @@ const PublicTabRoutes = (handleNavigate) => {
                 },
             }),
         },
-        {
-            name: 'Notification',
-            component: NotificationScreen,
-            options: ({ navigation }) => ({
-                tabBarLabel: 'Thông báo',
-                tabBarIcon: ({ color, size }) => (
-                    <Icon type="ionicon" name="notifications" color={color} size={size} />
-                ),
-                headerTitle: 'Thông báo',
-                headerTitleStyle: {
-                    fontSize: 18,
-                },
-                headerRight: () => {
-                    return (
-                        <View className="flex-row mx-4 gap-x-4 items-center">
-                            <TouchableOpacity
-                                activeOpacity={0.5}
-                                onPress={() => handleNavigate(navigation, 'Cart')}
-                            >
-                                <Icon type="antdesign" name="shoppingcart" />
-                            </TouchableOpacity>
-                        </View>
-                    );
-                },
-                headerStyle: {
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 3.84,
-                    elevation: 5,
-                },
-            }),
-            listeners: ({ navigation, route }) => ({
-                tabPress: (e) => {
-                    // Prevent default action
-                    e.preventDefault();
+        // {
+        //     name: 'Notification',
+        //     component: NotificationScreen,
+        //     options: ({ navigation }) => ({
+        //         tabBarLabel: 'Thông báo',
+        //         tabBarIcon: ({ color, size }) => (
+        //             <Icon type="ionicon" name="notifications" color={color} size={size} />
+        //         ),
+        //         headerTitle: 'Thông báo',
+        //         headerTitleStyle: {
+        //             fontSize: 18,
+        //         },
+        //         headerRight: () => {
+        //             return (
+        //                 <View className="flex-row mx-4 gap-x-4 items-center">
+        //                     <TouchableOpacity
+        //                         activeOpacity={0.5}
+        //                         onPress={() => handleNavigate(navigation, 'Cart')}
+        //                     >
+        //                         <Icon type="antdesign" name="shoppingcart" />
+        //                     </TouchableOpacity>
+        //                 </View>
+        //             );
+        //         },
+        //         headerStyle: {
+        //             shadowColor: '#000',
+        //             shadowOffset: { width: 0, height: 2 },
+        //             shadowOpacity: 0.25,
+        //             shadowRadius: 3.84,
+        //             elevation: 5,
+        //         },
+        //     }),
+        //     listeners: ({ navigation, route }) => ({
+        //         tabPress: (e) => {
+        //             // Prevent default action
+        //             e.preventDefault();
 
-                    // Call handleNavigate and then navigate to the tab
-                    handleNavigate(navigation, 'Notification');
-                },
-            }),
-        },
+        //             // Call handleNavigate and then navigate to the tab
+        //             handleNavigate(navigation, 'Notification');
+        //         },
+        //     }),
+        // },
         {
             name: 'Account',
             component: AccountScreen,
