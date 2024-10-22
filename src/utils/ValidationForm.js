@@ -4,9 +4,9 @@ const validation = {
     fullName: yup
         .string()
         // .matches(/(\w.+\s).+/, 'Enter at least 2 names')
-        .min(2, 'Tên người nhận phải có ít nhất 2 ký tự')
-        .max(50, 'Tên người nhận không được quá 50 ký tự')
-        .required('Tên người nhận không được để trống'),
+        .min(2, 'Họ tên phải có ít nhất 2 ký tự')
+        .max(50, 'Họ tên không được quá 50 ký tự')
+        .required('Họ tên không được để trống'),
     username: yup
         .string()
         .min(2, 'Tên đăng nhập phải có ít nhất 2 ký tự')
@@ -32,11 +32,12 @@ const validation = {
         .required('Phương thức thanh toán không được để trống'),
     password: yup
         .string()
-        .matches(/\w*[a-z]\w*/, "Mật khẩu phải có ít nhất 1 chữ in thường")
-        .matches(/\w*[A-Z]\w*/, "Mật khẩu phải có ít nhất 1 chữ in hoa")
-        .matches(/\d/, "Mật khẩu phải có ít nhất 1 chữ số")
-        .matches(/[!@#$%^&*()\-_"=+{}; :,<.>]/, "Mật khẩu phải có ít nhất 1 ký tự đặc biệt")
-        .min(8, ({ min }) => `Mật khẩu phải có ít nhất ${min} ký tự`)
+        // .matches(/\w*[a-z]\w*/, "Mật khẩu phải có ít nhất 1 chữ in thường")
+        // .matches(/\w*[A-Z]\w*/, "Mật khẩu phải có ít nhất 1 chữ in hoa")
+        // .matches(/\d/, "Mật khẩu phải có ít nhất 1 chữ số")
+        // .matches(/[!@#$%^&*()\-_"=+{}; :,<.>]/, "Mật khẩu phải có ít nhất 1 ký tự đặc biệt")
+        // .min(8, ({ min }) => `Mật khẩu phải có ít nhất ${min} ký tự`)
+        .min(6, 'Mật khẩu phải có ít nhất 6 ký tự')
         .required('Mật khẩu không được để trống'),
     confirmPassword: yup
         .string()
@@ -55,7 +56,11 @@ export const loginValidationSchema = yup.object().shape({
 
 export const registerValidationSchema = yup.object().shape({
     username: validation.username,
-    password: validation.password
+    password: validation.password,
+    confirmPassword: validation.confirmPassword,
+    email: validation.email,
+    phone: validation.phone,
+    fullName: validation.fullName,
 })
 
 export const shippingInfoValidationSchema = yup.object().shape({

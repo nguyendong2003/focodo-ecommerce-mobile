@@ -4,23 +4,37 @@ import { View, Alert, Text } from 'react-native';
 import { Field, Formik } from 'formik';
 import CustomTextInput from '../custom/CustomTextInput';
 import { registerValidationSchema } from '../../utils/ValidationForm';
+import { callRegister } from '../../services/api';
 
 const RegisterForm = ({ navigation }) => {
 
-    const handleRegister = (values, actions) => {
-        const { username, password } = values;
+    const handleRegister = async (values, actions) => {
         console.log(values);
+        const { username, password, email, phone, fullName } = values;
+        const data = {
+            username,
+            password,
+            email,
+            phone,
+            full_name: fullName,
+        }
 
-        navigation.navigate('Login');
-        Alert.alert('Đăng ký thành công', 'Vui lòng đăng nhập để tiếp tục');
+        const res = await callRegister(data);
+        if (res && res.result) {
+            navigation.navigate('Login');
+            Alert.alert('Đăng ký thành công', 'Vui lòng đăng nhập để tiếp tục');
+        } else {
+            Alert.alert('Đăng ký thất bại', 'Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác');
+        }
+
     };
     return (
         <View >
             <Formik
-                initialValues={{ username: '', password: '' }}
+                initialValues={{ username: '', password: '', email: '', phone: '', fullName: '' }}
                 validationSchema={registerValidationSchema}
                 onSubmit={handleRegister}
-                validateOnMount={true}
+            // validateOnMount={true}   
             >
                 {({
                     handleChange,
@@ -36,15 +50,44 @@ const RegisterForm = ({ navigation }) => {
                         <Text className="text-base text-black font-bold">Tên đăng nhập</Text>
                         <Field
                             name="username"
-                            placeholder="Tên đăng nhập"
+                            placeholder="Nhập tên đăng nhập"
                             component={CustomTextInput}
                         />
 
                         <Text className="text-base text-black font-bold">Mật khẩu</Text>
                         <Field
                             name="password"
-                            placeholder="Mật khẩu"
+                            placeholder="Nhập mật khẩu"
                             secureTextEntry
+                            component={CustomTextInput}
+                        />
+
+                        <Text className="text-base text-black font-bold">Xác nhận mật khẩu</Text>
+                        <Field
+                            name="confirmPassword"
+                            placeholder="Nhập xác nhận mật khẩu"
+                            secureTextEntry
+                            component={CustomTextInput}
+                        />
+
+                        <Text className="text-base text-black font-bold">Email</Text>
+                        <Field
+                            name="email"
+                            placeholder="Nhập email"
+                            component={CustomTextInput}
+                        />
+
+                        <Text className="text-base text-black font-bold">Số điện thoại</Text>
+                        <Field
+                            name="phone"
+                            placeholder="Nhập số điện thoại"
+                            component={CustomTextInput}
+                        />
+
+                        <Text className="text-base text-black font-bold">Họ tên</Text>
+                        <Field
+                            name="fullName"
+                            placeholder="Nhập họ tên"
                             component={CustomTextInput}
                         />
 

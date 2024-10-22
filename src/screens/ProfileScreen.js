@@ -1,14 +1,15 @@
 import { Icon } from '@rneui/themed';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { View, Text, Button, TouchableOpacity, ScrollView, Image, TextInput, Modal, Pressable, RefreshControl } from 'react-native';
+import { View, Text, Button, TouchableOpacity, ScrollView, Image, TextInput, Modal, Pressable, RefreshControl, Alert } from 'react-native';
 import { AuthContext } from '../components/context/AuthProvider';
 import Dialog from "react-native-dialog";
 import * as ImagePicker from 'expo-image-picker';
+import { callUpdateAvatar, callUpdateDetailProfile } from '../services/api';
 
 const ProfileScreen = ({ navigation }) => {
     const { userLogin, setUserLogin, login, logout, fetchAccount } = useContext(AuthContext)
 
-    const [selectedImage, setSelectedImage] = useState(userLogin?.image || null);
+    const [selectedImage, setSelectedImage] = useState(userLogin?.avatar || null);
 
     const [visibleModalImage, setVisibleModalImage] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -30,8 +31,15 @@ const ProfileScreen = ({ navigation }) => {
         setVisible(true);
     };
 
-    const handleOk = () => {
-        setUserLogin({ ...userLogin, [field]: text });
+    const handleOk = async () => {
+        const fieldSubmit = field === 'fullName' ? 'full_name' : field;
+        const valueSubmit = text;
+        const res = await callUpdateDetailProfile(fieldSubmit, valueSubmit);
+        if (res && res.result) {
+            setUserLogin({ ...userLogin, [field]: text });
+        } else {
+            Alert.alert('Thông báo', 'Cập nhật thông tin thất bại');
+        }
         setVisible(false);
     };
 
@@ -43,7 +51,16 @@ const ProfileScreen = ({ navigation }) => {
         });
 
         if (!result.canceled) {
-            setSelectedImage(result.assets[0].uri);
+            const avatar = {
+                uri: result.assets[0].uri,
+                name: result.assets[0].uri.split('/').pop(),
+            };
+            const res = await callUpdateAvatar(avatar);
+            if (res.status === 200) {
+                setSelectedImage(result.assets[0].uri);
+            } else {
+                Alert.alert('Thông báo', 'Cập nhật ảnh đại diện thất bại');
+            }
         }
     };
 
@@ -58,10 +75,17 @@ const ProfileScreen = ({ navigation }) => {
     }
 
     useEffect(() => {
+        if (userLogin) {
+            setSelectedImage(userLogin.avatar || null);
+        }
+    }, [userLogin])
+
+
+    useEffect(() => {
         if (selectedImage) {
-            setUserLogin({ ...userLogin, image: selectedImage });
+            setUserLogin({ ...userLogin, avatar: selectedImage });
         } else if (selectedImage === undefined) {
-            setUserLogin({ ...userLogin, image: null });
+            setUserLogin({ ...userLogin, avatar: null });
         }
     }, [selectedImage])
 

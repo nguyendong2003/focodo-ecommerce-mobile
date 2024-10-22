@@ -62,8 +62,8 @@ const AccountScreen = ({ navigation }) => {
             }
         >
             <View className="flex-row items-center gap-x-3 p-4 border-b-4 border-b-gray-200">
-                {userLogin && userLogin?.image ? (
-                    <Image source={{ uri: userLogin?.image }} className="w-14 h-14 rounded-full" />
+                {userLogin && userLogin?.avatar ? (
+                    <Image source={{ uri: userLogin?.avatar }} className="w-14 h-14 rounded-full" />
                     // <TouchableOpacity className="border-2 bg-white border-gray-200 rounded-full p-1"
                     //     activeOpacity={0.7}
                     //     onPress={() => alert('Change avatar')}

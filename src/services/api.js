@@ -5,8 +5,32 @@ export const callLogin = (username, password) => {
     return axios.post('/api/v1/auth/login', { username, password })
 }
 
+export const callRegister = (data) => {
+    return axios.post('/api/v1/auth/register', data)
+}
+
 export const callFetchAccount = () => {
     return axios.get('/api/v1/users/getUser')
+}
+
+// User
+export const callUpdateAvatar = (avatar) => {
+    let formData = new FormData();
+    formData.append('avatar', {
+        uri: avatar.uri,
+        type: "image/jpeg",
+        name: avatar.name,
+    });
+
+    return axios.put('/api/v1/users/updateAvatar', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+}
+
+export const callUpdateDetailProfile = (field, value) => {
+    return axios.put(`/api/v1/users/updateDetailProfileUser?${field}=${value}`)
 }
 
 // Category

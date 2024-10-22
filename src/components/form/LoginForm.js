@@ -63,7 +63,7 @@ const LoginForm = ({ navigation, routeName, options }) => {
                 initialValues={{ username: '', password: '' }}
                 validationSchema={loginValidationSchema}
                 onSubmit={handleLogin}
-                validateOnMount={true}
+            // validateOnMount={true}
             >
                 {({
                     handleChange,

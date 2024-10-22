@@ -1,11 +1,13 @@
-import { Image, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { Image, Text, View, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { Icon } from '@rneui/themed';
 import RegisterForm from '../components/form/RegisterForm';
 
 const RegisterScreen = ({ navigation }) => {
 
     return (
-        <View className="flex-1 bg-white p-4">
+        <ScrollView className="flex-1 bg-white p-4"
+            showsVerticalScrollIndicator={false}
+        >
             <View className="items-center">
                 <Image source={require('../static/images/banner/brand-image.png')} style={{ width: 80, height: 80 }} />
             </View>
@@ -39,7 +41,7 @@ const RegisterScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-        </View>
+        </ScrollView>
 
     );
 };
