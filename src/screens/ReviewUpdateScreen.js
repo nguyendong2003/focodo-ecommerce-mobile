@@ -1,22 +1,50 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { View, Text, FlatList, Alert, ScrollView, TouchableOpacity, Image, Dimensions, TextInput } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import * as ImagePicker from 'expo-image-picker';
-import { OrderContext } from '../components/context/OrderProvider';
 import { AirbnbRating } from 'react-native-ratings';
 import { Button, Icon } from '@rneui/themed';
-import { callUpdateReview } from '../services/api';
+import { callFetchReviewById, callUpdateReview } from '../services/api';
+import { ReviewContext } from '../components/context/ReviewProvider';
 
 const screenWidth = Dimensions.get('window').width;
 
 const ReviewUpdateScreen = ({ navigation, route }) => {
-    const { orderContextValue, setOrderContextValue } = useContext(OrderContext);
-    const { review } = route.params;
+    const { reviewContextValue, setReviewContextValue } = useContext(ReviewContext);
+    const { reviewId } = route.params;
+    const [review, setReview] = useState({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
+    const fetchReviewById = async (reviewId) => {
+        setLoading(true);
+        const res = await callFetchReviewById(reviewId);
+        if (res && res.result) {
+            const data = res.result
+            const dataReview = {
+                id: data.id,
+                time: data.date,
+                rate: data.rating,
+                comment: data.content,
+                user: {
+                    id: data.user.id,
+                    name: data.user.full_name,
+                    avatar: data.user.avatar ? data.user.avatar : null,
+                },
+                images: data.images,
+                product: data.product
+            }
+            setReview(dataReview);
+        }
+        setLoading(false)
+    }
+
+
+    useEffect(() => {
+        fetchReviewById(reviewId);
+    }, [reviewId]);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
@@ -117,8 +145,6 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
         //     // images: values.images.map((url, index) => ({ id: index + 1, url }))
         // };
 
-
-
         const updatedReview = {
             id: review.id,
             review: {
@@ -130,15 +156,37 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
             files: values.files
         };
 
-        console.log('Updated Review:', updatedReview);
+        // console.log('Updated Review:', updatedReview);
 
         const res = await callUpdateReview(updatedReview);
-        console.log('Response:', res);
-
-        console.log('status:', res.status);
-        
-
-        if(res && res.status === 200) {
+        // console.log('Response:', res);
+    
+        if(res && res.result) {
+            const data = res.result
+            const dataReview = {
+                id: data.id,
+                time: data.date,
+                rate: data.rating,
+                comment: data.content,
+                user: {
+                    id: data.user.id,
+                    name: data.user.full_name,
+                    avatar: data.user.avatar ? data.user.avatar : null,
+                },
+                images: data.images,
+                product: data.product
+            }
+            // const files = values.files.map(file => (file.uri));
+            // const dataReview = {
+            //     ...review,
+            //     rate: values.rating,
+            //     comment: values.review,
+            //     images: [
+            //         ...values.images,
+            //         ...files
+            //     ]
+            // }
+            setReviewContextValue(dataReview)
             Alert.alert('Thông báo', 'Cập nhật đánh giá thành công');
             navigation.goBack();
         } else {
@@ -153,6 +201,7 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
+                // enableReinitialize
             >
                 {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue }) => (
                     <View className="bg-white">
@@ -162,10 +211,10 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
                             onPress={() => navigation.navigate('ProductDetail', { productId: review.product.id })}
                         >
                             <Image
-                                source={{ uri: review.product.image }}
+                                source={{ uri: review.product?.image }}
                                 className="rounded-lg w-12 h-12"
                             />
-                            <Text className="text-gray-600 text-sm font-semibold shrink leading-5 p-1" numberOfLines={2}>{review.product.name}</Text>
+                            <Text className="text-gray-600 text-sm font-semibold shrink leading-5 p-1" numberOfLines={2}>{review.product?.name}</Text>
                         </TouchableOpacity>
 
                         <AirbnbRating
@@ -239,7 +288,7 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
                                 {errors.review && touched.review && (
                                     <Text className="text-sm text-red-500 font-bold">{errors.review}</Text>
                                 )}
-                                <Text className="text-right text-gray-400 mr-3 grow">{values.review.length}/500</Text>
+                                <Text className="text-right text-gray-400 mr-3 grow">{values.review?.length}/500</Text>
                             </View>
 
                             {touched.rating && errors.rating && (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, FlatList } from 'react-native';
+import { View, ScrollView, FlatList, RefreshControl } from 'react-native';
 import result from '../data/reviews.json'
 import ReviewCard from '../components/review/ReviewCard';
 import { callFetchReviewsByOrderId } from '../services/api';
@@ -7,6 +7,7 @@ import { callFetchReviewsByOrderId } from '../services/api';
 const ReviewOrderScreen = ({ navigation, route }) => {
     const { orderId } = route.params;
     const [reviews, setReviews] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
 
     const fetchReviewsByOrderId = async(orderId) => {
         const res = await callFetchReviewsByOrderId(orderId);
@@ -30,10 +31,16 @@ const ReviewOrderScreen = ({ navigation, route }) => {
         }
     }
 
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await fetchReviewsByOrderId(orderId);
+        setRefreshing(false);
+    };
+
     useEffect(() => {
         fetchReviewsByOrderId(orderId);
     }, [orderId]);
-
+    
     return (
         <FlatList
             data={reviews}
@@ -41,6 +48,12 @@ const ReviewOrderScreen = ({ navigation, route }) => {
             keyExtractor={item => item.id.toString()}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={() => <View className="border-t-2 border-gray-400" />}
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
+            }
         />
     );
 };

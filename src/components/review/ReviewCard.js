@@ -1,8 +1,9 @@
 import { Icon } from '@rneui/themed';
-import { memo, useState } from 'react';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { View, Image, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { Rating } from 'react-native-ratings';
 import { formatDateTime } from '../../utils/FormatNumber';
+import { ReviewContext } from '../context/ReviewProvider';
 
 const { width, height } = Dimensions.get('window');
 
@@ -23,7 +24,21 @@ const getReviewText = (rate) => {
     }
 };
 const ReviewCard = ({ navigation, review, isEditable = false, isProductVisible = false }) => {
+    const { reviewContextValue, setReviewContextValue } = useContext(ReviewContext);
     const [reviewItem, setReviewItem] = useState(review);
+    const isFirstRender = useRef(true);
+
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false; // Set to false after the first render
+            return; // Exit the effect early on the first render
+        }
+
+        if (reviewContextValue?.id === reviewItem?.id) {
+            setReviewItem(reviewContextValue)
+        }
+    }, [reviewContextValue])
 
     return (
         <>
@@ -49,12 +64,25 @@ const ReviewCard = ({ navigation, review, isEditable = false, isProductVisible =
 
                         {
                             isEditable && (
-                                <TouchableOpacity activeOpacity={0.7}
-                                    className="rounded-md  border-black border-2 justify-center px-4 py-1"
-                                    onPress={() => navigation.navigate('ReviewUpdate', { review })}
-                                >
-                                    <Text className="text-center text-black font-bold">Sửa</Text>
-                                </TouchableOpacity>
+                                <View className="flex-row gap-x-3">
+                                    <TouchableOpacity activeOpacity={0.7}>
+                                        <Icon type='feather' name='trash-2' color={'#ef4444'} />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        activeOpacity={0.7}
+                                        onPress={() => navigation.navigate('ReviewUpdate', { reviewId: reviewItem.id })}
+                                    >
+                                        <Icon type='feather' name='edit' color={'#eab308'} />
+                                    </TouchableOpacity>
+                                </View>
+
+
+                                // <TouchableOpacity activeOpacity={0.7}
+                                //     className="rounded-md  border-black border-2 justify-center px-4 py-1"
+                                //     onPress={() => navigation.navigate('ReviewUpdate', { reviewId: reviewItem.id })}
+                                // >
+                                //     <Text className="text-center text-black font-bold">Sửa</Text>
+                                // </TouchableOpacity>
                             )
                         }
                     </View>

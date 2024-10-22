@@ -44,6 +44,10 @@ export const callFetchReviews = (page, size) => {
     return axios.get(`/api/v1/reviews/getReviewsOfUser?page=${page}&size=${size}`)
 }
 
+export const callFetchReviewById = (id) => {
+    return axios.get(`/api/v1/reviews/getReviewById/${id}`)
+}
+
 export const callFetchReviewsByProductId = (id, page, size) => {
     return axios.get(`/api/v1/reviews/getReviewsOfProduct/${id}?page=${page}&size=${size}`)
 }
@@ -86,11 +90,14 @@ export const callCreateReview = (data) => {
 };
 
 export const callUpdateReview = (data) => {
+    console.log('Data:', data);
+    
     const reviewId = data.id;
     let formData = new FormData();
 
     data.images.forEach((image, index) => {
-        formData.append(`images[${index}]`, image);
+        // formData.append(`images[${index}]`, image);
+        formData.append('images', image);
     });
     formData.append('review', JSON.stringify(data.review));
 
@@ -103,7 +110,7 @@ export const callUpdateReview = (data) => {
         });
     });
 
-    return axios.put(`/api/v1/reviews/update?${reviewId}`, formData, {
+    return axios.put(`/api/v1/reviews/update/${reviewId}`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
