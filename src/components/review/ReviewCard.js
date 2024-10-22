@@ -1,9 +1,10 @@
 import { Icon } from '@rneui/themed';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
-import { View, Image, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Image, Text, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import { Rating } from 'react-native-ratings';
 import { formatDateTime } from '../../utils/FormatNumber';
 import { ReviewContext } from '../context/ReviewProvider';
+import { callDeleteReview } from '../../services/api';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,6 +27,7 @@ const getReviewText = (rate) => {
 const ReviewCard = ({ navigation, review, isEditable = false, isProductVisible = false }) => {
     const { reviewContextValue, setReviewContextValue } = useContext(ReviewContext);
     const [reviewItem, setReviewItem] = useState(review);
+    const [isDeleted, setIsDeleted] = useState(false);
     const isFirstRender = useRef(true);
 
 
@@ -35,10 +37,42 @@ const ReviewCard = ({ navigation, review, isEditable = false, isProductVisible =
             return; // Exit the effect early on the first render
         }
 
-        if (reviewContextValue?.id === reviewItem?.id) {
+        if (reviewContextValue?.id === reviewItem?.id && reviewContextValue?.isDeleted) {
+            setIsDeleted(true);
+        }
+        else if (reviewContextValue?.id === reviewItem?.id) {
             setReviewItem(reviewContextValue)
         }
     }, [reviewContextValue])
+
+    const handleDeleteReview = async () => {
+        const res = await callDeleteReview(reviewItem.id);
+        if (res && res.result) {
+            Alert.alert('Thông báo', 'Xóa đánh giá thành công');
+            setReviewContextValue({
+                id: reviewItem.id,
+                isDeleted: true
+            })
+        } else {
+            Alert.alert('Thông báo', 'Xóa đánh giá thất bại');
+        }
+    };
+
+    const confirmDelete = () => {
+        Alert.alert(
+            'Xác nhận xóa',
+            'Bạn có chắc chắn muốn xóa đánh giá này không?',
+            [
+                { text: 'Không', style: 'cancel' },
+                { text: 'Xác nhận', onPress: handleDeleteReview },
+            ],
+            { cancelable: true }
+        );
+    };
+
+    if (isDeleted) {
+        return null; // Do not render the component if it is deleted
+    }
 
     return (
         <>
@@ -65,7 +99,10 @@ const ReviewCard = ({ navigation, review, isEditable = false, isProductVisible =
                         {
                             isEditable && (
                                 <View className="flex-row gap-x-3">
-                                    <TouchableOpacity activeOpacity={0.7}>
+                                    <TouchableOpacity
+                                        activeOpacity={0.7}
+                                        onPress={confirmDelete}
+                                    >
                                         <Icon type='feather' name='trash-2' color={'#ef4444'} />
                                     </TouchableOpacity>
                                     <TouchableOpacity

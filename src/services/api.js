@@ -91,12 +91,11 @@ export const callCreateReview = (data) => {
 
 export const callUpdateReview = (data) => {
     console.log('Data:', data);
-    
+
     const reviewId = data.id;
     let formData = new FormData();
 
     data.images.forEach((image, index) => {
-        // formData.append(`images[${index}]`, image);
         formData.append('images', image);
     });
     formData.append('review', JSON.stringify(data.review));
@@ -117,6 +116,10 @@ export const callUpdateReview = (data) => {
     });
 }
 
+export const callDeleteReview = (id) => {
+    return axios.delete(`/api/v1/reviews/delete/${id}`)
+}
+
 // Cart
 export const callFetchCart = () => {
     return axios.get('/api/v1/carts/getCartOfUser')
@@ -131,7 +134,7 @@ export const callAddToCart = (productId, quantity) => {
 
 // export const callBuyAgain = (products) => {
 //     console.log('Products:', products);
-    
+
 //     const promises = products.map((item) => {
 //         return axios.post('/api/v1/carts/addCart', {
 //             id_product: item.id,

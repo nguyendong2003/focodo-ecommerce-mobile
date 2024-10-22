@@ -44,11 +44,11 @@ const OrderCard = ({ navigation, order }) => {
                         <Text className="text-sm text-gray-500 leading-6" numberOfLines={1}>{formatDateTime(order?.orderTime)}</Text>
                         <Text className="text-sm text-gray-500 leading-6 font-bold" numberOfLines={1}>{formatCurrency(order?.finalPrice)}</Text>
                         {
-                            orderStatus==='Đã đánh giá' && (
+                            orderStatus === 'Đã đánh giá' && (
                                 <View className="flex-row items-center gap-x-1">
-                                <Icon type="antdesign" name="checkcircle" color={'#22c55e'} size={18} />
-                                <Text className="text-base text-green-500 leading-6 font-bold" numberOfLines={1}>Đã đánh giá</Text>
-                            </View>
+                                    <Icon type="antdesign" name="checkcircle" color={'#22c55e'} size={18} />
+                                    <Text className="text-base text-green-500 leading-6 font-bold" numberOfLines={1}>Đã đánh giá</Text>
+                                </View>
                             )
                         }
                     </View>
