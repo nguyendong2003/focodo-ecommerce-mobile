@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, FlatList, Alert } from 'react-native';
+import { View, Text, FlatList, Alert, ScrollView, RefreshControl, Dimensions } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import ReviewAdd from '../components/review/ReviewAdd';
@@ -7,12 +7,15 @@ import { Button } from '@rneui/themed';
 import { OrderContext } from '../components/context/OrderProvider';
 import { callCreateReview, callFetchOrderById } from '../services/api';
 
+const screenWidth = Dimensions.get('window').width;
+
 const ReviewAddScreen = ({ navigation, route }) => {
     const { orderContextValue, setOrderContextValue } = useContext(OrderContext);
     const { orderId } = route.params;
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
 
     const fetchOrder = async () => {
         setLoading(true);
@@ -31,6 +34,12 @@ const ReviewAddScreen = ({ navigation, route }) => {
         }
         setLoading(false);
     }
+
+    const handleRefresh = () => {
+        setRefreshing(true);
+        fetchOrder();
+        setRefreshing(false);
+    };
 
     useEffect(() => {
         fetchOrder();
@@ -127,43 +136,56 @@ const ReviewAddScreen = ({ navigation, route }) => {
     };
 
     return (
-        <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
+        <ScrollView className="flex-1"
+            horizontal
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
+            }
+            contentContainerStyle={{ width: screenWidth }}
         >
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue }) => (
-                <View className="bg-white">
-                    <FlatList
-                        data={data.products} // Sử dụng dữ liệu từ API
-                        renderItem={({ item }) => (
-                            <ReviewAdd
-                                navigation={navigation}
-                                item={item}
-                                handleChange={(field) => (value) => {
-                                    handleChange(field)(value);
-                                    setHasUnsavedChanges(true); // Đánh dấu là có thay đổi chưa lưu
-                                }}
-                                handleBlur={handleBlur}
-                                setFieldValue={setFieldValue}
-                                values={values}
-                                errors={errors}
-                                touched={touched}
-                                setHasUnsavedChanges={setHasUnsavedChanges}
-                            />
-                        )}
-                        showsVerticalScrollIndicator={false}
-                        keyExtractor={(item) => item.id.toString()}
-                        ListFooterComponent={() =>
-                            <View className="p-3 rounded-md mb-3">
-                                <Button title="Xác nhận" color={'black'} onPress={handleSubmit} />
-                            </View>
-                        }
-                        ItemSeparatorComponent={() => <View className="border-t-2 border-slate-200" />}
-                    />
-                </View>
-            )}
-        </Formik>
+            <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+                enableReinitialize={true} // Cho phép cập nhật giá trị ban đầu
+
+            >
+                {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue }) => (
+                    <View className="flex-1">
+                        <FlatList
+                            data={data.products} // Sử dụng dữ liệu từ API
+                            renderItem={({ item }) => (
+                                <ReviewAdd
+                                    navigation={navigation}
+                                    item={item}
+                                    handleChange={(field) => (value) => {
+                                        handleChange(field)(value);
+                                        setHasUnsavedChanges(true); // Đánh dấu là có thay đổi chưa lưu
+                                    }}
+                                    handleBlur={handleBlur}
+                                    setFieldValue={setFieldValue}
+                                    values={values}
+                                    errors={errors}
+                                    touched={touched}
+                                    setHasUnsavedChanges={setHasUnsavedChanges}
+                                />
+                            )}
+                            showsVerticalScrollIndicator={false}
+                            keyExtractor={(item) => item.id.toString()}
+                            ListFooterComponent={() =>
+                                <View className="p-3 rounded-md mb-3">
+                                    <Button title="Xác nhận" color={'black'} onPress={handleSubmit} />
+                                </View>
+                            }
+                            ItemSeparatorComponent={() => <View className="border-t-2 border-slate-200" />}
+                        />
+                    </View>
+                )}
+            </Formik>
+        </ScrollView>
     );
 };
 

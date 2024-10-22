@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { View, Text, FlatList, Alert, ScrollView, TouchableOpacity, Image, Dimensions, TextInput } from 'react-native';
+import { View, Text, FlatList, Alert, ScrollView, TouchableOpacity, Image, Dimensions, TextInput, RefreshControl } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import * as ImagePicker from 'expo-image-picker';
@@ -17,6 +17,7 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
 
     const fetchReviewById = async (reviewId) => {
         setLoading(true);
@@ -40,6 +41,12 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
         }
         setLoading(false)
     }
+
+    const handleRefresh = () => {
+        setRefreshing(true);
+        fetchReviewById(reviewId);
+        setRefreshing(false);
+    };
 
 
     useEffect(() => {
@@ -133,7 +140,7 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
         setFieldValue('files', values.files.filter((_, i) => i !== index));
     };
 
-    const handleSubmit = async(values) => {
+    const handleSubmit = async (values) => {
         setHasUnsavedChanges(false);
 
         // const updatedReview = {
@@ -160,8 +167,8 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
 
         const res = await callUpdateReview(updatedReview);
         // console.log('Response:', res);
-    
-        if(res && res.result) {
+
+        if (res && res.result) {
             const data = res.result
             const dataReview = {
                 id: data.id,
@@ -195,13 +202,20 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
     };
 
     return (
-        <ScrollView className="flex-1 bg-white">
+        <ScrollView className="flex-1 bg-white"
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
+            }
+        >
 
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
-                // enableReinitialize
+                enableReinitialize={true}
             >
                 {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue }) => (
                     <View className="bg-white">
