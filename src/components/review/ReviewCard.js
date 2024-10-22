@@ -99,12 +99,12 @@ const ReviewCard = ({ navigation, review, isEditable = false, isProductVisible =
                         {
                             isEditable && (
                                 <View className="flex-row gap-x-3">
-                                    <TouchableOpacity
+                                    {/* <TouchableOpacity
                                         activeOpacity={0.7}
                                         onPress={confirmDelete}
                                     >
                                         <Icon type='feather' name='trash-2' color={'#ef4444'} />
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                                     <TouchableOpacity
                                         activeOpacity={0.7}
                                         onPress={() => navigation.navigate('ReviewUpdate', { reviewId: reviewItem.id })}
