@@ -1,4 +1,4 @@
-import { FlatList, Text, View } from "react-native";
+import { FlatList, RefreshControl, ScrollView, Text, View } from "react-native";
 import CategoryList from "../components/category/CategoryList";
 import { useEffect, useState } from "react";
 import SubCategoryList from "../components/category/SubCategoryList";
@@ -26,6 +26,15 @@ const CategoryScreen = ({ navigation }) => {
         }
     }
 
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await fetchCategories();
+        if (selectedCategory) {
+            await fetchSubCategoriesById(selectedCategory.id);
+        }
+        setRefreshing(false);
+    };
+
     useEffect(() => {
         fetchCategories();
     }, []);
@@ -38,11 +47,11 @@ const CategoryScreen = ({ navigation }) => {
 
 
     return (
-        // bg-[#f5f5fa]
         <View className="flex flex-row gap-x-2 bg-gray-200">
             <View className="w-1/4 mt-2">
                 <CategoryList
                     categories={categories}
+                    setCategories={setCategories}
                     selectedCategory={selectedCategory}
                     setSelectedCategory={setSelectedCategory}
 
@@ -58,7 +67,6 @@ const CategoryScreen = ({ navigation }) => {
             </View>
 
         </View>
-
     )
 }
 

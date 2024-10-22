@@ -1,5 +1,5 @@
 import { Button, Icon } from "@rneui/themed";
-import { Text, TextInput, View, TouchableOpacity } from "react-native";
+import { Text, TextInput, View, TouchableOpacity, ScrollView, RefreshControl } from "react-native";
 import { Field, Formik } from "formik";
 import { shippingInfoValidationSchema } from "../utils/ValidationForm";
 import CustomTextInput from "../components/custom/CustomTextInput";
@@ -13,8 +13,16 @@ import { AuthContext } from "../components/context/AuthProvider";
 // uncontrolled component with Formik: https://blog.logrocket.com/react-native-form-validations-with-formik-and-yup
 const ShippingInfoScreen = ({ navigation, route }) => {
     const { order } = route.params;
-    const { userLogin, setUserLogin, login, logout } = useContext(AuthContext)
+    const { userLogin, setUserLogin, login, logout, fetchAccount } = useContext(AuthContext)
     const [paymentMethods, setPaymentMethods] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await fetchAccount();
+        await fetchAllPaymentMethods();
+        setRefreshing(false);
+    }
 
     const handleConfirm = (values) => {
         const customer = {
@@ -48,7 +56,15 @@ const ShippingInfoScreen = ({ navigation, route }) => {
     }, [])
 
     return (
-        <View className="p-4 bg-white">
+        <ScrollView
+            className="p-4 bg-white"
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
+            }
+        >
             <Formik
                 validationSchema={shippingInfoValidationSchema}
                 initialValues={{
@@ -59,6 +75,7 @@ const ShippingInfoScreen = ({ navigation, route }) => {
                 }}
                 onSubmit={handleConfirm}
                 validateOnMount={true}
+                enableReinitialize={true}
             >
                 {({
                     handleChange,
@@ -171,7 +188,7 @@ const ShippingInfoScreen = ({ navigation, route }) => {
                     </>
                 )}
             </Formik>
-        </View >
+        </ScrollView >
     )
 }
 

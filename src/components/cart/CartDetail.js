@@ -5,7 +5,9 @@ import { Button } from "@rneui/themed";
 import { callCheckVoucher } from "../../services/api";
 
 
-const CartDetail = ({ selectedItems, totalPrice, setTotalPrice, discountPrice, setDiscountPrice, finalPrice, setFinalPrice, voucherId, setVoucherId }) => {
+const CartDetail = ({
+    selectedItems, totalPrice, discountPrice, finalPrice, voucherId,
+    setDiscountPrice, setFinalPrice, setTotalPrice, setVoucherId, setVouchers }) => {
     const [discountCode, setDiscountCode] = useState('');
     const [discountPercent, setDiscountPercent] = useState(0);
 

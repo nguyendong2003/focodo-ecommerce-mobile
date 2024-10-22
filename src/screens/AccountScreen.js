@@ -1,18 +1,27 @@
 import { Icon } from '@rneui/themed';
 import { useContext, useEffect, useState } from 'react';
-import { View, Text, Button, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, Button, TouchableOpacity, ScrollView, Image, RefreshControl } from 'react-native';
 import { AuthContext } from '../components/context/AuthProvider';
 import { callFetchAllOrderStatus } from '../services/api';
 
 const AccountScreen = ({ navigation }) => {
-    const { userLogin, logout, handleNavigate } = useContext(AuthContext)
+    const { userLogin, logout, handleNavigate, fetchAccount } = useContext(AuthContext)
     const [allOrderStatus, setAllOrderStatus] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
+
 
     const fetchAllOrderStatus = async () => {
         const res = await callFetchAllOrderStatus()
         if (res && res.result) {
             setAllOrderStatus(res.result)
         }
+    }
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await fetchAllOrderStatus();
+        await fetchAccount();
+        setRefreshing(false);
     }
 
     useEffect(() => {
@@ -43,7 +52,15 @@ const AccountScreen = ({ navigation }) => {
     };
 
     return (
-        <ScrollView className="flex-1 bg-white">
+        <ScrollView
+            className="flex-1 bg-white"
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
+            }
+        >
             <View className="flex-row items-center gap-x-3 p-4 border-b-4 border-b-gray-200">
                 {userLogin && userLogin?.image ? (
                     <Image source={{ uri: userLogin?.image }} className="w-14 h-14 rounded-full" />

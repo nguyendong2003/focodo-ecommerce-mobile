@@ -1,4 +1,4 @@
-import { ScrollView, TextInput, TouchableOpacity, View, Image, Text } from "react-native";
+import { ScrollView, TextInput, TouchableOpacity, View, Image, Text, RefreshControl } from "react-native";
 import { useEffect, useState } from "react";
 import CartItem from "../components/cart/CartItem";
 import CartDetail from "../components/cart/CartDetail";
@@ -13,6 +13,14 @@ const CartScreen = ({ navigation }) => {
     const [discountPrice, setDiscountPrice] = useState(0);
     const [finalPrice, setFinalPrice] = useState(0);
     const [voucherId, setVoucherId] = useState(null);
+    const [vouchers, setVouchers] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await fetchCart();
+        setRefreshing(false);
+    }
 
     useEffect(() => {
         fetchCart();
@@ -95,10 +103,6 @@ const CartScreen = ({ navigation }) => {
             {
                 cartList.length === 0 ? (
                     <View className="flex-1 items-center justify-center bg-white">
-                        {/* <Image
-                            source={require('../static/images/empty-cart.png')}
-                            className="w-48 h-48"
-                        /> */}
                         <Icon type="material-community" name="cart-off" size={48} color="#ccc" />
                         <Text className="text-gray-500 text-lg mt-2">Giỏ hàng trống</Text>
                     </View>
@@ -106,6 +110,12 @@ const CartScreen = ({ navigation }) => {
                     <View className="flex-1 bg-white">
                         <ScrollView
                             showsVerticalScrollIndicator={false}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={handleRefresh}
+                                />
+                            }
                         >
                             <View className="my-2">
                                 {
@@ -130,11 +140,13 @@ const CartScreen = ({ navigation }) => {
                                 discountPrice={discountPrice}
                                 finalPrice={finalPrice}
                                 voucherId={voucherId}
+                                vouchers={vouchers}
 
                                 setTotalPrice={setTotalPrice}
                                 setDiscountPrice={setDiscountPrice}
                                 setFinalPrice={setFinalPrice}
                                 setVoucherId={setVoucherId}
+                                setVouchers={setVouchers}
                             />
                         </ScrollView>
 

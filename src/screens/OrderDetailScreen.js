@@ -1,5 +1,5 @@
 import { Icon } from "@rneui/themed";
-import { Dimensions, Image, ScrollView, TouchableOpacity, Text, View } from "react-native";
+import { Dimensions, Image, ScrollView, TouchableOpacity, Text, View, RefreshControl } from "react-native";
 import { formatCurrency, formatDateTime } from "../utils/FormatNumber";
 import { useEffect, useState, useContext } from "react";
 import orderDetail from '../data/orderDetail.json'
@@ -16,6 +16,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
     const { orderId } = route.params
     const [order, setOrder] = useState({})
     const [orderStatus, setOrderStatus] = useState(null);
+    const [refreshing, setRefreshing] = useState(false);
 
     const fetchOrderById = async (orderId) => {
         const res = await callFetchOrderById(orderId);
@@ -24,6 +25,12 @@ const OrderDetailScreen = ({ navigation, route }) => {
             setOrder(data)
             setOrderStatus(data.review_check ? 'Đã đánh giá' : data.order_status)
         }
+    }
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await fetchOrderById(orderId);
+        setRefreshing(false);
     }
 
     useEffect(() => {
@@ -45,6 +52,12 @@ const OrderDetailScreen = ({ navigation, route }) => {
         <View className="flex-1 bg-white">
             <ScrollView className="flex-1 bg-white"
                 showsVerticalScrollIndicator={false}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={handleRefresh}
+                    />
+                }
             >
                 <View className="flex-row gap-x-2 border-b-8 border-gray-200 p-3">
                     <Icon type="ionicon" name="document-text-outline" />

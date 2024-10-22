@@ -1,4 +1,4 @@
-import { ScrollView, Text } from "react-native";
+import { RefreshControl, ScrollView, Text } from "react-native";
 import { useEffect, useState } from "react";
 import ProductInfo from "../components/product/ProductInfo";
 import Review from "../components/review/Review";
@@ -10,7 +10,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
     const [productId, setProductId] = useState(route.params.productId);
     const [product, setProduct] = useState(null)
     const [overallReview, setOverallReview] = useState({});
-
+    const [refreshing, setRefreshing] = useState(false);
 
     const fetchProductById = async (productId) => {
         const res = await callFetchProductById(productId);
@@ -50,6 +50,12 @@ const ProductDetailScreen = ({ navigation, route }) => {
         }
     }
 
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await fetchProductById(productId);
+        setRefreshing(false);
+    }
+
     useEffect(() => {
         if (productId) {
             fetchProductById(productId);
@@ -59,7 +65,16 @@ const ProductDetailScreen = ({ navigation, route }) => {
     // const [relatedProducts, setRelatedProducts] = useState(result.products);
 
     return (
-        <ScrollView className="flex-1 bg-white" showsVerticalScrollIndicator={false}>
+        <ScrollView
+            className="flex-1 bg-white"
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
+            }
+        >
 
             <ProductInfo navigation={navigation} product={product} />
 

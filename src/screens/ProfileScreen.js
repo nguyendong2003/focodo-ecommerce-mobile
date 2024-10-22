@@ -1,12 +1,12 @@
 import { Icon } from '@rneui/themed';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { View, Text, Button, TouchableOpacity, ScrollView, Image, TextInput, Modal, Pressable } from 'react-native';
+import { View, Text, Button, TouchableOpacity, ScrollView, Image, TextInput, Modal, Pressable, RefreshControl } from 'react-native';
 import { AuthContext } from '../components/context/AuthProvider';
 import Dialog from "react-native-dialog";
 import * as ImagePicker from 'expo-image-picker';
 
 const ProfileScreen = ({ navigation }) => {
-    const { userLogin, setUserLogin, login, logout } = useContext(AuthContext)
+    const { userLogin, setUserLogin, login, logout, fetchAccount } = useContext(AuthContext)
 
     const [selectedImage, setSelectedImage] = useState(userLogin?.image || null);
 
@@ -15,6 +15,14 @@ const ProfileScreen = ({ navigation }) => {
     const [field, setField] = useState('');
     const [text, setText] = useState('');
     const textInputRef = useRef(null);
+
+    const [refreshing, setRefreshing] = useState(false);
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await fetchAccount();
+        setRefreshing(false);
+    }
 
     const visibleDialog = (field) => {
         setField(field);
@@ -37,9 +45,6 @@ const ProfileScreen = ({ navigation }) => {
         if (!result.canceled) {
             setSelectedImage(result.assets[0].uri);
         }
-        // else {
-        //     alert('You did not select any image.');
-        // }
     };
 
     const handleChangeImage = () => {
@@ -62,7 +67,15 @@ const ProfileScreen = ({ navigation }) => {
 
 
     return (
-        <ScrollView className="flex-1 bg-white">
+        <ScrollView
+            className="flex-1 bg-white"
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
+            }
+        >
             <View className="items-center py-3  border-b-2 border-gray-200 bg-blue-300">
                 <TouchableOpacity
                     activeOpacity={0.8}

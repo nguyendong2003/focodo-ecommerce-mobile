@@ -1,4 +1,4 @@
-import { FlatList, Image, ScrollView, StatusBar, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, RefreshControl, ScrollView, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import result from "../data/products.json"
 import ProductSlider from "../components/product/ProductSlider";
 import CategorySlider from "../components/category/CategorySlider";
@@ -14,6 +14,7 @@ const HomePageScreen = ({ navigation }) => {
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(20);
     const [totalPage, setTotalPage] = useState(1);
+    const [refreshing, setRefreshing] = useState(false);
 
     const fetchCategories = async () => {
         const res = await callFetchCategories();
@@ -45,6 +46,15 @@ const HomePageScreen = ({ navigation }) => {
         }
     }
 
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await fetchCategories();
+        await fetchProductsBestSeller();
+        await fetchProductsDiscount();
+        await fetchProducts();
+        setRefreshing(false);
+    };
+
     useEffect(() => {
         fetchCategories();
         fetchProductsBestSeller();
@@ -55,6 +65,12 @@ const HomePageScreen = ({ navigation }) => {
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
+            }
         >
             <StatusBar barStyle="light-content" />
             <View>

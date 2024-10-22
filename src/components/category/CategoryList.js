@@ -1,9 +1,27 @@
-import { useEffect, useRef } from "react";
-import { FlatList, View, TouchableOpacity, Image, Text, Dimensions } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { FlatList, View, TouchableOpacity, Image, Text, Dimensions, RefreshControl } from "react-native";
+import { callFetchCategories } from "../../services/api";
 
 
-const CategoryList = ({ categories, selectedCategory, setSelectedCategory }) => {
+const CategoryList = ({ categories, setCategories, selectedCategory, setSelectedCategory }) => {
     const flatListRef = useRef(null);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const fetchCategories = async () => {
+        const res = await callFetchCategories();
+        if (res && res.result) {
+            setCategories(res.result);
+            if (res.result.length > 0) {
+                setSelectedCategory(res.result[0]);
+            }
+        }
+    }
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await fetchCategories();
+        setRefreshing(false);
+    };
 
     useEffect(() => {
         if (selectedCategory) {
@@ -16,6 +34,12 @@ const CategoryList = ({ categories, selectedCategory, setSelectedCategory }) => 
 
     return (
         <FlatList
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
+            }
             ref={flatListRef}
             data={categories}
             renderItem={({ item }) => (
