@@ -75,7 +75,7 @@ const ReviewListScreen = ({ navigation }) => {
                 ItemSeparatorComponent={() => <View className="bg-gray-700 h-1" />}
                 ListEmptyComponent={() => (
                     <View className="flex-1 items-center justify-center bg-white">
-                        <Icon type="feather" name="truck" size={48} color="#ccc" />
+                        <Icon type="octicon" name="checklist" size={48} color="#ccc" />
                         <Text className="text-gray-500 text-lg mt-2">Đánh giá trống</Text>
                     </View>
                 )}

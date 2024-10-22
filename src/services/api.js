@@ -85,6 +85,31 @@ export const callCreateReview = (data) => {
     return Promise.all(promises);
 };
 
+export const callUpdateReview = (data) => {
+    const reviewId = data.id;
+    let formData = new FormData();
+
+    data.images.forEach((image, index) => {
+        formData.append(`images[${index}]`, image);
+    });
+    formData.append('review', JSON.stringify(data.review));
+
+    const files = data.files || [];
+    files.forEach((file) => {
+        formData.append('files', {
+            uri: file.uri,
+            type: "image/jpeg",
+            name: file.name,
+        });
+    });
+
+    return axios.put(`/api/v1/reviews/update?${reviewId}`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+}
+
 // Cart
 export const callFetchCart = () => {
     return axios.get('/api/v1/carts/getCartOfUser')

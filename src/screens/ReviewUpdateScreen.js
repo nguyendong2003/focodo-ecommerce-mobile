@@ -6,6 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { OrderContext } from '../components/context/OrderProvider';
 import { AirbnbRating } from 'react-native-ratings';
 import { Button, Icon } from '@rneui/themed';
+import { callUpdateReview } from '../services/api';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -57,7 +58,9 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
     const initialValues = {
         review: review.comment,
         rating: review.rate,
-        images: review.images ? review.images?.map(image => image.url) : []
+        images: review.images || [],
+        files: review.files || []
+        // images: review.images ? review.images?.map(image => image.url) : []
 
     };
 
@@ -69,7 +72,7 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
 
     // Upload avatar
     const handlePickImage = async (setFieldValue, values) => {
-        const remainingImages = 5 - values.images.length;
+        const remainingImages = 5 - values.images.length - values.files.length;
         if (remainingImages <= 0) {
             Alert.alert('Thông báo', 'Bạn chỉ có thể chọn tối đa 5 ảnh.');
             return;
@@ -82,9 +85,14 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
         });
 
         if (!result.canceled) {
-            const selectedImages = result.assets.map(asset => asset.uri);
-            const newImages = [...values.images, ...selectedImages];
-            setFieldValue('images', newImages);
+            // const selectedImages = result.assets.map(asset => asset.uri);
+            const selectedImages = result.assets.map(asset => ({
+                uri: asset.uri,
+                type: asset.type || 'image/jpeg', // Default to 'image/jpeg' if type is not provided
+                name: asset.uri.split('/').pop(), // Extract the file name from the URI
+            }));
+            const newImages = [...values.files, ...selectedImages];
+            setFieldValue('files', newImages);
             setHasUnsavedChanges(true);
         }
     };
@@ -93,23 +101,49 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
         setFieldValue('images', values.images.filter((_, i) => i !== index));
     };
 
-    const handleSubmit = (values) => {
+    const handleRemoveFile = (index, setFieldValue, values) => {
+        setFieldValue('files', values.files.filter((_, i) => i !== index));
+    };
+
+    const handleSubmit = async(values) => {
         setHasUnsavedChanges(false);
 
+        // const updatedReview = {
+        //     ...review,
+        //     comment: values.review,
+        //     rate: values.rating,
+        //     images: values.images,
+        //     files: values.files
+        //     // images: values.images.map((url, index) => ({ id: index + 1, url }))
+        // };
+
+
+
         const updatedReview = {
-            ...review,
-            comment: values.review,
-            rate: values.rating,
-            images: values.images
-            // images: values.images.map((url, index) => ({ id: index + 1, url }))
+            id: review.id,
+            review: {
+                content: values.review,
+                rating: values.rating,
+                id_product: review.product.id,
+            },
+            images: values.images,
+            files: values.files
         };
 
         console.log('Updated Review:', updatedReview);
 
-        setOrderContextValue((prev) => {
-            return { ...prev, id: review.product.id, status: 'Đã đánh giá' }
-        });
-        navigation.goBack();
+        const res = await callUpdateReview(updatedReview);
+        console.log('Response:', res);
+
+        console.log('status:', res.status);
+        
+
+        if(res && res.status === 200) {
+            Alert.alert('Thông báo', 'Cập nhật đánh giá thành công');
+            navigation.goBack();
+        } else {
+            Alert.alert('Thông báo', 'Cập nhật đánh giá thất bại');
+        }
     };
 
     return (
@@ -167,6 +201,21 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
                                         activeOpacity={0.7}
                                         className="absolute top-0 right-0 rounded-full w-6 h-6 flex items-center justify-center"
                                         onPress={() => handleRemoveImage(index, setFieldValue, values)}
+                                    >
+                                        <Icon type='antdesign' name='close' color='white' />
+                                    </TouchableOpacity>
+                                </View>
+                            ))}
+
+                            {values.files && values.files.map((file, index) => (
+                                <View key={index} className="relative m-1"
+                                    style={{ width: screenWidth / 3 - 14, height: screenWidth / 3 - 14 }}
+                                >
+                                    <Image source={{ uri: file.uri }} className="w-full h-full rounded-md" />
+                                    <TouchableOpacity
+                                        activeOpacity={0.7}
+                                        className="absolute top-0 right-0 rounded-full w-6 h-6 flex items-center justify-center"
+                                        onPress={() => handleRemoveFile(index, setFieldValue, values)}
                                     >
                                         <Icon type='antdesign' name='close' color='white' />
                                     </TouchableOpacity>
