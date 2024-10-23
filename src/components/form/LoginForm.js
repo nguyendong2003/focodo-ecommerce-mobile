@@ -91,7 +91,9 @@ const LoginForm = ({ navigation, routeName, options }) => {
                             component={CustomTextInput}
                         />
 
-                        <TouchableOpacity activeOpacity={0.7}>
+                        <TouchableOpacity activeOpacity={0.7}
+                            onPress={() => navigation.navigate('ForgotEnterEmail')}
+                        >
                             <Text className="text-sm text-blue-700 text-right">Quên mật khẩu?</Text>
                         </TouchableOpacity>
 

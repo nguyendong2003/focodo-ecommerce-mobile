@@ -10,6 +10,18 @@ export const callRegister = (data) => {
     return axios.post('/api/v1/auth/register', data)
 }
 
+export const callVerifyEmail = (email) => {
+    return axios.post(`/api/v1/auth/verifyEmail?email=${email}`)
+}
+
+export const callVerifyOtp = (email, otp) => {
+    return axios.post(`/api/v1/auth/verifyOtp?email=${email}&otp=${otp}`)
+}
+
+export const callResetPassword = (email, password) => {
+    return axios.post(`/api/v1/auth/resetPassword?email=${email}&password=${password}`)
+}
+
 export const callFetchAccount = () => {
     return axios.get('/api/v1/users/getUser')
 }

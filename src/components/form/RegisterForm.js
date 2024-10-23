@@ -31,7 +31,7 @@ const RegisterForm = ({ navigation }) => {
     return (
         <View >
             <Formik
-                initialValues={{ username: '', password: '', email: '', phone: '', fullName: '' }}
+                initialValues={{ username: '', password: '', confirmPassword: '', email: '', phone: '', fullName: '' }}
                 validationSchema={registerValidationSchema}
                 onSubmit={handleRegister}
             // validateOnMount={true}   
