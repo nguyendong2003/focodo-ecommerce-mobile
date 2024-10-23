@@ -1,4 +1,5 @@
 import axios from "./axios-customize"
+import axiosPublic from "axios"
 
 // Authentication
 export const callLogin = (username, password) => {
@@ -237,3 +238,29 @@ export const callGetPayment = (url) => {
 export const callFetchAllPaymentMethods = () => {
     return axios.get('/api/v1/orders/getAllPaymentMethod');
 }
+
+// Province
+export const callFetchProvinces = () => {
+    return axiosPublic.get('https://provinces.open-api.vn/api/p/')
+}
+
+export const callFetchDistrictsByProvinceId = (provinceId) => {
+    return axiosPublic.get(`https://provinces.open-api.vn/api/p/${provinceId}?depth=2`)
+}
+
+export const callFetchWardsByDistrictId = (districtId) => {
+    return axiosPublic.get(`https://provinces.open-api.vn/api/d/${districtId}?depth=2`)
+}
+
+export const callSearchProvinceByName = (name) => {
+    return axiosPublic.get(`https://provinces.open-api.vn/api/p/search/?q=${name}`)
+}
+
+export const callSearchDistrictsByName = (name) => {
+    return axiosPublic.get(`https://provinces.open-api.vn/api/d/search/?q=${name}`)
+}
+
+export const callSearchWardByName = (name) => {
+    return axiosPublic.get(`https://provinces.open-api.vn/api/w/search/?q=${name}`)
+}
+
