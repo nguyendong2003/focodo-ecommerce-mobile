@@ -52,6 +52,7 @@ const OrderConfirmScreen = ({ navigation, route }) => {
                         <Text className="text-base text-gray-700">{customer.full_name}</Text>
                         <Text className="text-base text-gray-500">{customer.phone}</Text>
                         <Text className="text-base text-gray-500 leading-5">{customer.address}</Text>
+                        <Text className="text-base text-gray-500 leading-5">{customer.province}, {customer.district}, {customer.ward}</Text>
                     </View>
                 </View>
 

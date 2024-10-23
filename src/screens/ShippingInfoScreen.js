@@ -25,18 +25,21 @@ const ShippingInfoScreen = ({ navigation, route }) => {
     const [selectedDistrict, setSelectedDistrict] = useState(null);
     const [selectedWard, setSelectedWard] = useState(null);
 
-    const handleRefresh = async () => {
+    const handleRefresh = async (setFieldValue) => {
         setRefreshing(true);
         await fetchAccount();
         await fetchAllPaymentMethods();
         await fetchProvinces();
         if (userLogin.province) {
+            setFieldValue('province', userLogin.province);
             searchProvinceByName(userLogin.province);
         }
         if (userLogin.district) {
+            setFieldValue('district', userLogin.district);
             searchDistrictByName(userLogin.district);
         }
         if (userLogin.ward) {
+            setFieldValue('ward', userLogin.ward);
             searchWardByName(userLogin.ward);
         }
         setRefreshing(false);
@@ -150,8 +153,13 @@ const ShippingInfoScreen = ({ navigation, route }) => {
     };
 
     const handleSelectWard = (ward, setFieldValue) => {
-        setFieldValue('ward', ward.name);
+        if (selectedWard !== ward) {
+            setFieldValue('ward', ward.name);
+
+            setSelectedWard(ward);
+        }
         setModalVisible(false);
+
     };
 
     useEffect(() => {
@@ -169,43 +177,43 @@ const ShippingInfoScreen = ({ navigation, route }) => {
     }, [])
 
     return (
-        <ScrollView
-            className="p-4 bg-white"
-            refreshControl={
-                <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={handleRefresh}
-                />
-            }
-            showsVerticalScrollIndicator={false}
+        <Formik
+            validationSchema={shippingInfoValidationSchema}
+            initialValues={{
+                fullName: userLogin.fullName ? userLogin.fullName : '',
+                phone: userLogin.phone ? userLogin.phone : '',
+                address: userLogin.address ? userLogin.address : '',
+                province: userLogin.province ? userLogin.province : '',
+                district: userLogin.district ? userLogin.district : '',
+                ward: userLogin.ward ? userLogin.ward : '',
+                shippingMethod: 'Giao hàng tiết kiệm',
+                paymentMethod: 1,
+                description: ''
+            }}
+            onSubmit={handleConfirm}
+            validateOnMount={true}
+            enableReinitialize={true}
         >
-            <Formik
-                validationSchema={shippingInfoValidationSchema}
-                initialValues={{
-                    fullName: userLogin.fullName ? userLogin.fullName : '',
-                    phone: userLogin.phone ? userLogin.phone : '',
-                    address: userLogin.address ? userLogin.address : '',
-                    province: userLogin.province ? userLogin.province : '',
-                    district: userLogin.district ? userLogin.district : '',
-                    ward: userLogin.ward ? userLogin.ward : '',
-                    shippingMethod: 'Giao hàng tiết kiệm',
-                    paymentMethod: 1,
-                    description: ''
-                }}
-                onSubmit={handleConfirm}
-                validateOnMount={true}
-                enableReinitialize={true}
-            >
-                {({
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    values,
-                    errors,
-                    touched,
-                    isValid,
-                    setFieldValue,
-                }) => (
+            {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+                isValid,
+                setFieldValue,
+            }) => (
+                <ScrollView
+                    className="p-4 bg-white"
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={() => handleRefresh(setFieldValue)}
+                        />
+                    }
+                    showsVerticalScrollIndicator={false}
+                >
                     <>
                         <Text className="text-base text-black font-bold">Tên người nhận</Text>
                         <Field
@@ -393,9 +401,9 @@ const ShippingInfoScreen = ({ navigation, route }) => {
                             </View>
                         </Modal>
                     </>
-                )}
-            </Formik>
-        </ScrollView >
+                </ScrollView>
+            )}
+        </Formik>
     )
 }
 

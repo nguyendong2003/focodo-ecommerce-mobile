@@ -74,6 +74,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
                         <Text className="text-base text-gray-700">{order.customer?.full_name}</Text>
                         <Text className="text-base text-gray-500">{order.customer?.phone}</Text>
                         <Text className="text-base text-gray-500 leading-5">{order.customer?.address}</Text>
+                        <Text className="text-base text-gray-500 leading-5">{order.customer?.province}, {order.customer?.district}, {order.customer?.ward}</Text>
                     </View>
                 </View>
 
