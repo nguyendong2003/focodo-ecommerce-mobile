@@ -32,7 +32,7 @@ const RegisterScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            <View className="mt-4 flex-row items-center gap-x-1 justify-center">
+            <View className="mt-4 flex-row items-center gap-x-1 justify-center mb-12">
                 <Text className="text-gray-700 text-base">Bạn đã có tài khoản?</Text>
                 <TouchableOpacity activeOpacity={0.5}
                     onPress={() => navigation.navigate('Login')}

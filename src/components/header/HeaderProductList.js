@@ -23,7 +23,7 @@ const HeaderProductList = ({ navigation, route }) => {
             <TouchableOpacity
                 activeOpacity={0.5}
                 className="flex-1 flex-row items-center border-gray-400 rounded-xl grow border-2 px-3 mx-1 py-2"
-                onPress={() => navigation.navigate('SearchProduct')}
+            // onPress={() => navigation.navigate('SearchProduct')}
             >
                 <Icon type="antdesign" name="search1" size={20} color="gray" />
                 <Text

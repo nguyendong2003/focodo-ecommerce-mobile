@@ -49,14 +49,22 @@ const Review = ({ navigation, productId }) => {
                 }
             </View>
 
-            <TouchableOpacity activeOpacity={0.5}
-                className="mb-3 p-2 "
-                onPress={() => navigation.navigate('Review', {
-                    screen: 'Settings',
-                    productId
-                })}>
-                <Text className="text-center text-base text-blue-600">Xem tất cả 119 đánh giá</Text>
-            </TouchableOpacity>
+            {
+                reviews.length > 0 && (
+                    <TouchableOpacity activeOpacity={0.5}
+                        className="mb-3 p-2 "
+                        onPress={() => navigation.navigate('Review', {
+                            productId
+                        })}>
+                        {/* onPress={() => navigation.navigate('Review', {
+                        screen: 'Settings',
+                        productId
+                    })}> */}
+                        <Text className="text-center text-base text-blue-600">Xem tất cả đánh giá</Text>
+                    </TouchableOpacity>
+                )
+            }
+
 
 
 

@@ -55,7 +55,7 @@ const ProductListScreen = ({ navigation, route }) => {
 
     const ListHeader = () => (
         <View className="flex-row items-center px-2 bg-white">
-            <Text className="flex-1 text-lg font-bold mr-1">Danh sách sản phẩm</Text>
+            {/* <Text className="flex-1 text-lg font-bold mr-1">Danh sách sản phẩm</Text> */}
             <View className="flex-1">
                 <DropdownComponent sortBy={sortBy} setSortBy={setSortBy} />
             </View>

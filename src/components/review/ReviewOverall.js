@@ -26,7 +26,7 @@ const ReviewOverall = ({ overallReview }) => {
 
         <View className="bg-white pt-1 pb-4">
             <View className="flex-row items-center gap-x-3 mt-1 px-4">
-                <Text className="text-3xl font-bold">{overallReview?.averageRate?.toFixed(1)}</Text>
+                <Text className="text-xl font-bold">{overallReview?.averageRate?.toFixed(1)}</Text>
                 <Rating
                     type="star"
                     startingValue={overallReview?.averageRate}
@@ -36,12 +36,12 @@ const ReviewOverall = ({ overallReview }) => {
                 <Text className="text-sm text-gray-600">{formatNumber(overallReview?.totalReview)} Đánh giá</Text>
             </View>
 
-            <View className="items-center mt-1">
+            <View className="items-center ">
                 <View>
                     {
                         overallReview?.rateDetail?.map((rate, index) => (
                             <View key={index} className="flex-row items-center gap-x-2">
-                                <Text className="text-sm text-black w-20">{getLabelForRate(rate?.rate)}</Text>
+                                <Text className="text-sm text-black w-28">{getLabelForRate(rate?.rate)}</Text>
                                 <Progress.Bar progress={rate?.rateQuantity / overallReview?.totalReview} width={150} color="#FFB547" />
                                 <Text className="text-sm text-gray-600">{rate?.rateQuantity}</Text>
                             </View>

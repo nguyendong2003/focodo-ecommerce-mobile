@@ -81,7 +81,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
             {
                 overallReview?.averageRate !== "NaN" && (
                     <>
-                        <Text className="text-xl font-bold mt-4 px-4">Khách hàng đánh giá</Text>
+                        <Text className="text-base font-bold mt-4 px-4">Khách hàng đánh giá</Text>
 
                         <ReviewOverall overallReview={overallReview} />
 

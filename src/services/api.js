@@ -76,6 +76,10 @@ export const callFetchProductsDiscount = () => {
     return axios.get('/api/v1/products/getProductsDiscount')
 }
 
+export const callSearchProducts = (query, page, size) => {
+    return axios.get(`/api/v1/products/search?query=${query}&page=${page}&size=${size}`)
+}
+
 // Review
 export const callFetchReviews = (page, size) => {
     return axios.get(`/api/v1/reviews/getReviewsOfUser?page=${page}&size=${size}`)

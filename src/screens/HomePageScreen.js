@@ -80,8 +80,8 @@ const HomePageScreen = ({ navigation }) => {
             </View>
 
             <View>
-                <TouchableOpacity activeOpacity={0.5}>
-                    <Text className="text-black text-xl font-bold p-4 bg-white">DANH MỤC SẢN PHẨM</Text>
+                <TouchableOpacity activeOpacity={0.7}>
+                    <Text className="text-black text-base font-bold p-4 bg-white">DANH MỤC SẢN PHẨM</Text>
                 </TouchableOpacity>
 
 
@@ -96,8 +96,8 @@ const HomePageScreen = ({ navigation }) => {
             </View>
 
             <View>
-                <TouchableOpacity activeOpacity={0.5}>
-                    <Text className="text-black text-xl font-bold p-4 bg-white">SẢN PHẨM BÁN CHẠY</Text>
+                <TouchableOpacity activeOpacity={0.7}>
+                    <Text className="text-black text-base font-bold p-4 bg-white">SẢN PHẨM BÁN CHẠY</Text>
                 </TouchableOpacity>
 
 
@@ -112,8 +112,8 @@ const HomePageScreen = ({ navigation }) => {
                 />
             </View>
             <View>
-                <TouchableOpacity activeOpacity={0.5}>
-                    <Text className="text-black text-xl font-bold p-4 bg-white">SẢN PHẨM KHUYẾN MÃI</Text>
+                <TouchableOpacity activeOpacity={0.7}>
+                    <Text className="text-black text-base font-bold p-4 bg-white">SẢN PHẨM KHUYẾN MÃI</Text>
                 </TouchableOpacity>
 
 
@@ -128,7 +128,7 @@ const HomePageScreen = ({ navigation }) => {
                 />
             </View>
 
-            <Text className="text-black text-xl font-bold p-4 bg-white">GỢI Ý CHO BẠN</Text>
+            <Text className="text-black text-base font-bold p-4 bg-white">GỢI Ý CHO BẠN</Text>
 
             <ScrollView
 

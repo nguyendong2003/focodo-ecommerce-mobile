@@ -139,7 +139,7 @@ const ProductInfo = ({ navigation, product }) => {
                 )
             }
             <View className="mt-2 px-4">
-                <Text className="text-black text-lg font-bold leading-5">{product?.name}</Text>
+                <Text className="text-black text-base font-bold leading-5 mt-1">{product?.name}</Text>
 
                 {
                     product?.review?.avg_rating !== "NaN" ? (
@@ -166,9 +166,18 @@ const ProductInfo = ({ navigation, product }) => {
 
 
                 <View className="flex-row items-center gap-x-4">
-                    <Text className=" text-red-500 text-2xl font-bold">{formatCurrency(product?.sell_price)}</Text>
-                    <Text className=" text-gray-500 text-sm bg-gray-200 rounded-lg px-1">-{product?.discount * 100}%</Text>
-                    <Text className=" text-gray-500 text-sm line-through">{formatCurrency(product?.original_price)}</Text>
+                    <Text className=" text-red-500 text-base font-bold">{formatCurrency(product?.sell_price)}</Text>
+                    {
+                        product?.discount > 0 && (
+                            <Text className=" text-gray-500 text-sm bg-gray-200 rounded-lg px-1">-{product?.discount * 100}%</Text>
+                        )
+                    }
+                    {
+                        product?.sell_price < product?.original_price && (
+                            <Text className=" text-gray-500 text-sm line-through">{formatCurrency(product?.original_price)}</Text>
+                        )
+                    }
+
                 </View>
 
                 <Text className="text-black text-sm ">{product?.sub_description}</Text>
@@ -212,7 +221,7 @@ const ProductInfo = ({ navigation, product }) => {
                 </View>
 
                 <View className="mt-2">
-                    <Text className="text-black text-xl font-bold">Mô tả sản phẩm</Text>
+                    <Text className="text-black text-base font-bold">Mô tả sản phẩm</Text>
                     <WebView
                         style={{ height: 120 }} // Điều chỉnh chiều cao cho phù hợp
                         showsHorizontalScrollIndicator={false}
