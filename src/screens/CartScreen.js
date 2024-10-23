@@ -1,10 +1,10 @@
-import { ScrollView, TextInput, TouchableOpacity, View, Image, Text, RefreshControl } from "react-native";
+import { ScrollView, TextInput, TouchableOpacity, View, Image, Text, RefreshControl, Modal } from "react-native";
 import { useEffect, useState } from "react";
 import CartItem from "../components/cart/CartItem";
 import CartDetail from "../components/cart/CartDetail";
 import result from "../data/cart.json"
 import { Button, Icon } from "@rneui/themed";
-import { callDeleteCart, callFetchCart } from "../services/api";
+import { callDeleteCart, callFetchCart, callFetchVouchers } from "../services/api";
 
 const CartScreen = ({ navigation }) => {
     const [cartList, setCartList] = useState([]);
@@ -24,7 +24,16 @@ const CartScreen = ({ navigation }) => {
 
     useEffect(() => {
         fetchCart();
+        fetchVouchers();
     }, []);
+
+    const fetchVouchers = async () => {
+        const res = await callFetchVouchers();
+        if (res && res.result) {
+            const data = res.result;
+            setVouchers(data);
+        }
+    }
 
     const fetchCart = async () => {
         const res = await callFetchCart();
@@ -161,7 +170,6 @@ const CartScreen = ({ navigation }) => {
                     </View>
                 )
             }
-
         </>
     );
 }

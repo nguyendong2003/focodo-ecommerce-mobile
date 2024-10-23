@@ -30,13 +30,16 @@ const ShippingInfoScreen = ({ navigation, route }) => {
             phone: values.phone,
             address: values.address,
         }
-        const shipping_price = 10000
+        const shipping_price = values.shippingMethod === 'Giao hàng tiết kiệm' ? 10000 : 20000
         const payment_method = values.paymentMethod
-        // const payment_method = values.paymentMethod === 'COD' ? 1 : 2;
 
+        order.description = values.description
         order.shipping_price = shipping_price
         order.payment_method = payment_method
-        order.final_price = order.total_price + shipping_price
+        order.final_price = order.total_price + shipping_price - order.discount_price
+
+        console.log('Order:', order);
+        console.log('Customer:', customer);
 
         navigation.navigate('OrderConfirm', {
             customer,
@@ -71,7 +74,9 @@ const ShippingInfoScreen = ({ navigation, route }) => {
                     fullName: userLogin.fullName ? userLogin.fullName : '',
                     phone: userLogin.phone ? userLogin.phone : '',
                     address: userLogin.address ? userLogin.address : '',
-                    paymentMethod: 1
+                    shippingMethod: 'Giao hàng tiết kiệm',
+                    paymentMethod: 1,
+                    description: ''
                 }}
                 onSubmit={handleConfirm}
                 validateOnMount={true}
@@ -109,7 +114,68 @@ const ShippingInfoScreen = ({ navigation, route }) => {
                             component={CustomTextInput}
                         />
 
-                        <Text className="text-base text-black font-bold">Phương thức thanh toán</Text>
+                        <Text className="text-base text-black font-bold">Ghi chú đơn hàng</Text>
+                        <View className="mb-1">
+                            <View className={`border border-gray-500 rounded-lg px-2 py-2`}>
+                                <TextInput
+                                    multiline
+                                    numberOfLines={2}
+                                    onChangeText={handleChange('description')}
+                                    maxLength={50}
+                                    onBlur={handleBlur('description')}
+                                    value={values.description}
+                                    placeholder="Nhập ghi chú đơn hàng"
+                                    style={{ textAlignVertical: 'top' }}
+                                />
+                            </View>
+
+                            <Text className="text-right text-gray-500">{values.description.length}/50</Text>
+
+                        </View>
+                        {/* Phương thức vận chuyển */}
+                        <Text className="text-base text-black font-bold">Phương thức vận chuyển</Text>
+                        <View className="flex-row items-center mt-2">
+                            <TouchableOpacity
+                                activeOpacity={0.5}
+                                onPress={() => setFieldValue('shippingMethod', 'Giao hàng tiết kiệm')}
+                                className="flex-row items-center"
+                            >
+                                <View
+                                    className={`h-6 w-6 rounded-full border-2 ${values.shippingMethod === 'Giao hàng tiết kiệm' ? 'border-black' : 'border-gray-400'} flex justify-center items-center`}
+                                >
+                                    {values.shippingMethod === 'Giao hàng tiết kiệm' && (
+                                        <View
+                                            className="h-3 w-3 rounded-full bg-black"
+                                        />
+                                    )}
+                                </View>
+                                <Text className="ml-2">Giao hàng tiết kiệm</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View className="flex-row items-center mt-2">
+                            <TouchableOpacity
+                                activeOpacity={0.8}
+                                onPress={() => setFieldValue('shippingMethod', 'Giao hàng nhanh')}
+                                className="flex-row items-center"
+                            >
+                                <View
+                                    className={`h-6 w-6 rounded-full border-2 ${values.shippingMethod === 'Giao hàng nhanh' ? 'border-black' : 'border-gray-400'} flex justify-center items-center`}
+
+                                >
+                                    {values.shippingMethod === 'Giao hàng nhanh' && (
+                                        <View
+                                            className="h-3 w-3 rounded-full bg-black"
+
+                                        />
+                                    )}
+                                </View>
+                                <Text className="ml-2">Giao hàng nhanh</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        {/*  */}
+                        <Text className="text-base text-black font-bold mt-2">Phương thức thanh toán</Text>
 
                         {
                             paymentMethods.map((method, index) => (
@@ -133,46 +199,6 @@ const ShippingInfoScreen = ({ navigation, route }) => {
                                 </View>
                             ))
                         }
-
-                        {/* <View className="flex-row items-center mt-2">
-                            <TouchableOpacity
-                                activeOpacity={0.5}
-                                onPress={() => setFieldValue('paymentMethod', 'COD')}
-                                className="flex-row items-center"
-                            >
-                                <View
-                                    className={`h-6 w-6 rounded-full border-2 ${values.paymentMethod === 'COD' ? 'border-black' : 'border-gray-400'} flex justify-center items-center`}
-                                >
-                                    {values.paymentMethod === 'COD' && (
-                                        <View
-                                            className="h-3 w-3 rounded-full bg-black"
-                                        />
-                                    )}
-                                </View>
-                                <Text className="ml-2">Tiền mặt khi nhận hàng</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                        <View className="flex-row items-center mt-2">
-                            <TouchableOpacity
-                                activeOpacity={0.8}
-                                onPress={() => setFieldValue('paymentMethod', 'e-wallet')}
-                                className="flex-row items-center"
-                            >
-                                <View
-                                    className={`h-6 w-6 rounded-full border-2 ${values.paymentMethod === 'e-wallet' ? 'border-black' : 'border-gray-400'} flex justify-center items-center`}
-
-                                >
-                                    {values.paymentMethod === 'e-wallet' && (
-                                        <View
-                                            className="h-3 w-3 rounded-full bg-black"
-
-                                        />
-                                    )}
-                                </View>
-                                <Text className="ml-2">Thanh toán qua VNPAY</Text>
-                            </TouchableOpacity>
-                        </View> */}
 
                         {(errors.paymentMethod && touched.paymentMethod) &&
                             <Text className="text-red-500 text-sm">{errors.paymentMethod}</Text>

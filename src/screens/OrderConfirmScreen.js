@@ -80,6 +80,14 @@ const OrderConfirmScreen = ({ navigation, route }) => {
 
 
                 <View className="flex-row gap-x-2 border-b-8 border-gray-200 p-3">
+                    <Icon type="simple-line-icon" name="note" />
+                    <View className='flex-shrink'>
+                        <Text className="text-lg font-semibold leading-6">Ghi chú đơn hàng</Text>
+                        <Text className="text-base text-gray-500 leading-5">{order.description}</Text>
+                    </View>
+                </View>
+
+                <View className="flex-row gap-x-2 border-b-8 border-gray-200 p-3">
                     <Icon type="feather" name="truck" />
                     <View>
                         <Text className="text-lg font-semibold leading-5">Hình thức giao hàng</Text>
@@ -92,7 +100,7 @@ const OrderConfirmScreen = ({ navigation, route }) => {
                     <Icon type="ionicon" name="wallet-outline" />
                     <View>
                         <Text className="text-lg font-semibold leading-5">Hình thức thanh toán</Text>
-                        <Text className="text-base text-gray-500 ">{order?.payment_method === 1 ? 'Thanh toán khi nhận hàng' : 'Thanh toán qua ví điện tử'}</Text>
+                        <Text className="text-base text-gray-500 ">{order?.payment_method === 1 ? 'Thanh toán khi nhận hàng' : 'Thanh toán qua VNPAY'}</Text>
                     </View>
                 </View>
 

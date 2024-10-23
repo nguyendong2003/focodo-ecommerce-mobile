@@ -182,8 +182,8 @@ export const callDeleteCart = (id) => {
 }
 
 // Voucher
-export const callCheckVoucher = (voucher) => {
-    return axios.get(`/api/v1/vouchers/checkVoucher/${voucher}`)
+export const callCheckVoucher = (id, total) => {
+    return axios.get(`/api/v1/vouchers/checkVoucher?id=${id}&total=${total}`)
 }
 
 export const callFetchVouchers = () => {
