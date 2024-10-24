@@ -106,7 +106,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
                     <Icon type="feather" name="truck" />
                     <View>
                         <Text className="text-lg font-semibold leading-5">Hình thức giao hàng</Text>
-                        <Text className="text-base text-gray-500 ">Giao hàng tiết kiệm</Text>
+                        <Text className="text-base text-gray-500 ">{order?.shipping_price === 10000 ? 'Giao hàng tiết kiệm' : 'Giao hàng nhanh'}</Text>
                         {/* <Text className="text-base text-gray-500 ">{order?.shippingMethod?.name}</Text> */}
                     </View>
                 </View>
