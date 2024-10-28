@@ -9,6 +9,7 @@ import PagerView from 'react-native-pager-view';
 import { formatCurrency, formatNumber } from '../../utils/FormatNumber';
 import { AuthContext } from '../context/AuthProvider';
 import { callAddToCart } from '../../services/api';
+import { formatDescription } from '../../utils/FormatDescription';
 
 const screenWidth = Dimensions.get('screen').width;
 
@@ -220,24 +221,28 @@ const ProductInfo = ({ navigation, product }) => {
                     </View>
                 </View>
 
-                <View className="mt-2">
-                    <Text className="text-black text-base font-bold">Mô tả sản phẩm</Text>
-                    <WebView
-                        style={{ height: 120 }} // Điều chỉnh chiều cao cho phù hợp
-                        showsHorizontalScrollIndicator={false}
-                        showsVerticalScrollIndicator={false}
-                        originWhitelist={['*']}
-                        source={{ html: product?.main_description || '' }}
-                    />
-                    <TouchableOpacity activeOpacity={0.5}
-                        className="p-2 "
-                        onPress={() => navigation.navigate('ProductDescription', {
-                            productDescription: product?.main_description
-                        })}>
-                        <Text className="text-center text-base text-blue-600">Xem tất cả mô tả</Text>
-                    </TouchableOpacity>
+                {
+                    product?.main_description && (
+                        <View className="mt-2">
+                            <Text className="text-black text-base font-bold">Mô tả sản phẩm</Text>
+                            <WebView
+                                style={{ height: 120 }} // Điều chỉnh chiều cao cho phù hợp
+                                showsHorizontalScrollIndicator={false}
+                                showsVerticalScrollIndicator={false}
+                                originWhitelist={['*']}
+                                source={{ html: formatDescription(product?.main_description) || '' }}
+                            />
+                            <TouchableOpacity activeOpacity={0.5}
+                                className="p-2 "
+                                onPress={() => navigation.navigate('ProductDescription', {
+                                    productDescription: formatDescription(product?.main_description)
+                                })}>
+                                <Text className="text-center text-base text-blue-600">Xem tất cả mô tả</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                }
 
-                </View>
             </View>
 
             <ModalAddToCart
