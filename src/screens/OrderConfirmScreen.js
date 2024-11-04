@@ -2,10 +2,12 @@ import { Button, Icon } from "@rneui/themed";
 import { Alert, Image, ScrollView, TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
 import { formatCurrency } from "../utils/FormatNumber";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { callCreateOrder } from "../services/api";
+import { AuthContext } from "../components/context/AuthProvider";
 
 const OrderConfirmScreen = ({ navigation, route }) => {
+    const { userLogin, setUserLogin, login, logout, fetchAccount } = useContext(AuthContext)
     const [customer, setCustomer] = useState(route.params.customer);
     const [order, setOrder] = useState(route.params.order);
 
@@ -25,6 +27,7 @@ const OrderConfirmScreen = ({ navigation, route }) => {
                         id_order: res.result.id_order
                     }
                 })
+                await fetchAccount();
             } else {
                 navigation.navigate('VnPayPayment', {
                     customer,

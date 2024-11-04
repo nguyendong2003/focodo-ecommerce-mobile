@@ -174,7 +174,7 @@ const ShippingInfoScreen = ({ navigation, route }) => {
         if (userLogin.ward) {
             searchWardByName(userLogin.ward);
         }
-    }, [])
+    }, [userLogin])
 
     return (
         <Formik

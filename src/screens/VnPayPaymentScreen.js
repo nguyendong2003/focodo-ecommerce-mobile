@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, Platform, Linking, Alert } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { API_EXPO } from '../services/api-config';
 import { callGetPayment } from '../services/api';
+import { AuthContext } from '../components/context/AuthProvider';
 
 const VnPayPaymentScreen = ({ navigation, route }) => {
+    const { userLogin, setUserLogin, login, logout, fetchAccount } = useContext(AuthContext)
     const { customer, order, paymentUrl } = route.params;
     // State to prevent multiple navigation or error handling
     const [isHandled, setIsHandled] = useState(false);
@@ -32,6 +34,8 @@ const VnPayPaymentScreen = ({ navigation, route }) => {
                             id_order: res.result.id_order
                         }
                     });
+
+                    await fetchAccount();
 
                     setIsHandled(true);
                 }
