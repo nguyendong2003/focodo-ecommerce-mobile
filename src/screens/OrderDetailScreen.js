@@ -71,10 +71,10 @@ const OrderDetailScreen = ({ navigation, route }) => {
                     <Icon type="ionicon" name="location-outline" />
                     <View className="shrink">
                         <Text className="text-lg font-semibold leading-5">Địa chỉ người nhận</Text>
-                        <Text className="text-base text-gray-700">{order.customer?.full_name}</Text>
-                        <Text className="text-base text-gray-500">{order.customer?.phone}</Text>
-                        <Text className="text-base text-gray-500 leading-5">{order.customer?.address}</Text>
-                        <Text className="text-base text-gray-500 leading-5">{order.customer?.province}, {order.customer?.district}, {order.customer?.ward}</Text>
+                        <Text className="text-base text-gray-700">{order.full_name}</Text>
+                        <Text className="text-base text-gray-500">{order.phone}</Text>
+                        <Text className="text-base text-gray-500 leading-5">{order.address}</Text>
+                        <Text className="text-base text-gray-500 leading-5">{order.province}, {order.district}, {order.ward}</Text>
                     </View>
                 </View>
 
@@ -101,6 +101,13 @@ const OrderDetailScreen = ({ navigation, route }) => {
                     }
                 </View>
 
+                <View className="flex-row gap-x-2 border-b-8 border-gray-200 p-3">
+                    <Icon type="simple-line-icon" name="note" />
+                    <View className='flex-shrink'>
+                        <Text className="text-lg font-semibold leading-6">Ghi chú đơn hàng</Text>
+                        <Text className="text-base text-gray-500 leading-5">{order.description}</Text>
+                    </View>
+                </View>
 
                 <View className="flex-row gap-x-2 border-b-8 border-gray-200 p-3">
                     <Icon type="feather" name="truck" />
