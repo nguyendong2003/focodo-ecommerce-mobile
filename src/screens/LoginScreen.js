@@ -13,7 +13,7 @@ const LoginScreen = ({ navigation, route }) => {
 
             <LoginForm navigation={navigation} routeName={routeName} options={options} />
 
-            <View className="mt-5">
+            {/* <View className="mt-5">
                 <Text className="text-base text-gray-500 text-center">Hoặc tiếp tục bằng</Text>
 
                 <TouchableOpacity activeOpacity={0.7}
@@ -29,7 +29,7 @@ const LoginScreen = ({ navigation, route }) => {
                     <Icon type='ionicon' name="logo-facebook" color={'#0866ff'} size={24} />
                     <Text className="text-base text-gray-700 grow text-center">Đăng nhập với Facebook</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
 
             <View className="mt-4 flex-row items-center gap-x-1 justify-center">
                 <Text className="text-gray-700 text-base">Bạn chưa có tài khoản?</Text>

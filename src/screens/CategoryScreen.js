@@ -47,7 +47,7 @@ const CategoryScreen = ({ navigation }) => {
 
 
     return (
-        <View className="flex flex-row gap-x-2 bg-gray-200">
+        <View className="flex-1 flex-row gap-x-2 bg-gray-200">
             <View className="w-1/4 mt-2">
                 <CategoryList
                     categories={categories}

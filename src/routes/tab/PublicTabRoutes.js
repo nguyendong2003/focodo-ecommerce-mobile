@@ -153,12 +153,12 @@ const PublicTabRoutes = (handleNavigate) => {
                 headerRight: () => {
                     return (
                         <View className="flex-row mx-4 gap-x-4 items-center">
-                            <TouchableOpacity
+                            {/* <TouchableOpacity
                                 activeOpacity={0.5}
                                 onPress={() => alert('Cài đặt')}
                             >
                                 <Icon type="feather" name="settings" size={22} />
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
 
                             <TouchableOpacity
                                 activeOpacity={0.5}
