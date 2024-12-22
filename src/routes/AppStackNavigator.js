@@ -5,6 +5,7 @@ import { AuthContext } from "../components/context/AuthProvider";
 import publicStackRoutes from "./stack/PublicStackRoutes";
 import privateStackRoutes from "./stack/PrivateStackRoutes";
 import authStackRoutes from "./stack/AuthStackRoutes";
+import { navigationRef } from "./navigation/RootNavigation";
 
 const Stack = createStackNavigator();
 
@@ -12,7 +13,7 @@ const AppStackNavigator = () => {
     const { userLogin, setUserLogin, login, logout } = useContext(AuthContext)
 
     return (
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
             <Stack.Navigator
                 initialRouteName="MainTab"
                 screenOptions={{

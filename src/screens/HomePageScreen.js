@@ -3,10 +3,13 @@ import result from "../data/products.json"
 import ProductSlider from "../components/product/ProductSlider";
 import CategorySlider from "../components/category/CategorySlider";
 import { callFetchCategories, callFetchProductsBestSeller, callFetchProductsDiscount, callFetchProductsPagination } from "../services/api";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProductListHomePage from "../components/product/ProductListHomePage";
+import { AuthContext } from "../components/context/AuthProvider";
 
-const HomePageScreen = ({ navigation }) => {
+const HomePageScreen = ({ navigation, route }) => {
+    const { isDeleteUserLogin } = route.params || {};
+    const { logout } = useContext(AuthContext)
     const [categories, setCategories] = useState([]);
     const [productsBestSeller, setProductsBestSeller] = useState([]);
     const [productsDiscount, setProductsDiscount] = useState([]);
@@ -15,6 +18,12 @@ const HomePageScreen = ({ navigation }) => {
     const [size, setSize] = useState(20);
     const [totalPage, setTotalPage] = useState(1);
     const [refreshing, setRefreshing] = useState(false);
+
+    useEffect(() => {
+        if (isDeleteUserLogin) {
+            logout();
+        }
+    }, [isDeleteUserLogin])
 
     const fetchCategories = async () => {
         const res = await callFetchCategories();
