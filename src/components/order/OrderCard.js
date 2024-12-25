@@ -55,16 +55,21 @@ const OrderCard = ({ navigation, order }) => {
                 </View>
 
 
-                <View className="flex-row justify-between items-center mt-4 mb-1">
+                <View className="flex-row justify-between items-center mt-4 mb-1 gap-x-2">
                     <TouchableOpacity activeOpacity={0.7}
-                        className="rounded-md  border-black py-2 border-2"
-                        style={{ width: screenWidth / 2 - 12 }}
+                        className="rounded-md  border-black py-2 border-2 flex-1"
+                        // style={{ width: screenWidth / 2 - 12 }}
                         onPress={() => navigation.navigate('OrderDetail', { orderId: order?.id })}
                     >
                         <Text className="text-center text-black font-bold">Xem chi tiết</Text>
                     </TouchableOpacity>
 
-                    <View style={{ width: screenWidth / 2 - 12 }}>
+                    <View
+                        // style={{ width: screenWidth / 2 - 12 }}
+                        className={`flex-1 
+                            ${orderStatus === 'Đã xác nhận' ? 'hidden' : 'block'}
+                            `}
+                    >
                         <OrderButton
                             navigation={navigation}
                             order={order}

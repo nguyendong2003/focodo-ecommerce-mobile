@@ -42,6 +42,10 @@ export const callUpdateAvatar = (avatar) => {
     });
 }
 
+export const callUpdateProfileUser = (profile) => {
+    return axios.put(`/api/v1/users/updateProfileUser`, profile)
+}
+
 export const callUpdateDetailProfile = (field, value) => {
     return axios.put(`/api/v1/users/updateDetailProfileUser?${field}=${value}`)
 }

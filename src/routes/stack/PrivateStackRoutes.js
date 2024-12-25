@@ -15,6 +15,7 @@ import OrderCancelledReasonScreen from "../../screens/OrderCancelledReasonScreen
 import ReviewOrderScreen from "../../screens/ReviewOrderScreen"
 import ReviewUpdateScreen from "../../screens/ReviewUpdateScreen"
 import VnPayPaymentScreen from "../../screens/VnPayPaymentScreen"
+import ProfileUpdateScreen from "../../screens/ProfileUpdateScreen"
 
 const PrivateStackRoutes = [
     {
@@ -98,6 +99,31 @@ const PrivateStackRoutes = [
         options: ({ navigation }) => ({
             headerShown: true,
             headerTitle: 'Thông tin tài khoản',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
+    },
+    {
+        name: 'ProfileUpdate',
+        component: ProfileUpdateScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Cập nhật thông tin',
             headerTitleAlign: 'center',
             headerStyle: {
                 shadowColor: '#000',

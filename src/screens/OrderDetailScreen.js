@@ -149,15 +149,19 @@ const OrderDetailScreen = ({ navigation, route }) => {
             <View>
                 {
                     orderStatus !== 'Đã xác nhận' ? (
-                        <View className="flex-row justify-between items-center py-4 mx-3">
-                            <TouchableOpacity activeOpacity={0.7}
-                                className="rounded-md  border-black py-2 border-2"
-                                style={{ width: screenWidth / 2 - 16 }}
+                        <View className="flex-row justify-between items-center py-4 gap-x-2 px-3">
+                            {/* Comment to hide theo doi don hang */}
+                            {/* <TouchableOpacity activeOpacity={0.7}
+                                className="rounded-md  border-black py-2 border-2 flex-1"
+                                // style={{ width: screenWidth / 2 - 16 }}
                                 onPress={() => navigation.navigate('OrderTracking', { orderId: order?.id_order })}
                             >
                                 <Text className="text-center text-black font-bold">Theo dõi đơn hàng</Text>
-                            </TouchableOpacity>
-                            <View style={{ width: screenWidth / 2 - 16 }}>
+                            </TouchableOpacity> */}
+                            <View
+                                // style={{ width: screenWidth / 2 - 16 }}
+                                className="flex-1"
+                            >
                                 <OrderButton
                                     navigation={navigation}
                                     order={order}
@@ -166,12 +170,16 @@ const OrderDetailScreen = ({ navigation, route }) => {
                             </View>
                         </View>
                     ) : (
-                        <TouchableOpacity activeOpacity={0.7}
-                            className="rounded-md  border-black py-2 border-2 my-4 mx-3 bg-black"
-                            onPress={() => navigation.navigate('OrderTracking', { orderId: order?.id_order })}
-                        >
-                            <Text className="text-center text-white font-bold">Theo dõi đơn hàng</Text>
-                        </TouchableOpacity>
+                        <>
+                            {/* Comment to hide theo doi don hang */}
+                            {/* <TouchableOpacity activeOpacity={0.7}
+                                className="rounded-md  border-black py-2 border-2 my-4 mx-3 bg-black"
+                                onPress={() => navigation.navigate('OrderTracking', { orderId: order?.id_order })}
+                            >
+                                <Text className="text-center text-white font-bold">Theo dõi đơn hàng</Text>
+                            </TouchableOpacity> */}
+                        </>
+
                     )
                 }
             </View>

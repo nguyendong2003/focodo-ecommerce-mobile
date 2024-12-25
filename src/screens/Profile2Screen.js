@@ -6,19 +6,42 @@ import Dialog from "react-native-dialog";
 import * as ImagePicker from 'expo-image-picker';
 import { callUpdateAvatar, callUpdateDetailProfile } from '../services/api';
 
-const ProfileScreen = ({ navigation }) => {
+const Profile2Screen = ({ navigation }) => {
     const { userLogin, setUserLogin, login, logout, fetchAccount } = useContext(AuthContext)
 
-    const [refreshing, setRefreshing] = useState(false);
     const [selectedImage, setSelectedImage] = useState(userLogin?.avatar || null);
 
     const [visibleModalImage, setVisibleModalImage] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [field, setField] = useState('');
+    const [text, setText] = useState('');
+    const textInputRef = useRef(null);
+
+    const [refreshing, setRefreshing] = useState(false);
 
     const handleRefresh = async () => {
         setRefreshing(true);
         await fetchAccount();
         setRefreshing(false);
     }
+
+    const visibleDialog = (field) => {
+        setField(field);
+        setText(userLogin[field] || '');
+        setVisible(true);
+    };
+
+    const handleOk = async () => {
+        const fieldSubmit = field === 'fullName' ? 'full_name' : field;
+        const valueSubmit = text;
+        const res = await callUpdateDetailProfile(fieldSubmit, valueSubmit);
+        if (res && res.result) {
+            setUserLogin({ ...userLogin, [field]: text });
+        } else {
+            Alert.alert('Thông báo', 'Cập nhật thông tin thất bại');
+        }
+        setVisible(false);
+    };
 
     // Upload avatar
     const pickImageAsync = async () => {
@@ -94,7 +117,9 @@ const ProfileScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            <View className="px-4 py-2 border-b-4 border-b-gray-200">
+            <TouchableOpacity activeOpacity={0.6} className="px-4 py-2 border-b-4 border-b-gray-200"
+                onPress={() => visibleDialog('fullName')}
+            >
                 <View className="flex-row gap-x-3 items-center">
                     <Icon type="ionicon" name="person-outline" size={24} />
                     <View>
@@ -103,20 +128,24 @@ const ProfileScreen = ({ navigation }) => {
                     </View>
 
                 </View>
-            </View>
+            </TouchableOpacity>
 
-            <View className="px-4 py-2 border-b-4 border-b-gray-200">
+            <TouchableOpacity activeOpacity={0.6} className="px-4 py-2 border-b-4 border-b-gray-200"
+                onPress={() => visibleDialog('email')}
+            >
                 <View className="flex-row gap-x-3 items-center">
                     <Icon type="fontisto" name="email" size={24} />
                     <View>
                         <Text className="text-lg">Địa chỉ email</Text>
-                        <Text className="text-base text-gray-500">{userLogin?.email || 'Thêm địa chỉ email'}</Text>
+                        <Text className="text-base text-gray-500">{userLogin?.email || 'Thêm họ và tên'}</Text>
                     </View>
 
                 </View>
-            </View>
+            </TouchableOpacity>
 
-            <View className="px-4 py-2 border-b-4 border-b-gray-200">
+            <TouchableOpacity activeOpacity={0.6} className="px-4 py-2 border-b-4 border-b-gray-200"
+                onPress={() => visibleDialog('phone')}
+            >
                 <View className="flex-row gap-x-3 items-center">
                     <Icon type="simple-line-icon" name="phone" size={24} />
                     <View>
@@ -125,54 +154,49 @@ const ProfileScreen = ({ navigation }) => {
                     </View>
 
                 </View>
-            </View>
+            </TouchableOpacity>
 
-            <View className="px-4 py-2 border-b-4 border-b-gray-200">
+            <TouchableOpacity activeOpacity={0.6} className="px-4 py-2 border-b-4 border-b-gray-200"
+                onPress={() => visibleDialog('address')}
+            >
                 <View className="flex-row gap-x-3 items-center">
                     <Icon type="ionicon" name="location-outline" size={24} />
                     <View className="shrink">
                         <Text className="text-lg">Địa chỉ</Text>
                         <Text className="text-base text-gray-500">{userLogin?.address || "Thêm địa chỉ"}</Text>
                     </View>
-                </View>
-            </View>
 
-            <View className="px-4 py-2 border-b-4 border-b-gray-200">
-                <View className="flex-row gap-x-3 items-center">
-                    <Icon type="ionicon" name="location-outline" size={24} />
-                    <View className="shrink">
-                        <Text className="text-lg">Tỉnh/Thành phố</Text>
-                        <Text className="text-base text-gray-500">{userLogin?.province || "Thêm Tỉnh/Thành phố"}</Text>
-                    </View>
                 </View>
-            </View>
-            <View className="px-4 py-2 border-b-4 border-b-gray-200">
-                <View className="flex-row gap-x-3 items-center">
-                    <Icon type="ionicon" name="location-outline" size={24} />
-                    <View className="shrink">
-                        <Text className="text-lg">Quận/Huyện</Text>
-                        <Text className="text-base text-gray-500">{userLogin?.district || "Thêm Quận/Huyện"}</Text>
-                    </View>
-                </View>
-            </View>
-            <View className="px-4 py-2 border-b-4 border-b-gray-200">
-                <View className="flex-row gap-x-3 items-center">
-                    <Icon type="ionicon" name="location-outline" size={24} />
-                    <View className="shrink">
-                        <Text className="text-lg">Phường/Thị xã</Text>
-                        <Text className="text-base text-gray-500">{userLogin?.ward || "Thêm Phường/Thị xã"}</Text>
-                    </View>
-                </View>
-            </View>
+            </TouchableOpacity>
 
-            <View className="px-4 py-2 border-b-4 border-b-gray-200">
-                <TouchableOpacity activeOpacity={0.7}
-                    className="rounded-md  border-black py-2 border-2 bg-black"
-                    onPress={() => navigation.navigate('ProfileUpdate')}
-                >
-                    <Text className="text-center text-white font-bold">Cập nhật thông tin</Text>
-                </TouchableOpacity>
-            </View>
+            <Dialog.Container
+                visible={visible}
+                onBackdropPress={() => setVisible(false)}
+            >
+                <Dialog.Title>Nhập {field === 'fullName' ? 'Họ và tên' : field === 'phone' ? 'Số điện thoại' : field === 'address' ? 'Địa chỉ' : 'Địa chỉ email'}</Dialog.Title>
+                <Dialog.Description>
+                    <View className="flex-row items-center w-64 rounded border-2 px-2 py-1 ">
+                        <TextInput
+                            ref={textInputRef}
+                            placeholder={`Nhập ${field === 'fullName' ? 'họ và tên' : field === 'phone' ? 'số điện thoại' : field === 'address' ? 'địa chỉ' : 'địa chỉ email'}`}
+                            placeholderTextColor="#999"
+                            value={text}
+                            onChangeText={setText}
+                            autoFocus={true}
+                            onLayout={() => textInputRef.current.focus()}
+                            keyboardType={field === 'phone' ? 'phone-pad' : field === 'email' ? 'email-address' : 'default'}
+                            className="flex-1 mx-2"
+                        />
+                        {text.length > 0 && (
+                            <TouchableOpacity onPress={() => setText('')}>
+                                <Icon type="antdesign" name="closecircle" size={20} color="gray" />
+                            </TouchableOpacity>
+                        )}
+                    </View>
+                </Dialog.Description>
+                <Dialog.Button label="Hủy" onPress={() => setVisible(false)} />
+                <Dialog.Button label="Lưu" onPress={handleOk} />
+            </Dialog.Container>
 
             <Modal
                 animationType="slide"
@@ -213,4 +237,4 @@ const ProfileScreen = ({ navigation }) => {
     );
 };
 
-export default ProfileScreen;
+export default Profile2Screen;
