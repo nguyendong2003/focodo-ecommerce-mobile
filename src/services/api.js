@@ -22,6 +22,10 @@ export const callResetPassword = (email, password) => {
     return axios.post(`/api/v1/auth/resetPassword?email=${email}&password=${password}`)
 }
 
+export const callUpdatePassword = (oldPassword, newPassword) => {
+    return axios.put(`/api/v1/users/updatePassword?old_password=${oldPassword}&new_password=${newPassword}`)
+}
+
 export const callFetchAccount = () => {
     return axios.get('/api/v1/users/getUser')
 }

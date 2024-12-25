@@ -85,13 +85,23 @@ const AccountScreen = ({ navigation }) => {
                     )}
 
                     {userLogin ? (
-                        <TouchableOpacity
-                            activeOpacity={0.6}
-                            className="px-2 py-1 border-2 border-blue-600 rounded-lg justify-center"
-                            onPress={() => navigation.navigate('Profile')}
-                        >
-                            <Text className="text-sm text-blue-600 text-center">Thông tin tài khoản</Text>
-                        </TouchableOpacity>
+                        <View className="flex-row gap-x-2">
+                            <TouchableOpacity
+                                activeOpacity={0.6}
+                                className="px-2 py-1 border-2 border-blue-600 rounded-lg justify-center"
+                                onPress={() => navigation.navigate('Profile')}
+                            >
+                                <Text className="text-sm text-blue-600 text-center">Thông tin tài khoản</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                activeOpacity={0.6}
+                                className="px-2 py-1 border-2 border-blue-600 rounded-lg justify-center"
+                                onPress={() => navigation.navigate('UpdatePassword')}
+                            >
+                                <Text className="text-sm text-blue-600 text-center">Đổi mật khẩu</Text>
+                            </TouchableOpacity>
+                        </View>
+
                     ) : (
                         <TouchableOpacity
                             activeOpacity={0.6}

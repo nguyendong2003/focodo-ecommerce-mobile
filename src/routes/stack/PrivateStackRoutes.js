@@ -16,6 +16,7 @@ import ReviewOrderScreen from "../../screens/ReviewOrderScreen"
 import ReviewUpdateScreen from "../../screens/ReviewUpdateScreen"
 import VnPayPaymentScreen from "../../screens/VnPayPaymentScreen"
 import ProfileUpdateScreen from "../../screens/ProfileUpdateScreen"
+import UpdatePasswordScreen from "../../screens/UpdatePasswordScreen"
 
 const PrivateStackRoutes = [
     {
@@ -124,6 +125,31 @@ const PrivateStackRoutes = [
         options: ({ navigation }) => ({
             headerShown: true,
             headerTitle: 'Cập nhật thông tin',
+            headerTitleAlign: 'center',
+            headerStyle: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            },
+            headerLeft: () => {
+                return (
+                    <TouchableOpacity
+                        className="px-4"
+                        onPress={() => navigation.goBack()}>
+                        <Icon type="feather" name="chevron-left" />
+                    </TouchableOpacity>
+                )
+            }
+        })
+    },
+    {
+        name: 'UpdatePassword',
+        component: UpdatePasswordScreen,
+        options: ({ navigation }) => ({
+            headerShown: true,
+            headerTitle: 'Đổi mật khẩu',
             headerTitleAlign: 'center',
             headerStyle: {
                 shadowColor: '#000',
