@@ -20,7 +20,7 @@ const ProductSlider = ({ product, navigation }) => {
                 {
                     product.discount > 0 && (
                         <View className="bg-red-500 absolute top-0 right-0 rounded-lg p-1">
-                            <Text className="text-white text-sm font-bold">{product.discount * 100}%</Text>
+                            <Text className="text-white text-sm font-bold">{(product.discount * 100).toFixed(0)}%</Text>
                             <Text className="text-white text-sm font-bold">OFF</Text>
                         </View>
                     )
