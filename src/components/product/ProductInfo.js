@@ -10,8 +10,18 @@ import { formatCurrency, formatNumber } from '../../utils/FormatNumber';
 import { AuthContext } from '../context/AuthProvider';
 import { callAddToCart } from '../../services/api';
 import { formatDescription } from '../../utils/FormatDescription';
+import RenderHTML from 'react-native-render-html';
+import { LogBox } from 'react-native';
 
 const screenWidth = Dimensions.get('screen').width;
+
+// Ignore specific warning related to defaultProps
+LogBox.ignoreLogs([
+    'Warning: TNodeChildrenRenderer: Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead.',
+    'Warning: MemoizedTNodeRenderer: Support for defaultProps will be removed from memo components in a future major release. Use JavaScript default parameters instead.',
+    'Warning: TRenderEngineProvider: Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead.',
+    'Warning: bound renderChildren: Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead.'
+]);
 
 const ModalAddToCart = ({ navigation, product, visibleModalImage, setVisibleModalImage }) => {
 
@@ -170,7 +180,7 @@ const ProductInfo = ({ navigation, product }) => {
                     <Text className=" text-red-500 text-base font-bold">{formatCurrency(product?.sell_price)}</Text>
                     {
                         product?.discount > 0 && (
-                            <Text className=" text-gray-500 text-sm bg-gray-200 rounded-lg px-1">-{product?.discount * 100}%</Text>
+                            <Text className=" text-gray-500 text-sm bg-gray-200 rounded-lg px-1">-{(product.discount * 100).toFixed(0)}%</Text>
                         )
                     }
                     {
@@ -181,8 +191,11 @@ const ProductInfo = ({ navigation, product }) => {
 
                 </View>
 
-                <Text className="text-black text-sm ">{product?.sub_description}</Text>
-
+                {/* <Text className="text-black text-sm ">{product?.sub_description}</Text> */}
+                <RenderHTML
+                    contentWidth={screenWidth}
+                    source={{ html: product?.sub_description || '' }}
+                />
 
                 <View className="flex-row items-center mt-1">
                     <Text className="text-black text-base font-semibold mr-4">Số lượng:</Text>
@@ -201,16 +214,18 @@ const ProductInfo = ({ navigation, product }) => {
                         title="Thêm vào giỏ hàng"
                         type="outline"
                         containerStyle={{ flexGrow: 1 }}
-                        buttonStyle={{ borderColor: '#000', borderWidth: 2, borderRadius: 8 }}
-                        titleStyle={{ color: '#000' }}
+                        buttonStyle={{ borderColor: '#000', backgroundColor: '#000', borderWidth: 2, borderRadius: 8 }}
+                        titleStyle={{ color: '#fff' }}
                         onPress={handleAddToCart}
+                    // buttonStyle={{ borderColor: '#000', borderWidth: 2, borderRadius: 8 }}
+                    // titleStyle={{ color: '#000' }}
                     />
-                    <Button
+                    {/* <Button
                         title="Thanh toán"
                         containerStyle={{ flexGrow: 1 }}
                         buttonStyle={{ borderColor: '#000', backgroundColor: '#000', borderWidth: 2, borderRadius: 8, marginLeft: 20 }}
                         titleStyle={{ color: '#fff' }}
-                    />
+                    /> */}
                 </View>
 
                 <View className="mt-2 flex-row items-center">
