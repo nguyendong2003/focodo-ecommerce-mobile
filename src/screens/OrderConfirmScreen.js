@@ -5,6 +5,7 @@ import { formatCurrency } from "../utils/FormatNumber";
 import { useContext, useEffect, useState } from "react";
 import { callCreateOrder } from "../services/api";
 import { AuthContext } from "../components/context/AuthProvider";
+import Toast from "react-native-toast-message";
 
 const OrderConfirmScreen = ({ navigation, route }) => {
     const { userLogin, setUserLogin, login, logout, fetchAccount } = useContext(AuthContext)
@@ -39,7 +40,11 @@ const OrderConfirmScreen = ({ navigation, route }) => {
                 })
             }
         } else {
-            Alert.alert('Đặt hàng thất bại', 'Vui lòng thử lại')
+            Toast.show({
+                type: 'error',
+                text1: 'Đặt hàng thất bại',
+                text2: 'Vui lòng thử lại',
+            });
         }
     }
 

@@ -5,6 +5,7 @@ import { AuthContext } from '../components/context/AuthProvider';
 import Dialog from "react-native-dialog";
 import * as ImagePicker from 'expo-image-picker';
 import { callUpdateAvatar, callUpdateDetailProfile } from '../services/api';
+import Toast from 'react-native-toast-message';
 
 const ProfileScreen = ({ navigation }) => {
     const { userLogin, setUserLogin, login, logout, fetchAccount } = useContext(AuthContext)
@@ -35,8 +36,17 @@ const ProfileScreen = ({ navigation }) => {
             const res = await callUpdateAvatar(avatar);
             if (res.status === 200) {
                 setSelectedImage(result.assets[0].uri);
+                Toast.show({
+                    type: 'success',
+                    text1: 'Thành công',
+                    text2: 'Cập nhật ảnh đại diện thành công',
+                });
             } else {
-                Alert.alert('Thông báo', 'Cập nhật ảnh đại diện thất bại');
+                Toast.show({
+                    type: 'error',
+                    text1: 'Thất bại',
+                    text2: 'Cập nhật ảnh đại diện thất bại',
+                });
             }
         }
     };

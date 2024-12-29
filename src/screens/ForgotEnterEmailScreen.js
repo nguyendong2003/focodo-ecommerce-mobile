@@ -3,6 +3,7 @@ import { callVerifyEmail } from "../services/api";
 import { ActivityIndicator, Modal, ScrollView, Text, TextInput, View } from "react-native";
 import { Alert } from "react-native";
 import { Button } from "@rneui/themed";
+import Toast from "react-native-toast-message";
 
 
 const ForgotEnterEmailScreen = ({ navigation }) => {
@@ -12,7 +13,11 @@ const ForgotEnterEmailScreen = ({ navigation }) => {
 
     const handleSubmit = async () => {
         if (email === '') {
-            Alert.alert('Lỗi', 'Vui lòng nhập email');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Vui lòng nhập email',
+            });
             return;
         }
         setLoading(true);
@@ -21,7 +26,11 @@ const ForgotEnterEmailScreen = ({ navigation }) => {
         if (res && res.result) {
             navigation.navigate('ForgotEnterOTP', { email });
         } else {
-            Alert.alert('Lỗi', 'Email không tồn tại');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Email không tồn tại',
+            });
         }
     };
 

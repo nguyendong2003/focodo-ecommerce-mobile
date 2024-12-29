@@ -7,6 +7,7 @@ import { AirbnbRating } from 'react-native-ratings';
 import { Button, Icon } from '@rneui/themed';
 import { callFetchReviewById, callUpdateReview } from '../services/api';
 import { ReviewContext } from '../components/context/ReviewProvider';
+import Toast from 'react-native-toast-message';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -109,7 +110,12 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
     const handlePickImage = async (setFieldValue, values) => {
         const remainingImages = 5 - values.images.length - values.files.length;
         if (remainingImages <= 0) {
-            Alert.alert('Thông báo', 'Bạn chỉ có thể chọn tối đa 5 ảnh.');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Bạn chỉ có thể chọn tối đa 5 ảnh',
+            });
+            // Alert.alert('Thông báo', 'Bạn chỉ có thể chọn tối đa 5 ảnh.');
             return;
         }
 
@@ -194,10 +200,18 @@ const ReviewUpdateScreen = ({ navigation, route }) => {
             //     ]
             // }
             setReviewContextValue(dataReview)
-            Alert.alert('Thông báo', 'Cập nhật đánh giá thành công');
             navigation.goBack();
+            Toast.show({
+                type: 'success',
+                text1: 'Thành công',
+                text2: 'Cập nhật đánh giá thành công',
+            });
         } else {
-            Alert.alert('Thông báo', 'Cập nhật đánh giá thất bại');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Cập nhật đánh giá thất bại',
+            });
         }
     };
 

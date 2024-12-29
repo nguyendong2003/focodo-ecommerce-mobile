@@ -4,6 +4,7 @@ import { WebView } from 'react-native-webview';
 import { API_EXPO } from '../services/api-config';
 import { callGetPayment } from '../services/api';
 import { AuthContext } from '../components/context/AuthProvider';
+import Toast from 'react-native-toast-message';
 
 const VnPayPaymentScreen = ({ navigation, route }) => {
     const { userLogin, setUserLogin, login, logout, fetchAccount } = useContext(AuthContext)
@@ -42,7 +43,11 @@ const VnPayPaymentScreen = ({ navigation, route }) => {
             } else {
                 setIsHandled(true);
                 navigation.goBack();
-                Alert.alert('Thanh toán thất bại', 'Vui lòng thử lại');
+                Toast.show({
+                    type: 'error',
+                    text1: 'Thất bại',
+                    text2: 'Thanh toán thất bại. Vui lòng thử lại',
+                });
             }
         }
     };

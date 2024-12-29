@@ -5,6 +5,7 @@ import { Rating } from 'react-native-ratings';
 import { formatDateTime } from '../../utils/FormatNumber';
 import { ReviewContext } from '../context/ReviewProvider';
 import { callDeleteReview } from '../../services/api';
+import Toast from 'react-native-toast-message';
 
 const { width, height } = Dimensions.get('window');
 
@@ -48,13 +49,21 @@ const ReviewCard = ({ navigation, review, isEditable = false, isProductVisible =
     const handleDeleteReview = async () => {
         const res = await callDeleteReview(reviewItem.id);
         if (res && res.result) {
-            Alert.alert('Thông báo', 'Xóa đánh giá thành công');
             setReviewContextValue({
                 id: reviewItem.id,
                 isDeleted: true
             })
+            Toast.show({
+                type: 'success',
+                text1: 'Thành công',
+                text2: 'Xóa đánh giá thành công',
+            });
         } else {
-            Alert.alert('Thông báo', 'Xóa đánh giá thất bại');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Xóa đánh giá thất bại',
+            });
         }
     };
 

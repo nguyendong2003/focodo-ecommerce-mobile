@@ -12,6 +12,7 @@ import { callAddToCart } from '../../services/api';
 import { formatDescription } from '../../utils/FormatDescription';
 import RenderHTML from 'react-native-render-html';
 import { LogBox } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 const screenWidth = Dimensions.get('screen').width;
 
@@ -110,7 +111,11 @@ const ProductInfo = ({ navigation, product }) => {
             if (res.status === 200) {
                 setVisibleModalImage(true);
             } else if (res.status === 400) {
-                Alert.alert('Thông báo', 'Sản phẩm đã hết hàng')
+                Toast.show({
+                    type: 'error',
+                    text1: 'Thất bại',
+                    text2: 'Sản phẩm đã hết hàng hoặc có lỗi xảy ra',
+                });
             }
         } else {
             // call api add to cart

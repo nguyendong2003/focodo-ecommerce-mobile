@@ -5,6 +5,7 @@ import { Field, Formik } from 'formik';
 import CustomTextInput from '../custom/CustomTextInput';
 import { registerValidationSchema } from '../../utils/ValidationForm';
 import { callRegister } from '../../services/api';
+import Toast from 'react-native-toast-message';
 
 const RegisterForm = ({ navigation }) => {
 
@@ -22,9 +23,17 @@ const RegisterForm = ({ navigation }) => {
         const res = await callRegister(data);
         if (res && res.result) {
             navigation.navigate('Login');
-            Alert.alert('Đăng ký thành công', 'Vui lòng đăng nhập để tiếp tục');
+            Toast.show({
+                type: 'success',
+                text1: 'Đăng ký thành công',
+                text2: 'Vui lòng đăng nhập để tiếp tục',
+            });
         } else {
-            Alert.alert('Đăng ký thất bại', 'Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác');
+            Toast.show({
+                type: 'error',
+                text1: 'Đăng ký thất bại',
+                text2: 'Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác',
+            });
         }
 
     };

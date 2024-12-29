@@ -4,7 +4,7 @@ import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 // https://github.com/calintamas/react-native-toast-message/blob/0026645eeda2242ea740250471f1b4f2be894c6e/docs/custom-layouts.md
 const ToastMessage = () => {
     return (
-        <Toast config={toastConfig} />
+        <Toast config={toastConfig} visibilityTime={2000} />
     )
 }
 

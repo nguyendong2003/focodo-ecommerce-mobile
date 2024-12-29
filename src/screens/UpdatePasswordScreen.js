@@ -3,6 +3,7 @@ import { ActivityIndicator, Modal, ScrollView, Text, TextInput, View } from "rea
 import { Alert } from "react-native";
 import { Button } from "@rneui/themed";
 import { callResetPassword, callUpdatePassword } from "../services/api";
+import Toast from "react-native-toast-message";
 
 const UpdatePasswordScreen = ({ navigation, route }) => {
     const [oldPassword, setOldPassword] = useState('');
@@ -13,21 +14,37 @@ const UpdatePasswordScreen = ({ navigation, route }) => {
 
     const handleSubmit = async () => {
         if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
-            Alert.alert('Lỗi', 'Vui lòng nhập đầy đủ thông tin');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Vui lòng nhập đầy đủ thông tin',
+            });
             return;
         }
         if (newPassword !== confirmPassword) {
-            Alert.alert('Lỗi', 'Mật khẩu mới và xác nhận mật khẩu mới không khớp');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Mật khẩu mới và xác nhận mật khẩu mới không khớp',
+            });
             return;
         }
         setLoading(true);
         const res = await callUpdatePassword(oldPassword, newPassword);
         setLoading(false);
         if (res.status === 200) {
-            Alert.alert('Thành công', 'Mật khẩu đã được thay đổi');
             navigation.goBack();  // Chuyển về màn hình đăng nhập
+            Toast.show({
+                type: 'success',
+                text1: 'Thành công',
+                text2: 'Mật khẩu đã được thay đổi',
+            });
         } else {
-            Alert.alert('Lỗi', 'Mật khẩu cũ không đúng hoặc đã có lỗi xảy ra, vui lòng thử lại');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Mật khẩu cũ không đúng hoặc đã có lỗi xảy ra, vui lòng thử lại',
+            });
         }
     };
 

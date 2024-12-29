@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react"
 import { Alert, Text, TouchableOpacity } from "react-native"
 import { callAddToCart, callBuyAgain, callUpdateOrderStatus } from "../../services/api"
 import { OrderContext } from "../context/OrderProvider";
+import Toast from "react-native-toast-message";
 
 
 const OrderButton = ({ navigation, order, orderStatus }) => {
@@ -26,14 +27,22 @@ const OrderButton = ({ navigation, order, orderStatus }) => {
 
     const handleCancelOrder = async () => {
         const res = await callUpdateOrderStatus(order.id, 'Đã hủy')
-        
+
         if (res && res.result) {
             setOrderContextValue((prev) => {
                 return { ...prev, id: order.id, status: 'Đã hủy' }
             })
-            Alert.alert('Thông báo', 'Hủy đơn hàng thành công')
+            Toast.show({
+                type: 'success',
+                text1: 'Thành công',
+                text2: 'Hủy đơn hàng thành công',
+            });
         } else {
-            Alert.alert('Thông báo', 'Hủy đơn hàng thất bại. Vui lòng thử lại sau')
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Hủy đơn hàng thất bại. Vui lòng thử lại sau',
+            });
         }
 
     }
@@ -53,7 +62,7 @@ const OrderButton = ({ navigation, order, orderStatus }) => {
             },
         );
 
-    const handleBuyAgain = async() => {
+    const handleBuyAgain = async () => {
         const products = order.products
         let isSuccess = false;
         try {
@@ -68,11 +77,19 @@ const OrderButton = ({ navigation, order, orderStatus }) => {
             if (isSuccess) {
                 navigation.navigate('Cart');
             } else {
-                Alert.alert('Thông báo', 'Có lỗi xảy ra. Vui lòng thử lại sau');
+                Toast.show({
+                    type: 'error',
+                    text1: 'Thất bại',
+                    text2: 'Có lỗi xảy ra. Vui lòng thử lại sau',
+                });
             }
         } catch (error) {
             console.error('Error:', error);
-            Alert.alert('Thông báo', 'Có lỗi xảy ra. Vui lòng thử lại sau');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Có lỗi xảy ra. Vui lòng thử lại sau',
+            });
         }
     }
 

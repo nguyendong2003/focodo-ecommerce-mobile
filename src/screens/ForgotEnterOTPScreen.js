@@ -8,6 +8,7 @@ import {
     useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 import { callVerifyEmail, callVerifyOtp } from '../services/api';
+import Toast from 'react-native-toast-message';
 
 const styles = StyleSheet.create({
     root: { flex: 1, padding: 20, backgroundColor: 'white' },
@@ -109,13 +110,25 @@ const ForgotEnterOTPScreen = ({ navigation, route }) => {
                 setTimer(60); // Reset lại bộ đếm thời gian
                 setValue('')
                 setShowResendButton(false); // Ẩn nút gửi lại mã
-                Alert.alert('Thành công', 'Mã OTP đã được gửi lại');
+                Toast.show({
+                    type: 'success',
+                    text1: 'Thành công',
+                    text2: 'Mã OTP đã được gửi lại',
+                });
             } else {
-                Alert.alert('Lỗi', 'Có lỗi xảy ra khi gửi lại mã OTP');
+                Toast.show({
+                    type: 'error',
+                    text1: 'Thất bại',
+                    text2: 'Có lỗi xảy ra khi gửi lại mã OTP',
+                });
             }
         } catch (error) {
             setLoading(false);
-            Alert.alert('Lỗi', 'Có lỗi xảy ra khi gửi lại mã OTP');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Có lỗi xảy ra khi gửi lại mã OTP',
+            });
         }
     };
 
@@ -129,14 +142,26 @@ const ForgotEnterOTPScreen = ({ navigation, route }) => {
 
 
             if (res && res.result) {
-                Alert.alert('Thành công', 'OTP hợp lệ!');
+                Toast.show({
+                    type: 'success',
+                    text1: 'Thành công',
+                    text2: 'OTP hợp lệ',
+                });
                 navigation.navigate('ForgotEnterPassword', { email });  // Chuyển qua màn hình đặt mật khẩu mới
             } else {
-                Alert.alert('Lỗi', 'Mã OTP không đúng');
+                Toast.show({
+                    type: 'error',
+                    text1: 'Thất bại',
+                    text2: 'Mã OTP không đúng',
+                });
             }
         } catch (error) {
             setLoading(false);
-            Alert.alert('Lỗi', 'Có lỗi xảy ra khi xác thực OTP');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Có lỗi xảy ra khi xác thực OTP',
+            });
         }
     };
 

@@ -6,6 +6,7 @@ import ReviewAdd from '../components/review/ReviewAdd';
 import { Button } from '@rneui/themed';
 import { OrderContext } from '../components/context/OrderProvider';
 import { callCreateReview, callFetchOrderById } from '../services/api';
+import Toast from 'react-native-toast-message';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -30,7 +31,11 @@ const ReviewAddScreen = ({ navigation, route }) => {
             }));
             setData({ orderId, products });
         } else {
-            Alert.alert('Error', 'Failed to fetch order');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Có lỗi khi lấy thông tin đơn hàng',
+            });
         }
         setLoading(false);
     }
@@ -124,14 +129,22 @@ const ReviewAddScreen = ({ navigation, route }) => {
         const allSuccess = res.every(res => res.code === 0 && res.result);
 
         if (allSuccess) {
-            Alert.alert('Thông báo', 'Thêm đánh giá thành công');
             setOrderContextValue((prev) => {
                 return { ...prev, id: orderId, status: 'Đã đánh giá' }
             })
             navigation.goBack()
+            Toast.show({
+                type: 'success',
+                text1: 'Thành công',
+                text2: 'Thêm đánh giá thành công',
+            });
         }
         else {
-            Alert.alert('Thông báo', 'Có lỗi khi thêm đánh giá');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Có lỗi khi thêm đánh giá',
+            });
         }
     };
 

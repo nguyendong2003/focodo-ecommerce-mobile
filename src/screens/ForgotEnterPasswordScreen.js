@@ -3,6 +3,7 @@ import { ActivityIndicator, Modal, ScrollView, Text, TextInput, View } from "rea
 import { Alert } from "react-native";
 import { Button } from "@rneui/themed";
 import { callResetPassword } from "../services/api";
+import Toast from "react-native-toast-message";
 
 const ForgotEnterPasswordScreen = ({ navigation, route }) => {
     const { email } = route.params;
@@ -13,21 +14,37 @@ const ForgotEnterPasswordScreen = ({ navigation, route }) => {
 
     const handleSubmit = async () => {
         if (password === '' || confirmPassword === '') {
-            Alert.alert('Lỗi', 'Vui lòng nhập đầy đủ thông tin');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Vui lòng nhập đầy đủ thông tin',
+            });
             return;
         }
         if (password !== confirmPassword) {
-            Alert.alert('Lỗi', 'Mật khẩu và xác nhận mật khẩu không khớp');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Mật khẩu và xác nhận mật khẩu không khớp',
+            });
             return;
         }
         setLoading(true);
         const res = await callResetPassword(email, password);
         setLoading(false);
         if (res && res.result) {
-            Alert.alert('Thành công', 'Mật khẩu đã được thay đổi');
             navigation.navigate('Login');  // Chuyển về màn hình đăng nhập
+            Toast.show({
+                type: 'success',
+                text1: 'Thành công',
+                text2: 'Mật khẩu đã được thay đổi',
+            });
         } else {
-            Alert.alert('Lỗi', 'Có lỗi xảy ra, vui lòng thử lại');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại',
+                text2: 'Có lỗi xảy ra, vui lòng thử lại',
+            });
         }
     };
 
