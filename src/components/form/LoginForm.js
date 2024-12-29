@@ -7,6 +7,7 @@ import { loginValidationSchema } from '../../utils/ValidationForm';
 import { AuthContext } from '../context/AuthProvider';
 import { callFetchAccount, callLogin } from '../../services/api';
 import * as SecureStore from 'expo-secure-store';
+import Toast from 'react-native-toast-message';
 
 const LoginForm = ({ navigation, routeName, options }) => {
     const { userLogin, setUserLogin, login, logout } = useContext(AuthContext)
@@ -52,8 +53,17 @@ const LoginForm = ({ navigation, routeName, options }) => {
             } else {
                 navigation.navigate('HomePage');
             }
+            Toast.show({
+                type: 'success',
+                text1: 'Thành công!',
+                text2: 'Bạn đã đăng nhập thành công',
+            });
         } else {
-            Alert.alert('Đăng nhập thất bại', 'Tên đăng nhập hoặc mật khẩu không chính xác');
+            Toast.show({
+                type: 'error',
+                text1: 'Đăng nhập thất bại',
+                text2: 'Tên đăng nhập hoặc mật khẩu không chính xác',
+            });
         }
     };
 

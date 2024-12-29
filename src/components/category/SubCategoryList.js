@@ -45,9 +45,9 @@ const SubCategoryList = ({ subCategories, selectedCategory, navigation }) => {
                     </TouchableOpacity>
                 </View>
             )}
-            ListEmptyComponent={() => (
-                <Text className="text-lg p-2 text-gray-500 bg-white mt-2">Trống</Text>
-            )}
+            // ListEmptyComponent={() => (
+            //     <Text className="text-lg p-2 text-gray-500 bg-white mt-2">Trống</Text>
+            // )}
             keyExtractor={item => 'all_subCategories' + item.id}
             numColumns={3}
             key={'all_subCategories'}

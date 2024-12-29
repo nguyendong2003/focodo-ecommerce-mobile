@@ -6,6 +6,7 @@ import publicStackRoutes from "./stack/PublicStackRoutes";
 import privateStackRoutes from "./stack/PrivateStackRoutes";
 import authStackRoutes from "./stack/AuthStackRoutes";
 import { navigationRef } from "./navigation/RootNavigation";
+import ToastMessage from "../components/toast/ToastMessage";
 
 const Stack = createStackNavigator();
 
@@ -13,56 +14,60 @@ const AppStackNavigator = () => {
     const { userLogin, setUserLogin, login, logout } = useContext(AuthContext)
 
     return (
-        <NavigationContainer ref={navigationRef}>
-            <Stack.Navigator
-                initialRouteName="MainTab"
-                screenOptions={{
-                    headerShown: false,
-                }}
-            >
-                {
-                    publicStackRoutes.map((route) => {
-                        const { name, component, options } = route;
-                        return (
-                            <Stack.Screen
-                                key={name}
-                                name={name}
-                                component={component}
-                                options={options}
-                            />
-                        );
-                    })
-                }
+        <>
+            <NavigationContainer ref={navigationRef}>
+                <Stack.Navigator
+                    initialRouteName="MainTab"
+                    screenOptions={{
+                        headerShown: false,
+                    }}
+                >
+                    {
+                        publicStackRoutes.map((route) => {
+                            const { name, component, options } = route;
+                            return (
+                                <Stack.Screen
+                                    key={name}
+                                    name={name}
+                                    component={component}
+                                    options={options}
+                                />
+                            );
+                        })
+                    }
 
-                {
-                    userLogin ? (
-                        privateStackRoutes.map((route) => {
-                            const { name, component, options } = route;
-                            return (
-                                <Stack.Screen
-                                    key={name}
-                                    name={name}
-                                    component={component}
-                                    options={options}
-                                />
-                            );
-                        })
-                    ) : (
-                        authStackRoutes.map((route) => {
-                            const { name, component, options } = route;
-                            return (
-                                <Stack.Screen
-                                    key={name}
-                                    name={name}
-                                    component={component}
-                                    options={options}
-                                />
-                            );
-                        })
-                    )
-                }
-            </Stack.Navigator>
-        </NavigationContainer>
+                    {
+                        userLogin ? (
+                            privateStackRoutes.map((route) => {
+                                const { name, component, options } = route;
+                                return (
+                                    <Stack.Screen
+                                        key={name}
+                                        name={name}
+                                        component={component}
+                                        options={options}
+                                    />
+                                );
+                            })
+                        ) : (
+                            authStackRoutes.map((route) => {
+                                const { name, component, options } = route;
+                                return (
+                                    <Stack.Screen
+                                        key={name}
+                                        name={name}
+                                        component={component}
+                                        options={options}
+                                    />
+                                );
+                            })
+                        )
+                    }
+                </Stack.Navigator>
+            </NavigationContainer>
+
+            <ToastMessage />
+        </>
     )
 }
 

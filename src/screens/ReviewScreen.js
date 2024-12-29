@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import ReviewOverall from '../components/review/ReviewOverall';
 import ReviewCard from '../components/review/ReviewCard';
 import { callFetchProductById, callFetchReviewsByProductId } from '../services/api';
@@ -69,38 +69,24 @@ const ReviewScreen = ({ navigation, route }) => {
             })
             setPage(res.result.pagination.current_page);
             setTotalPage(res.result.pagination.total_pages);
-            setReviews(dataReviews);
+            if (currentPage === 0) {
+                setReviews(dataReviews);
+            } else {
+                setReviews(prevReviews => [...prevReviews, ...dataReviews]);
+            }
         }
     }
 
     const handleFetchMoreReviews = async () => {
         if (page < totalPage) {
             setIsLoadingMore(true);
-            const res = await callFetchReviewsByProductId(productId, page + 1, size);
-            if (res && res.result) {
-                const dataReviews = res.result.data.map((item) => {
-                    return {
-                        id: item.id,
-                        time: item.date,
-                        rate: item.rating,
-                        comment: item.content,
-                        user: {
-                            id: item.user.id,
-                            name: item.user.full_name,
-                            avatar: item.user.avatar ? item.user.avatar : null,
-                        },
-                        images: item.images
-                    }
-                })
-                setPage(res.result.pagination.current_page);
-                setTotalPage(res.result.pagination.total_pages);
-                setReviews([...reviews, ...dataReviews]);
-            }
+            await fetchReviews(page + 1);
             setIsLoadingMore(false);
         }
     }
 
     const handleRefreshing = async () => {
+        setRefreshing(true);
         await fetchReviews(0);
         setRefreshing(false);
     }
@@ -112,28 +98,19 @@ const ReviewScreen = ({ navigation, route }) => {
         }
     }, [productId]);
 
-    useEffect(() => {
-        if (productId) {
-            handleRefreshing()
-        }
-    }, [refreshing])
-
     return (
         <FlatList
             data={reviews}
-
             renderItem={({ item }) => <ReviewCard navigation={navigation} review={item} />}
             keyExtractor={item => 'review_' + item.id.toString()}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={() => <View className="border-t-2 border-gray-400" />}
             ListHeaderComponent={() => <ReviewOverall overallReview={overallReview} />}
-
-
-            onEndReachedThreshold={0}
+            onEndReachedThreshold={0.5}
             onEndReached={handleFetchMoreReviews}
             ListFooterComponent={isLoadingMore ? <ActivityIndicator size="large" color="#ccc" /> : null}
             refreshing={refreshing}
-            onRefresh={() => setRefreshing(true)}
+            onRefresh={handleRefreshing}
         />
     );
 };

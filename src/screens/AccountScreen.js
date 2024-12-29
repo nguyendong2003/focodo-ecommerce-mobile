@@ -1,8 +1,9 @@
 import { Icon } from '@rneui/themed';
 import { useContext, useEffect, useState } from 'react';
-import { View, Text, Button, TouchableOpacity, ScrollView, Image, RefreshControl } from 'react-native';
+import { View, Text, Button, TouchableOpacity, ScrollView, Image, RefreshControl, Alert } from 'react-native';
 import { AuthContext } from '../components/context/AuthProvider';
 import { callFetchAllOrderStatus } from '../services/api';
+import Toast from 'react-native-toast-message';
 
 const AccountScreen = ({ navigation }) => {
     const { userLogin, logout, handleNavigate, fetchAccount } = useContext(AuthContext)
@@ -49,6 +50,32 @@ const AccountScreen = ({ navigation }) => {
             iconName: 'cancel',
             screen: 'OrderCancelled'
         }
+    };
+
+    const confirmLogout = () => {
+        Alert.alert(
+            "Xác nhận đăng xuất",
+            "Bạn có chắc chắn muốn đăng xuất?",
+            [
+                {
+                    text: "Hủy",
+                    style: "cancel"
+                },
+                {
+                    text: "Đăng xuất",
+                    onPress: () => {
+                        logout();
+                        navigation.navigate('HomePage');
+                        Toast.show({
+                            type: 'success',
+                            text1: 'Thành công!',
+                            text2: 'Bạn đã đăng xuất thành công',
+                        });
+                    }
+                }
+            ],
+            { cancelable: false }
+        );
     };
 
     return (
@@ -219,10 +246,7 @@ const AccountScreen = ({ navigation }) => {
                     activeOpacity={0.6}
                     className="p-2 border-red-500 rounded m-4"
                     style={{ borderWidth: 1 }}
-                    onPress={() => {
-                        logout();
-                        navigation.navigate('HomePage');
-                    }}
+                    onPress={confirmLogout}
                 >
                     <Text className="text-center text-red-500 text-lg">Đăng xuất</Text>
                 </TouchableOpacity>

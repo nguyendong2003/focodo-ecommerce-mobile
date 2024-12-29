@@ -3,6 +3,7 @@ import { formatCurrency } from "../../utils/FormatNumber";
 import { useEffect, useState } from "react";
 import { Button, Icon } from "@rneui/themed";
 import { callCheckVoucher } from "../../services/api";
+import Toast from "react-native-toast-message";
 
 
 const CartDetail = ({
@@ -40,7 +41,11 @@ const CartDetail = ({
 
     const handlePress = async () => {
         if (discountCode === '') {
-            Alert.alert('Thông báo', 'Chưa nhập mã giảm giá');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại!',
+                text2: 'Chưa nhập mã giảm giá',
+            });
             return;
         }
 
@@ -53,11 +58,20 @@ const CartDetail = ({
                 setDiscountCode('');
                 return;
             } else {
-                Alert.alert('Thông báo', 'Mã giảm giá không còn hiệu lực hoặc không đủ điều kiện');
+                Toast.show({
+                    type: 'error',
+                    text1: 'Thất bại!',
+                    text2: 'Mã giảm giá không còn hiệu lực hoặc không đủ điều kiện',
+                });
                 return;
             }
         } else {
-            Alert.alert('Thông báo', 'Mã giảm giá không tồn tại');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại!',
+                text2: 'Mã giảm giá không tồn tại',
+            });
+
             return;
         }
 
@@ -68,7 +82,11 @@ const CartDetail = ({
         if (res.result === true) {
             setVoucherId(id);
         } else {
-            Alert.alert('Thông báo', 'Mã giảm giá không còn hiệu lực hoặc không đủ điều kiện');
+            Toast.show({
+                type: 'error',
+                text1: 'Thất bại!',
+                text2: 'Mã giảm giá không còn hiệu lực hoặc không đủ điều kiện',
+            });
         }
         setModalVisible(false);
     };
