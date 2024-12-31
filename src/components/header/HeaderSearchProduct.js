@@ -40,7 +40,10 @@ const HeaderSearchProduct = ({ navigation }) => {
                     </TouchableOpacity>
                 )}
             </View>
-            <TouchableOpacity className="px-2"
+            <View className="px-2">
+                <Icon type="antdesign" name="search1" />
+            </View>
+            {/* <TouchableOpacity className="px-2"
                 onPress={() => {
                     if (query.length > 0) {
                         navigation.navigate('ProductList', { query })
@@ -48,7 +51,7 @@ const HeaderSearchProduct = ({ navigation }) => {
                 }
                 }>
                 <Icon type="antdesign" name="search1" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 };

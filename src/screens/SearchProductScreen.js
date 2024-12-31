@@ -23,9 +23,16 @@ const SearchProductScreen = ({ navigation }) => {
 
     useEffect(() => {
         if (debouncedQuery) {
+            setCurrentPage(0); // Reset current page when query changes
+            searchByName(debouncedQuery, 0, size);
+        }
+    }, [debouncedQuery]);
+
+    useEffect(() => {
+        if (debouncedQuery && currentPage > 0) {
             searchByName(debouncedQuery, currentPage, size);
         }
-    }, [debouncedQuery, currentPage]);
+    }, [currentPage]);
 
     const searchByName = async (name, page, size) => {
         try {
@@ -33,11 +40,15 @@ const SearchProductScreen = ({ navigation }) => {
             if (res && res.result) {
                 const { data, pagination } = res.result;
 
-                setSearchResult(data);
+                if (page === 0) {
+                    setSearchResult(data);
+                } else {
+                    setSearchResult(prevResults => [...prevResults, ...data]);
+                }
+
                 setTotalPages(pagination.total_pages);
                 setCurrentPage(pagination.current_page);
             }
-
         } catch (error) {
             console.error("Error fetching search results: ", error);
         }
@@ -55,7 +66,6 @@ const SearchProductScreen = ({ navigation }) => {
                 data={searchResult}
                 renderItem={({ item }) => (
                     <TouchableOpacity activeOpacity={0.5} className="flex-row items-center  px-5 py-3 border-b-2 border-b-slate-100"
-                        // onPress={() => navigation.navigate('ProductList', { searchItem: item })}>
                         onPress={() => navigation.navigate('ProductDetail', { productId: item.id })}>
                         <Icon type='font-awesome-5' name='search-dollar' color={'#6b7280'} />
                         <Text className="text-gray-500 text-base font-semibold px-2">{item.name}</Text>
